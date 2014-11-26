@@ -1,0 +1,24 @@
+{
+     "name": "gameperture",
+     "dependence": ["core"],
+     "source":"src/gameperture",
+     "file_list": [
+         "core/GameLauncher.ts",
+         "core/events/AssetsEvents.ts",
+         "core/events/GameEvents.ts",
+         "core/model/AssetsLoader.ts",
+         "core/model/GameCircler.ts",
+         "core/model/GameConfigModel.ts",
+         "core/util/GameProfiler.ts",
+         "core/util/GlobalConstant.ts",
+         "core/util/extend/extend.d.ts",
+         "core/util/extend/extend.js",
+         "core/viewc/GameDisplay.ts",
+         "core/viewc/GameObject.ts",
+         "core/viewc/GameScenery.ts",
+         "display/Wisp.ts",
+         "display/ui/Button.ts",
+         "display/ui/ProgressBar.ts",
+         "display/affect/Signal.ts"
+     ]
+}
