@@ -6,6 +6,8 @@
 
 "groups":
 	[
-        {"name":"preload","keys":"egretIcon"}
+        {"name":"preload","keys":"egretIcon"},
+        {"name":"testload","keys":"egretIcon"},
+        {"name":"testload2","keys":"egretIcon"}
 	]
 }

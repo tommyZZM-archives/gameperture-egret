@@ -22,7 +22,7 @@ class GameProfiler {
         GameProfiler.s_fps = this._fps;
     }
 
-    public static get FPS(){
+    public static get FPS():any{
         return this.s_fps.toFixed(0);
     }
 

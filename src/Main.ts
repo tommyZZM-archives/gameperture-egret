@@ -8,7 +8,11 @@ class Main extends egret.DisplayObjectContainer{
     private start(e:egret.Event){
         //初始化游戏
         this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.start,this);
-        var gameperture = new GamePerture(this,true);
+
+        var display = new MyDisplay();
+        var game    = new MyGame(display);
+        var launch  = new GameLauncher(this,game,true);
+        launch.loadAssets("preload","testload","testload2");
     }
 
 }
