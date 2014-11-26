@@ -31,10 +31,25 @@ egret_h5.startGame = function () {
     context.deviceContext = new egret.HTML5DeviceContext();
     context.netContext = new egret.HTML5NetContext();
 
-    egret.StageDelegate.getInstance().setDesignSize(480, 800);
-    context.stage = new egret.Stage();
-    var scaleMode =  egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.SHOW_ALL : egret.StageScaleMode.NO_SCALE;
-    context.stage.scaleMode = scaleMode;
+    var winHeight;
+    var winWidth;
+    if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth)
+    {
+        winHeight = document.documentElement.clientHeight;
+        winWidth = document.documentElement.clientWidth;
+    }else{
+        winHeight = window.innerHeight;
+        winWidth = window.innerWidth;
+    }
+
+    var GameWin = {w:640,h:960};
+    var Gper = GameWin.h/GameWin.w;
+    var per = winHeight/winWidth;
+    if(per<=Gper){
+        egret.StageDelegate.getInstance().setDesignSize(GameWin.h/per, GameWin.h);
+    }else{
+        egret.StageDelegate.getInstance().setDesignSize(GameWin.w, GameWin.w*per);
+    }
 
     //WebGL是egret的Beta特性，默认关闭
     var rendererType = 0;
