@@ -5,8 +5,4 @@ class MyGame extends GameCircler {
         //TODO:your code here
     }
 
-    public _onToggleStatus(e:GameEvents){
-
-    }
-
 }

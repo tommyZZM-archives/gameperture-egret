@@ -9,8 +9,8 @@ class ProgressBar extends GameObject{
     public constructor(x:number,y:number, width:number, heigth:number, emptyclour?:number, fillclour?:number) {
         this._width = width;
         this._height = heigth;
-        emptyclour?this._emptyclour = emptyclour:this._emptyclour=Art.colour('d6d6d6');
-        fillclour?this._fillclour = fillclour:this._fillclour=Art.colour('1ac2ff');
+        emptyclour?this._emptyclour = emptyclour:this._emptyclour=gperture.Art.colour('d6d6d6');
+        fillclour?this._fillclour = fillclour:this._fillclour=gperture.Art.colour('1ac2ff');
         super(x,y,null,'center');
         //TODO:your code
     }
