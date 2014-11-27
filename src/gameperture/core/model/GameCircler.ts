@@ -1,14 +1,23 @@
 class GameCircler {
 
-    private _display:GameDisplay;
+    private _router:RouteDictionary;
+    private _display:any;
 
     public constructor(display:GameDisplay) {
         this._display = display;
         this._display.addEventListener(GameEvents.GAME_RUN,this._onToggleStatus,this);
+        this._router = new RouteDictionary(this._initRoutes());
+        if(!this._router.numkeys){
+            console.error('must initialize routes in _initRoutes()')
+        }
+    }
+
+    public _initRoutes():{ key: number; value: Function; }[]{
+        return [];
     }
 
     public _onPreLoad(){
-        console.error('_onPreLoad must be override!');
+        //console.error('_onPreLoad must be override!');
     }
 
     public _onAllLoad(){
@@ -19,7 +28,7 @@ class GameCircler {
 
     }
 
-    public _onStart(e:GameEvents){
+    public _onReady(e:GameEvents){
         console.error('_onStart must be override!');
     }
 
@@ -35,8 +44,8 @@ class GameCircler {
      * 状态切换器
      * @param e
      */
-    public _onToggleStatus(e:GameEvents){
-        console.error('_onToggleStatus must be override!');
+    private _onToggleStatus(e:GameEvents){
+        this._router[e.status].apply(this);
     }
 
     public get display(){

@@ -10,6 +10,8 @@ class Button extends GameObject{
         this._skin = new egret.Bitmap();
         this._skin.texture = this._texture;
         super._display();
+        this.touchEnabled = true;
+        this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this._ontouchbegin,this);
     }
 
     private _ontouchbegin(){

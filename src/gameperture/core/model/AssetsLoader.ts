@@ -5,9 +5,13 @@ class AssetsLoader extends egret.EventDispatcher{
     private _assets_groups:any;
 
     public constructor(preload:string = null,groups:any = []) {
-        preload?this._ispreload=true:this._ispreload=false;
         this._assets_groups = groups;
-        this._assets_groups.unshift(preload);
+        this._ispreload=false;
+        if(preload){
+            this._ispreload=true
+            this._assets_groups.unshift(preload);
+        }
+        console.log(this._assets_groups);
         this._currload = 0;
         super();
         //TODO:your code here
@@ -17,7 +21,6 @@ class AssetsLoader extends egret.EventDispatcher{
 
         RES.loadConfig('resource/resource.json','resource/');
         RES.loadGroup(this._assets_groups[this._currload]);
-
     }
 
     private loadComplete(e:RES.ResourceEvent) {

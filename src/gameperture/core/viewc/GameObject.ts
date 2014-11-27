@@ -1,5 +1,8 @@
 class GameObject extends egret.Sprite{
 
+    public _width:number;
+    public _height:number;
+
     public _skin:any;
     public _texture:egret.Texture;
 
@@ -8,11 +11,16 @@ class GameObject extends egret.Sprite{
     public constructor(x:number=0,y:number=0,parent:egret.DisplayObjectContainer = null,gravity:string='default',
                        pivotX?:number,pivotY?:number) {
         super();
+        this._width?this.width = this._width:this.width = 0;
+        this._height?this.height = this._height:this.height = 0;
         //TODO:your code here
         this._position_fix(gravity,pivotX,pivotY);
         this.x = x;
         this.y = y;
         this._display();
+        if(parent){
+            this.transParent(parent);
+        }
     }
 
     public _display(){
