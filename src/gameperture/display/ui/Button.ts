@@ -15,12 +15,14 @@ class Button extends GameObject{
     }
 
     private _ontouchbegin(){
-        this.tween.to({scaleX:0.9,scaleY:0.9},200);
+        this.tween.to({scaleX:this._temp_size.sx*0.9,scaleY:this._temp_size.sx*0.9},200);
         this.addEventListener(egret.TouchEvent.TOUCH_END,this._ontouchend,this);
+        this.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE,this._ontouchend,this);
     }
 
     private _ontouchend(){
-        this.tween.to({scaleX:1,scaleY:1},200);
-        this.removeEventListener(egret.TouchEvent.TOUCH_END,this._ontouchbegin,this);
+        this.tween.to({scaleX:this._temp_size.sx,scaleY:this._temp_size.sx},200);
+        this.removeEventListener(egret.TouchEvent.TOUCH_END,this._ontouchend,this);
+        this.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE,this._ontouchend,this);
     }
 }

@@ -8,6 +8,8 @@ class GameObject extends egret.Sprite{
 
     private _tween:egret.Tween;
 
+    public _temp_size:any = {sx:1,sy:2};
+
     public constructor(x:number=0,y:number=0,parent:egret.DisplayObjectContainer = null,gravity:string='default',
                        pivotX?:number,pivotY?:number) {
         super();
@@ -64,6 +66,8 @@ class GameObject extends egret.Sprite{
             }
             this.scaleY = j;
         }
+        this._temp_size.sx = this.scaleX;
+        this._temp_size.sy = this.scaleY;
     }
 
     public show():void{

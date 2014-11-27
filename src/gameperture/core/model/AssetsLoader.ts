@@ -11,7 +11,7 @@ class AssetsLoader extends egret.EventDispatcher{
             this._ispreload=true
             this._assets_groups.unshift(preload);
         }
-        console.log(this._assets_groups);
+        constant.trace('Ready Load Groups '+this._assets_groups);
         this._currload = 0;
         super();
         //TODO:your code here
