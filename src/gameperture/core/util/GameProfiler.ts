@@ -11,7 +11,7 @@ class GameProfiler {
     }
 
     private run(){
-        constant.stage.addEventListener(egret.Event.ENTER_FRAME,this.calculateFPS,this)
+        config.rootscene.addEventListener(egret.Event.ENTER_FRAME,this.calculateFPS,this)
     }
 
     private calculateFPS(){

@@ -1,4 +1,4 @@
-class ProgressBar extends GameObject{
+class ProgressBar extends UiComponentBase{
 
     private _emptyclour:number;
     private _fillclour:number;
@@ -6,12 +6,12 @@ class ProgressBar extends GameObject{
     private _emptycrumb:any;
     private _fillcrumb:any;
 
-    public constructor(x:number,y:number, width:number, heigth:number, emptyclour?:number, fillclour?:number) {
+    public constructor(name:string,x:number,y:number, width:number, heigth:number, emptyclour?:number, fillclour?:number) {
         this._width = width;
         this._height = heigth;
-        emptyclour?this._emptyclour = emptyclour:this._emptyclour=gperture.Art.colour('d6d6d6');
-        fillclour?this._fillclour = fillclour:this._fillclour=gperture.Art.colour('1ac2ff');
-        super(x,y,null,'center');
+        emptyclour?this._emptyclour = emptyclour:this._emptyclour=toolkit.Art.colour('d6d6d6');
+        fillclour?this._fillclour = fillclour:this._fillclour=toolkit.Art.colour('1ac2ff');
+        super(name,x,y,'center');
         //TODO:your code
     }
 

@@ -1,8 +1,8 @@
-class TextFiledEx extends GameObject{
+class TextFiledEx extends UiComponentBase{
 
-    public constructor(texture:string,x:number=0,y:number=0,parent:egret.DisplayObjectContainer = null) {
+    public constructor(name:string,texture:string,x:number=0,y:number=0) {
         this._texture = RES.getRes(texture);
-        super(x,y,parent);
+        super(name,x,y);
         //TODO:your code here
     }
 

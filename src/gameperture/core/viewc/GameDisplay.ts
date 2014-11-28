@@ -2,10 +2,10 @@ class GameDisplay extends egret.DisplayObjectContainer{
 
     private _rune = new GameEvents(GameEvents.GAME_RUN);
 
-    public _background=new GameScenery();
-    public _mainground=new GameScenery();
-    public _foreground=new GameScenery();
-    public _interface= new egret.DisplayObjectContainer;
+    public _background=new GameScenery();/** 背景 **/
+    public _mainground=new GameScenery();/** 主要逻辑层 **/
+    public _foreground=new GameScenery();/** 前景 **/
+    public _interface= new GameInterface();/** 界面 **/
 
     public constructor() {
         super();
@@ -19,8 +19,8 @@ class GameDisplay extends egret.DisplayObjectContainer{
 
     }
 
-    public launch(){
-        this._rune.status = GameStatus.READY;
+    public lever(statu:any = GameStatus.READY){
+        this._rune.updatestatu(statu);
         this.dispatchEvent(this._rune)
     }
 
@@ -35,6 +35,20 @@ class GameDisplay extends egret.DisplayObjectContainer{
     public overBoard(){
 
     }
+
+    public restarBoard(){
+
+    }
+
+    public _onrun(e){
+        this._rune.updatestatu();
+        this.dispatchEvent(this._rune);
+    }
+
+    /*public addChild(child: egret.DisplayObject){
+        this._mainground.addChild(child);
+        return child;
+    }*/
 
     /**
      * Getter

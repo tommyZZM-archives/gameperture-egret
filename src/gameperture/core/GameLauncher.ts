@@ -5,9 +5,9 @@ class GameLauncher{//implements GamePertureInterface
     private _progressbar:ProgressBar;
 
     public constructor(stage:egret.DisplayObjectContainer,circle:GameCircler,debug:boolean) {
-        constant.stage = stage;
-        constant.debug = debug;
-        if(constant.debug){
+        config.rootscene = stage;
+        config.isdebug = debug;
+        if(config.isdebug){
             egret.Profiler.getInstance().run();
         }
         new GameProfiler();
@@ -35,14 +35,14 @@ class GameLauncher{//implements GamePertureInterface
     }
 
     private _onPreLoaded(){
-        constant.stage.addChild(this._gamecircler.display);
-        if(this._progressbar)constant.stage.addChild(this._progressbar);
-        this._gamecircler._onPreLoad();
+
+        if(this._progressbar)config.rootscene.addChild(this._progressbar);
+        this._gamecircler.zPreLoadWrapper();
     }
 
     private _onAssetsLoaded(){
         if(this._progressbar)this._progressbar.removeFromParent();
-        this._gamecircler._onAllLoad();
+        this._gamecircler.zAllLoadWrapper();
     }
 
     private _onAssetsProgress(e:AssetsEvents){

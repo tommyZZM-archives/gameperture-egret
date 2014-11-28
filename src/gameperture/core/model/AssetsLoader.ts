@@ -11,7 +11,7 @@ class AssetsLoader extends egret.EventDispatcher{
             this._ispreload=true
             this._assets_groups.unshift(preload);
         }
-        constant.trace('Ready Load Groups '+this._assets_groups);
+        config.trace('Ready Load Groups '+this._assets_groups);
         this._currload = 0;
         super();
         //TODO:your code here
@@ -24,18 +24,18 @@ class AssetsLoader extends egret.EventDispatcher{
     }
 
     private loadComplete(e:RES.ResourceEvent) {
-        constant.trace(e.groupName + ' Load Complete!');
+        config.trace(e.groupName + ' Load Complete!');
         this._currload++;
         if(this._ispreload){
             this._ispreload = false;
-            constant.trace('Pre Load Complete!');
+            config.trace('Pre Load Complete!');
             this.dispatchEvent(new AssetsEvents(AssetsEvents.PRELOAD_READY));
             RES.loadGroup(this._assets_groups[this._currload]);
         }else{
             if(this._currload < this._assets_groups.length){
                 RES.loadGroup(this._assets_groups[this._currload]);
             }else{
-                constant.trace('All Load Complete!');
+                config.trace('All Load Complete!');
                 this.dispatchEvent(new AssetsEvents(AssetsEvents.ASSET_READY));
             }
         }
@@ -44,7 +44,7 @@ class AssetsLoader extends egret.EventDispatcher{
     private loadProgress(e:RES.ResourceEvent){
         if(e.groupName!='RES__CONFIG'){
             var pct = e.itemsLoaded / e.itemsTotal;
-            constant.trace('Loading '+e.resItem.url+' in '+e.groupName+' '+pct*100+'%');
+            config.trace('Loading '+e.resItem.url+' in '+e.groupName+' '+pct*100+'%');
             var eve = new AssetsEvents(AssetsEvents.ASSET_PROGRESS);
             eve.percent = pct;
             this.dispatchEvent(eve);

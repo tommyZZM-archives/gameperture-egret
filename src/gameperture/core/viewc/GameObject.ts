@@ -5,6 +5,7 @@ class GameObject extends egret.Sprite{
 
     public _skin:any;
     public _texture:egret.Texture;
+    public _graphic:egret.Graphics;
 
     private _tween:egret.Tween;
 
@@ -79,22 +80,17 @@ class GameObject extends egret.Sprite{
     }
 
     public get tween(){
-        if(!this._tween){
-            this._tween = egret.Tween.get(this);
-        }
-        this._tween.setPaused(false);
-        //this._tween.call(this.update,this,this._tween.);
-        return this._tween;
+        return egret.Tween.get(this);
     }
 
-    public fade(is_in:any = true){
+    public fade(is_in:any = true,duration:number=200){
         if(is_in){
             this.show();
             this.alpha = 0;
-            this.tween.to({alpha:1},500);
+            this.tween.to({alpha:1},duration);
         }else{
             this.alpha = 1;
-            this.tween.to({alpha:0},500).call(this.hide,this);
+            this.tween.to({alpha:0},duration).call(this.hide,this);
         }
     }
 
