@@ -45,8 +45,8 @@ module gp.viewc{
 
         }
 
-        public _onrun(e) {
-            this._rune.updatestatu();
+        public _onrun(e,statu) {
+            this._rune.updatestatu(statu);
             this.dispatchEvent(this._rune);
         }
 
