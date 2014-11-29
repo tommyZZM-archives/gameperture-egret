@@ -1,21 +1,22 @@
-class GameInterface extends egret.DisplayObjectContainer{
+module gp.viewc{
+    export class GameInterface extends egret.DisplayObjectContainer{
 
-    private components:Dictionary;
+        private components:util.Dictionary;
 
-    public constructor() {
-        this.components = new Dictionary();
-        super();
-        //TODO:your code here
+        public constructor() {
+            this.components = new util.Dictionary();
+            super();
+            //TODO:your code here
+        }
+
+        public addChild(child: gp.viewc.GameUiObject):egret.DisplayObject{
+            this.components.add(child.name,child);
+            super.addChild(child);
+            return child;
+        }
+
+        public select(name):gp.viewc.GameUiObject{
+            return this.components[name];
+        }
     }
-
-    public addChild(child: UiComponentBase):egret.DisplayObject{
-        this.components.add(child.name,child);
-        super.addChild(child);
-        return child;
-    }
-
-    public select(name):UiComponentBase{
-        return this.components[name];
-    }
-
 }

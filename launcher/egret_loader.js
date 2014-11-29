@@ -51,6 +51,10 @@ egret_h5.startGame = function () {
         egret.StageDelegate.getInstance().setDesignSize(GameWin.w, GameWin.w*per);
     }
 
+    context.stage = new egret.Stage();
+    var scaleMode =  egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.SHOW_ALL : egret.StageScaleMode.NO_SCALE;
+    context.stage.scaleMode = scaleMode;
+
     //WebGL是egret的Beta特性，默认关闭
     var rendererType = 0;
     if (rendererType == 1) {// egret.WebGLUtils.checkCanUseWebGL()) {

@@ -1,3 +1,3 @@
-module config.device{
+module gp.config.device{
 
 }

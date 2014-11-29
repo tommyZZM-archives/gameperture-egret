@@ -1,4 +1,4 @@
-class MyDisplay extends GameDisplay{
+class MyDisplay extends gp.viewc.GameDisplay{
 
     public constructor() {
         super();

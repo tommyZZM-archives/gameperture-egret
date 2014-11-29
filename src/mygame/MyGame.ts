@@ -1,8 +1,3 @@
-class MyGame extends GameCircler {
-
-    public constructor(display:GameDisplay) {
-        super(display)
-        //TODO:your code here
-    }
+class MyGame extends gp.model.GameCircler {
 
 }

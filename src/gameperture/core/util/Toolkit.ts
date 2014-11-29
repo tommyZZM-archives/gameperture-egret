@@ -1,13 +1,11 @@
-module toolkit.MathEx{
-    export function randRange(minNum, maxNum, fix:boolean = false) {
+module MathEx{
+    export function randRange(minNum, maxNum, fix:any = false):number {
         var result = Math.random() * (maxNum - minNum) + minNum;
-        if (fix) {
-            result.toFixed(fix);
-        }
+        result = result.toFixed(fix);
         return result;
     }
 
-    export function numSpli(num:number) {
+    export function numSpli(num:number):number {
         var result:any = (num + '').split(".");
         result = {
             int: result[0],
@@ -17,7 +15,7 @@ module toolkit.MathEx{
     }
 }
 
-module toolkit.Art {
+module gp.toolkit.Art {
     export function colour(c:any, alpha:number = 1){
         if (typeof(c) == "string") {
             c = _parse_colour(c)*1;

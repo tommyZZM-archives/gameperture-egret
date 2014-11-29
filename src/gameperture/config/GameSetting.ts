@@ -1,4 +1,4 @@
-module config{
+module gp.config{
 
     export module gamevar{
         export var isFirstPlay:boolean = true;
@@ -7,7 +7,7 @@ module config{
 
     export class gamesetting {
 
-        private _setting:Dictionary;
+        private _setting:util.Dictionary;
 
         public constructor(settingfile) {
             var setting = RES.getRes(settingfile);
@@ -15,7 +15,7 @@ module config{
                 console.error('setting file '+settingfile+' is '+setting)
                 return;
             }
-            this._setting = new Dictionary();
+            this._setting = new util.Dictionary();
             for(var i in setting){
                 this._setting.add(i+'',setting[i])
             }
@@ -29,6 +29,15 @@ module config{
             if(typeof(value) === typeof(this._setting[name])){
                 this._setting[name] = value;
             }
+        }
+
+        private static instance:gamesetting;
+
+        public static getInstance(settingfile?):gamesetting {
+            if (gamesetting.instance == null && settingfile) {
+                gamesetting.instance = new gamesetting(settingfile);
+            }
+            return gamesetting.instance;
         }
 
     }
