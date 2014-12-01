@@ -1,7 +1,7 @@
 module MathEx{
     export function randRange(minNum, maxNum, fix:any = false):number {
         var result = Math.random() * (maxNum - minNum) + minNum;
-        result = result.toFixed(fix);
+        result = result.toFixed(fix)*1;
         return result;
     }
 

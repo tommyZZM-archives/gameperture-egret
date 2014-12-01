@@ -29,6 +29,7 @@ module gp.viewc{
             }
         }
 
+        //@overwrite
         public _display(){
             if(this._skin){
                 this.addChild(this._skin);

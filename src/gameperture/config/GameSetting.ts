@@ -21,7 +21,7 @@ module gp.config{
             }
         }
 
-        public getpara(name:string){
+        public getpara(name:string):any{
             return this._setting[name];
         }
 
