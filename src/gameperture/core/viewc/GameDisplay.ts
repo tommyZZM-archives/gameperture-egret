@@ -1,7 +1,7 @@
 module gp.viewc{
     export class GameDisplay extends egret.DisplayObjectContainer {
 
-        private _rune = new event.GameEvents(event.GameEvents.GAME_RUN);
+        private _rune:event.GameEvents;
 
         public _background = new display.Scenery();
         /** 背景 **/
@@ -24,9 +24,8 @@ module gp.viewc{
 
         }
 
-        public lever(statu:any = GameStatus.READY) {
-            this._rune.updatestatu(statu);
-            this.dispatchEvent(this._rune)
+        public dispatchStatu(statu:any = GameStatus.READY) {
+            this.dispatchEvent(new event.GameEvents(statu));
         }
 
         public readyBoard() {
@@ -45,11 +44,6 @@ module gp.viewc{
 
         }
 
-        public _onrun(e,statu) {
-            this._rune.updatestatu(statu);
-            this.dispatchEvent(this._rune);
-        }
-
         /*public addChild(child: egret.DisplayObject){
          this._mainground.addChild(child);
          return child;
@@ -58,8 +52,8 @@ module gp.viewc{
         /**
          * Getter
          */
-        public get runevent() {
+        /*public get runevent() {
             return this._rune
-        }
+        }*/
     }
 }

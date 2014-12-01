@@ -1,6 +1,8 @@
 module gp.display.ui{
     export class Button extends gp.viewc.GameUiObject{
 
+        private _callbak:any;
+
         public constructor(name:string,texture:string,x:number=0,y:number=0) {
             this._texture = RES.getRes(texture);
             super(name,x,y,'center');
@@ -14,10 +16,20 @@ module gp.display.ui{
             super._display();
             this.touchEnabled = true;
             this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this._ontouchbegin,this);
+            this.addEventListener(egret.TouchEvent.TOUCH_TAP,this._ontouchtab,this);
         }
 
-        public touchcallback(callback:Function,thisObject: any){
-            this.addEventListener(egret.TouchEvent.TOUCH_TAP,callback,thisObject);
+        public touchcallback(callback:Function,thisObject: any, argArray?: any[]){
+            this._callbak = {};
+            this._callbak['callback'] = callback;
+            this._callbak['thisObject'] = thisObject;
+            this._callbak['argArray'] = argArray;
+        }
+
+        private _ontouchtab(){
+            if(this._callbak){
+                this._callbak['callback'].apply(this._callbak['thisObject'],this._callbak['argArray']);
+            }
         }
 
         private _ontouchbegin(){

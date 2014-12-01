@@ -42,12 +42,11 @@ module gp.model{
 
         public zPreLoadWrapper(){
             rootscene.addChild(this.display);
-            rootscene.addEventListener(egret.Event.ENTER_FRAME,this._onEnterFrame,this);
             this._onPreLoad();
         }
         public zAllLoadWrapper(){
             if(this._setting){this._setting = config.gamesetting.getInstance(this._setting)}else{trace('no default setting')}
-            this.display.lever();
+            this.display.dispatchStatu();
             this._onAllLoad();
         }
         public zReadyWrapper(e:event.GameEvents){
@@ -59,11 +58,11 @@ module gp.model{
             this._onPlaying(e);
         }
         public zOverWrapper(e:event.GameEvents){
-            this.display.readyBoard();
+            this.display.overBoard();
             this._onOver(e);
         }
         public zRestartWrapper(e:event.GameEvents){
-            this.display.readyBoard();
+            this.display.restarBoard();
             this._onRestart(e);
             config.gamevar.isFirstPlay = false;
         }
@@ -88,22 +87,41 @@ module gp.model{
             return this._display;
         }
 
+        public gameGover(){
+            this.display.dispatchStatu(GameStatus.OVER);
+            this._pauseEnterFrame();
+        }
+
         /**
          * 场景控制
          */
+
+        //@protected @final
         public viewAddChild(...obj:egret.DisplayObject[]){
             for(var i in obj){
                 this.display._mainground.addChild(obj[i]);
             }
         }
 
+        //@protected @final
         public viewSelectUI(name):any{
             return this._display._interface.select(name);
         }
 
-        //@override
+        //@protected
         public _onEnterFrame(){
             //TODO:每帧的回调函数
         }
+
+        //@protected @final
+        public _pauseEnterFrame(){
+            rootscene.removeEventListener(egret.Event.ENTER_FRAME,this._onEnterFrame,this);
+        }
+
+        //@protected @final
+        public _startEnterFrame(){
+            rootscene.addEventListener(egret.Event.ENTER_FRAME,this._onEnterFrame,this);
+        }
+
     }
 }

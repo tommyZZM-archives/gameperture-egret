@@ -45,7 +45,7 @@ egret_h5.startGame = function () {
     var GameWin = {w:640,h:960};
     var Gper = GameWin.h/GameWin.w;
     var per = winHeight/winWidth;
-    if(per<=Gper){
+    if(per<Gper){
         egret.StageDelegate.getInstance().setDesignSize(GameWin.h/per, GameWin.h);
     }else{
         egret.StageDelegate.getInstance().setDesignSize(GameWin.w, GameWin.w*per);
