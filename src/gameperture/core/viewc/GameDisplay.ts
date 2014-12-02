@@ -3,11 +3,11 @@ module gp.viewc{
 
         private _rune:event.GameEvents;
 
-        public _background = new display.Scenery();
+        public _background = new GameScenery();
         /** 背景 **/
-        public _mainground = new display.Scenery();
+        public _mainground = new GameScenery();
         /** 主要逻辑层 **/
-        public _foreground = new display.Scenery();
+        public _foreground = new GameScenery();
         /** 前景 **/
         public _interface = new GameInterface();
         /** 界面 **/

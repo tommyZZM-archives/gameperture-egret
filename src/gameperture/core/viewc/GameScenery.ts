@@ -1,5 +1,5 @@
-module gp.display{
-    export class Scenery extends egret.DisplayObjectContainer{
+module gp.viewc{
+    export class GameScenery extends egret.DisplayObjectContainer{
 
         public constructor() {
             super();

@@ -1,5 +1,5 @@
 module gp.util {
-    export class ObjectPool {
+    export class ObjectPool{
         constructor() {}
         private _pool = {};
         private _list:Array<any> = [];
@@ -37,7 +37,6 @@ module gp.util {
         }
 
         private static instance:ObjectPool;
-
         public static getInstance():ObjectPool {
             if (ObjectPool.instance == null) {
                 ObjectPool.instance = new ObjectPool();

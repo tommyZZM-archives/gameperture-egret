@@ -1,7 +1,7 @@
 module gp.model{
-    export class GameCircler {
+    export class GameCycler {
 
-        private _objpool:util.ObjectPool;
+        //private _objpool:util.ObjectPool;
         private _setting:any;
         private _router:RouteDictionary;
         private _display:any;
@@ -10,24 +10,27 @@ module gp.model{
             this._display = display;
             this._display.addEventListener(event.GameEvents.GAME_RUN,this._onToggleStatus,this);
             this._router = new RouteDictionary(this._initRoutes());
-            this._router.addgroup(this._customRoutes());
-            this._objpool = new util.ObjectPool();//TODO:对象池
+            this._router.addroutes(this._customRoutes());
+
+            /**各种对象池**/
+            //this._hidenpool = [];//隐藏对象池;
+
             if(!this._router.numkeys){
                 console.error('must initialize routes in _initRoutes()');
             }
         }
 
         /** 映射路由 **/
-        private _initRoutes():{ key: number; value: Function; }[]{
+        private _initRoutes():{ statu: number; circler: Function;surface: Function; }[]{
             return [
-                {key:GameStatus.READY,value:this.zReadyWrapper},
-                {key:GameStatus.PLAYING,value:this.zPlayingWrapper},
-                {key:GameStatus.OVER,value:this.zOverWrapper},
-                {key:GameStatus.RESTART,value:this.zRestartWrapper}
+                {statu:GameStatus.READY,circler:this._onReady,surface:this.display.readyBoard},
+                {statu:GameStatus.PLAYING,circler:this._onPlaying,surface:this.display.playingBoard},
+                {statu:GameStatus.OVER,circler:this._onOver,surface:this.display.overBoard},
+                {statu:GameStatus.RESTART,circler:this._onRestart,surface:this.display.restarBoard}
             ];
         }
 
-        public _customRoutes():{ key: number; value: Function; }[]{
+        public _customRoutes():{ statu: number; circler: Function;surface: Function; }[]{
             return null;
         }
 
@@ -49,23 +52,6 @@ module gp.model{
             this.display.dispatchStatu();
             this._onAllLoad();
         }
-        public zReadyWrapper(e:event.GameEvents){
-            this.display.readyBoard();
-            this._onReady(e);
-        }
-        public zPlayingWrapper(e:event.GameEvents){
-            this.display.playingBoard();
-            this._onPlaying(e);
-        }
-        public zOverWrapper(e:event.GameEvents){
-            this.display.overBoard();
-            this._onOver(e);
-        }
-        public zRestartWrapper(e:event.GameEvents){
-            this.display.restarBoard();
-            this._onRestart(e);
-            config.gamevar.isFirstPlay = false;
-        }
 
         public _onPreLoad(){}
         public _onAllLoad(){console.error('_onAllLoad must be override!');}
@@ -80,9 +66,14 @@ module gp.model{
          * @param e
          */
         private _onToggleStatus(e:event.GameEvents){
-            this._router[e.statu].apply(this);
+            this._router[e.statu].surface.apply(this.display);
+            this._router[e.statu].circler.apply(this);
+            if(e.statu == GameStatus.RESTART && config.gamevar.isFirstPlay){
+                config.gamevar.isFirstPlay = false;
+            }
         }
 
+        //@protected
         private get display(){
             return this._display;
         }
@@ -105,7 +96,7 @@ module gp.model{
 
         //@protected @final
         public viewSelectUI(name):any{
-            return this._display._interface.select(name);
+            return this.display._interface.select(name);
         }
 
         //@protected

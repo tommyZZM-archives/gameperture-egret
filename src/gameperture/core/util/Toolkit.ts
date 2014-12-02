@@ -15,7 +15,7 @@ module MathEx{
     }
 }
 
-module gp.toolkit.Art {
+module Art {
     export function colour(c:any, alpha:number = 1){
         if (typeof(c) == "string") {
             c = _parse_colour(c)*1;

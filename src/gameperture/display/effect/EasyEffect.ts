@@ -2,7 +2,7 @@
  * Created by 2014-11-06 on 2014/11/28.
  */
 module gp.display.effect.easy{
-    export function shakeScene(panel:gp.display.Scenery):void{
+    export function shakeScene(panel:gp.viewc.GameScenery):void{
         var shakeNum = 40;
         var oldX:number = panel.x;
         var oldY:number = panel.y;

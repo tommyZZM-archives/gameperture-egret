@@ -2,10 +2,10 @@ module gp{
     export class GameLauncher{//implements GamePertureInterface
 
         private _assetsloader:model.AssetsLoader;
-        private _gamecircler:model.GameCircler;
+        private _gamecircler:model.GameCycler;
         private _progressbar:display.ui.ProgressBar;
 
-        public constructor(stage:egret.DisplayObjectContainer,circle:model.GameCircler,debug:boolean) {
+        public constructor(stage:egret.DisplayObjectContainer,circle:model.GameCycler,debug:boolean) {
             console.info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
                 "Quick Game FrameWork base on Egret Engine!");
             rootscene = stage;

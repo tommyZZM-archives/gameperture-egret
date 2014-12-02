@@ -3,12 +3,34 @@
  */
 module gp{
     export class RouteDictionary extends gp.util.Dictionary{
-        constructor(dic: { key: number; value: Function; }[]) {
+        constructor(route: { statu: number; circler: Function;surface: Function; }[]) {
+            var dic:{key: any; value: any;}[] = [];
+            for(var i in route){
+                var key = route[i].statu;
+                var value = {circler:route[i].circler,surface:route[i].surface};
+                dic.push({key:key,value:value});
+            }
             super(dic);
         }
+
+
 
         public get callback(): Function[]{
             return this.values;
         }
+
+        addroutes(route: { statu: number; circler: Function;surface: Function; }[]){
+            if(route){
+                var dic:{key: any; value: any;}[] = [];
+                for(var i in route){
+                    var key = route[i].statu;
+                    var value = {circler:route[i].circler,surface:route[i].surface};
+                    dic.push({key:key,value:value});
+                }
+                this.addgroup(dic);
+            }
+        }
+
+
     }
 }

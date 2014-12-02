@@ -10,8 +10,8 @@ module gp.display.ui{
         public constructor(name:string,x:number,y:number, width:number, heigth:number, emptyclour?:number, fillclour?:number) {
             this._width = width;
             this._height = heigth;
-            emptyclour?this._emptyclour = emptyclour:this._emptyclour=gp.toolkit.Art.colour('d6d6d6');
-            fillclour?this._fillclour = fillclour:this._fillclour=gp.toolkit.Art.colour('1ac2ff');
+            emptyclour?this._emptyclour = emptyclour:this._emptyclour=Art.colour('d6d6d6');
+            fillclour?this._fillclour = fillclour:this._fillclour=Art.colour('1ac2ff');
             super(name,x,y,'center');
             //TODO:your code
         }
