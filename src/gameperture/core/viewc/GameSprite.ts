@@ -78,11 +78,11 @@ module gp.viewc{
         public get tempScaleX():number{return this._temp_size.scaleX}
         public get tempScaleY():number{return this._temp_size.scaleY}
 
-        public show():void{
+        public show(arg?):void{
             this.visible = true;
         }
 
-        public hide():void{
+        public hide(arg?):void{
             this.visible = false;
         }
 

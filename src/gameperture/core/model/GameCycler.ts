@@ -88,10 +88,20 @@ module gp.model{
          */
 
         //@protected @final
-        public viewAddChild(...obj:egret.DisplayObject[]){
+        public viewAddChildren(...obj:egret.DisplayObject[]){
             for(var i in obj){
                 this.display._mainground.addChild(obj[i]);
             }
+        }
+
+        public viewAddChildAt(obj:egret.DisplayObject,index:number){
+            this.display._mainground.addChildAt(obj,index);
+        }
+        public viewAddChildBefore(obj:egret.DisplayObject,target:egret.DisplayObject){
+            this.display._mainground.addChildAt(obj,this.display._mainground.getChildIndex(target)+1);
+        }
+        public viewAddChildAfter(obj:egret.DisplayObject,target:egret.DisplayObject){
+            this.display._mainground.addChildAt(obj,this.display._mainground.getChildIndex(target));
         }
 
         //@protected @final

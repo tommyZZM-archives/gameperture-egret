@@ -12,7 +12,7 @@ class Main extends egret.DisplayObjectContainer{
         var display = new MyDisplay();
         var game    = new MyGame(display);
         var launch  = new gp.GameLauncher(this,game,true);
-        launch.loadAssets("preload","testload","testload2");
+        launch.loadAssets("preload", "testload", "testload2");
     }
 
 }
