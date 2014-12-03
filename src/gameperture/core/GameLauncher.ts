@@ -23,13 +23,13 @@ module gp{
         }
 
         public loadAssets(preload:string = null,...groups:string[]){
-            if(groups.length > 0){
+            if(preload && groups.length > 0){
                 this._assetsloader = new model.AssetsLoader(preload,groups);
                 this._assetsloader.addEventListener(event.AssetsEvents.PRELOAD_READY,this._onPreLoaded,this);
                 this._assetsloader.addEventListener(event.AssetsEvents.ASSET_READY,this._onAssetsLoaded,this);
                 this._assetsloader.addEventListener(event.AssetsEvents.ASSET_PROGRESS,this._onAssetsProgress,this);
             }else{
-                groups.push(preload);
+                //groups.push(preload);
                 this._onPreLoaded();
                 this._assetsloader = new model.AssetsLoader(null,groups);
                 this._assetsloader.addEventListener(event.AssetsEvents.ASSET_READY,this._onAssetsLoaded,this);
