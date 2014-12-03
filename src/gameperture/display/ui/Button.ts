@@ -26,6 +26,10 @@ module gp.display.ui{
             this._callbak['argArray'] = argArray;
         }
 
+        private removetouchcallback(){
+            this._callbak = null;
+        }
+
         private _ontouchtab(){
             if(this._callbak){
                 this._callbak['callback'].apply(this._callbak['thisObject'],this._callbak['argArray']);

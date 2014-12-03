@@ -15,9 +15,9 @@ module gp.viewc{
             return child;
         }
 
-        public get debug(){
+        /*public get debug(){
             return this.components;
-        }
+        }*/
 
         public select(name):gp.viewc.GameUiObject{
             return this.components[name];

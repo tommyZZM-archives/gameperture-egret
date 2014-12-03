@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -7,67 +7,22 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <OutputPath>bin</OutputPath>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <TypeScriptToolsVersion>1.1</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <StartWithIE>true</StartWithIE>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
-    <None Include="bin-debug\libs\_references.js" />
     <Content Include="bin-debug\lib\egret_file_list.js" />
-    <Content Include="bin-debug\Main.js" />
-    <Content Include="bin-debug\MyDisplay.js" />
-    <Content Include="bin-debug\MyGame.js" />
-    <Content Include="bin-debug\src\demo\MyDisplay.js" />
-    <Content Include="bin-debug\src\demo\MyGame.js" />
-    <Content Include="bin-debug\src\gameperture\config\Constant.js" />
-    <Content Include="bin-debug\src\gameperture\config\Device.js" />
-    <Content Include="bin-debug\src\gameperture\config\GameSetting.js" />
-    <Content Include="bin-debug\src\gameperture\core\events\AssetsEvents.js" />
-    <Content Include="bin-debug\src\gameperture\core\events\GameEvents.js" />
-    <Content Include="bin-debug\src\gameperture\core\GameLauncher.js" />
-    <Content Include="bin-debug\src\gameperture\core\interface\Igameperture.js" />
-    <Content Include="bin-debug\src\gameperture\core\model\AssetsLoader.js" />
-    <Content Include="bin-debug\src\gameperture\core\model\GameCircler.js" />
-    <Content Include="bin-debug\src\gameperture\core\model\GameCycler.js" />
-    <Content Include="bin-debug\src\gameperture\core\RouteDictionary.js" />
-    <Content Include="bin-debug\src\gameperture\core\util\Dictionary.js" />
-    <Content Include="bin-debug\src\gameperture\core\util\extend\extend.js" />
-    <Content Include="bin-debug\src\gameperture\core\util\GameObjectPool.js" />
-    <Content Include="bin-debug\src\gameperture\core\util\GameProfiler.js" />
-    <Content Include="bin-debug\src\gameperture\core\util\GlobalConstant.js" />
-    <Content Include="bin-debug\src\gameperture\core\util\Toolkit.js" />
-    <Content Include="bin-debug\src\gameperture\core\util\typex\Art.js" />
-    <Content Include="bin-debug\src\gameperture\core\util\typex\dictionary.js" />
-    <Content Include="bin-debug\src\gameperture\core\viewc\GameDisplay.js" />
-    <Content Include="bin-debug\src\gameperture\core\viewc\GameInterface.js" />
-    <Content Include="bin-debug\src\gameperture\core\viewc\GameObject.js" />
-    <Content Include="bin-debug\src\gameperture\core\viewc\GameScenery.js" />
-    <Content Include="bin-debug\src\gameperture\core\viewc\GameSprite.js" />
-    <Content Include="bin-debug\src\gameperture\core\viewc\GameUiObject.js" />
-    <Content Include="bin-debug\src\gameperture\core\viewc\UiComponentBase.js" />
-    <Content Include="bin-debug\src\gameperture\display\effect\EasyEffect.js" />
-    <Content Include="bin-debug\src\gameperture\display\Envirs.js" />
-    <Content Include="bin-debug\src\gameperture\display\Scenery.js" />
-    <Content Include="bin-debug\src\gameperture\display\ui\Button.js" />
-    <Content Include="bin-debug\src\gameperture\display\ui\ProgressBar.js" />
-    <Content Include="bin-debug\src\gameperture\display\ui\TextFiledEx.js" />
-    <Content Include="bin-debug\src\gameperture\display\Wisp.js" />
-    <Content Include="bin-debug\src\gameperture\GamePerture.js" />
-    <Content Include="bin-debug\src\gameperture\interface\ICircle.js" />
-    <Content Include="bin-debug\src\gameperture\interface\IGameCircle.js" />
     <Content Include="bin-debug\src\game_file_list.js" />
     <Content Include="bin-debug\src\Main.js" />
-    <Content Include="bin-debug\src\MyDisplay.js" />
-    <Content Include="bin-debug\src\MyGame.js" />
-    <Content Include="bin-debug\src\mygame\MyDisplay.js" />
-    <Content Include="bin-debug\src\mygame\MyGame.js" />
     <Content Include="launcher\egret_loader.js" />
     <Content Include="launcher\egret_require.js" />
     <Content Include="launcher\index.html" />
@@ -169,81 +124,14 @@
     <Content Include="libs\core\extension\resource\events\ResourceEvent.js" />
     <Content Include="libs\core\extension\resource\Resource.js" />
     <Content Include="libs\core\jslib\NumberUtils.js" />
-    <Content Include="libs\module_reference.json" />
-    <Content Include="resource\assets\egret_icon.png" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="libs\core\core.d.ts" />
-    <TypeScriptCompile Include="libs\core\egret\context\html5.d.ts" />
-    <TypeScriptCompile Include="libs\_references.ts" />
-    <TypeScriptCompile Include="src\demo\MyDisplay.ts" />
-    <TypeScriptCompile Include="src\demo\MyGame.ts" />
-    <TypeScriptCompile Include="src\gameperture\config\Constant.ts" />
-    <TypeScriptCompile Include="src\gameperture\config\Device.ts" />
-    <TypeScriptCompile Include="src\gameperture\config\GameSetting.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\events\AssetsEvents.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\events\GameEvents.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\GameLauncher.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\interface\Igameperture.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\model\AssetsLoader.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\model\GameCycler.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\RouteDictionary.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\util\Dictionary.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\util\GameObjectPool.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\util\GameProfiler.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\util\Toolkit.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\viewc\GameDisplay.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\viewc\GameInterface.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\viewc\GameScenery.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\viewc\GameSprite.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\viewc\GameUiObject.ts" />
-    <TypeScriptCompile Include="src\gameperture\display\effect\EasyEffect.ts" />
-    <TypeScriptCompile Include="src\gameperture\display\Envirs.ts" />
-    <TypeScriptCompile Include="src\gameperture\display\ui\Button.ts" />
-    <TypeScriptCompile Include="src\gameperture\display\ui\ProgressBar.ts" />
-    <TypeScriptCompile Include="src\gameperture\display\ui\TextFiledEx.ts" />
-    <TypeScriptCompile Include="src\gameperture\display\Wisp.ts" />
-    <TypeScriptCompile Include="src\Main.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="resource\resource.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin-debug\libs\_references.js.map" />
-    <Content Include="bin-debug\Main.js.map" />
-    <Content Include="bin-debug\MyDisplay.js.map" />
-    <Content Include="bin-debug\MyGame.js.map" />
-    <Content Include="bin-debug\src\demo\MyDisplay.js.map" />
-    <Content Include="bin-debug\src\demo\MyGame.js.map" />
-    <Content Include="bin-debug\src\gameperture\config\Constant.js.map" />
-    <Content Include="bin-debug\src\gameperture\config\Device.js.map" />
-    <Content Include="bin-debug\src\gameperture\config\GameSetting.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\events\AssetsEvents.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\events\GameEvents.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\GameLauncher.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\interface\Igameperture.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\model\AssetsLoader.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\model\GameCycler.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\RouteDictionary.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\util\Dictionary.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\util\GameObjectPool.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\util\GameProfiler.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\util\Toolkit.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\viewc\GameDisplay.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\viewc\GameInterface.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\viewc\GameScenery.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\viewc\GameSprite.js.map" />
-    <Content Include="bin-debug\src\gameperture\core\viewc\GameUiObject.js.map" />
-    <Content Include="bin-debug\src\gameperture\display\effect\EasyEffect.js.map" />
-    <Content Include="bin-debug\src\gameperture\display\Envirs.js.map" />
-    <Content Include="bin-debug\src\gameperture\display\ui\Button.js.map" />
-    <Content Include="bin-debug\src\gameperture\display\ui\ProgressBar.js.map" />
-    <Content Include="bin-debug\src\gameperture\display\ui\TextFiledEx.js.map" />
-    <Content Include="bin-debug\src\gameperture\display\Wisp.js.map" />
-    <Content Include="bin-debug\src\Main.js.map" />
-    <Content Include="bin-debug\src\MyDisplay.js.map" />
-    <Content Include="bin-debug\src\MyGame.js.map" />
+    <Content Include="build.bat" />
+    <Content Include="build_engine.bat" />
+    <Content Include="egretProperties.json" />
+    <Content Include="libs\module_reference.json" />
+    <Content Include="run.bat" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -251,11 +139,28 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="libs\core\core.d.ts" />
+    <TypeScriptCompile Include="libs\core\egret\context\html5.d.ts" />
+    <TypeScriptCompile Include="libs\_references.ts" />
+    <TypeScriptCompile Include="src\Main.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>gameperture_egret</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets')" />
@@ -265,14 +170,17 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>53224</DevelopmentServerPort>
+          <DevelopmentServerPort>52769</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53224/</IISUrl>
+          <IISUrl>http://localhost:52769/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <servers defaultServer="SelfHostServer">
+            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:52769/" workingDir="" />
+          </servers>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

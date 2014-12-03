@@ -2,7 +2,10 @@ module gp.display{
     export class Wisp extends gp.viewc.GameSprite{
 
         private _moiveGroupList;
+        private _currframeflag:any;
+
         private _data:any;
+
 
         public constructor(data:string,texture:string,x:number=0,y:number=0,parent:egret.DisplayObjectContainer = null,gravity:string='default',
                            pivotX?:number,pivotY?:number) {
@@ -22,7 +25,7 @@ module gp.display{
 
             this._skin = new egret.MovieClip(this._data,this._texture);
             this._skin.addEventListener('stop',this.stop,this);
-            this._skin.gotoAndPlay(this._moiveGroupList[0].name);
+            this.gotoAndPlay(this._moiveGroupList[0].name);
             super._display();
         }
 
@@ -36,6 +39,11 @@ module gp.display{
 
         public gotoAndPlay(flag:string){
             this._skin.gotoAndPlay(flag);
+            this._currframeflag = flag;
+        }
+
+        public get currFrameFlag(){
+            return this._currframeflag;
         }
 
     }
