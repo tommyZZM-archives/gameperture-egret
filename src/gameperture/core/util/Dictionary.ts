@@ -1,5 +1,5 @@
 module gp.util{
-    interface IDictionary {
+    export interface IDictionary {
 
         add(key: string, value: any): void;
         remove(key: string): void;

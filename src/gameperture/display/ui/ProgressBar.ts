@@ -7,7 +7,7 @@ module gp.display.ui{
         private _emptycrumb:any;
         private _fillcrumb:any;
 
-        public constructor(name:string,x:number,y:number, width:number, heigth:number, emptyclour?:number, fillclour?:number) {
+        constructor(name:string,x:number,y:number, width:number, heigth:number, emptyclour?:number, fillclour?:number) {
             this._width = width;
             this._height = heigth;
             emptyclour?this._emptyclour = emptyclour:this._emptyclour=Art.colour('d6d6d6');

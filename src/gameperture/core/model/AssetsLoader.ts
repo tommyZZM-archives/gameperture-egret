@@ -1,16 +1,15 @@
 module gp.model{
     export class AssetsLoader extends egret.EventDispatcher{
 
-        private _ispreload:boolean;
+        private _ispreload:any;
         private _currload:number;
         private _assets_groups:any;
 
         public constructor(preload:string = null,groups:any = []) {
             this._assets_groups = groups;
-            this._ispreload=false;
-            if(preload){
-                this._ispreload=true;
-                this._assets_groups.unshift(preload);
+            this._ispreload=preload;
+            if(this._ispreload){
+                this._assets_groups.unshift(this._ispreload);
             }
             trace('Ready Load Groups '+this._assets_groups);
             this._currload = 0;
@@ -46,9 +45,11 @@ module gp.model{
             if(e.groupName!='RES__CONFIG'){
                 var pct = e.itemsLoaded / e.itemsTotal;
                 trace('Loading '+e.resItem.url+' in '+e.groupName+' '+pct*100+'%');
-                var eve = new event.AssetsEvents(event.AssetsEvents.ASSET_PROGRESS);
-                eve.percent = pct;
-                this.dispatchEvent(eve);
+                if(e.groupName != this._ispreload){
+                    var eve = new event.AssetsEvents(event.AssetsEvents.ASSET_PROGRESS);
+                    eve.percent = pct;
+                    this.dispatchEvent(eve);
+                }
             }
         }
     }

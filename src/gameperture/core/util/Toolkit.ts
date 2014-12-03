@@ -13,6 +13,32 @@ module MathEx{
         };
         return result;
     }
+
+    export function probabilityPool(cdf) {
+        cdf = _pdf2cdf(cdf);
+        var y = Math.random();
+        for (var x in cdf)
+            if (y < cdf[x])
+                return x;
+        return -1; // should never runs here, assuming last element in cdf is 1
+    }
+    function _pdf2cdf(pdf) {
+        var cdf = pdf.slice();
+
+        for (var i = 1; i < cdf.length - 1; i++){
+            cdf[i] += cdf[i - 1];
+            if(cdf[i]>1){
+                console.warn('total probability in',pdf,' is > 1')
+                cdf[i] = 1;
+            }
+        }
+
+        // Force set last cdf to 1, preventing floating-point summing error in the loop.
+        cdf[cdf.length-1] = 1;
+
+        return cdf;
+    }
+
 }
 
 module Art {
@@ -21,23 +47,23 @@ module Art {
             c = _parse_colour(c)*1;
         }
         return c;
+    }
 
-        function _parse_colour(c:string):number {
-            if (/^#?([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/.exec(c)) {
-                c = /^#?([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/.exec(c)[1];
-                if(c.length==3){
-                    var c3='';
-                    for(var i=0; i<c.length; i++){
-                        c3 += (c[i]+c[i]);
-                    }
-                    c=c3;
+    function _parse_colour(c:string):number {
+        if (/^#?([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/.exec(c)) {
+            c = /^#?([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/.exec(c)[1];
+            if(c.length==3){
+                var c3='';
+                for(var i=0; i<c.length; i++){
+                    c3 += (c[i]+c[i]);
                 }
-            } else {
-                console.warn('wrong colour format ', c);
-                c = 'ffffff';
+                c=c3;
             }
-            return <any>('0x' + c) * 1;
+        } else {
+            console.warn('wrong colour format ', c);
+            c = 'ffffff';
         }
+        return <any>('0x' + c) * 1;
     }
 }
 

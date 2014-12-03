@@ -21,7 +21,7 @@ module gp.model{
         }
 
         /** 映射路由 **/
-        private _initRoutes():{ statu: number; circler: Function;surface: Function; }[]{
+        private _initRoutes():any{
             return [
                 {statu:GameStatus.READY,circler:this._onReady,surface:this.display.readyBoard},
                 {statu:GameStatus.PLAYING,circler:this._onPlaying,surface:this.display.playingBoard},
