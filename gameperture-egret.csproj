@@ -20,9 +20,6 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="bin-debug\lib\egret_file_list.js" />
-    <Content Include="bin-debug\src\game_file_list.js" />
-    <Content Include="bin-debug\src\Main.js" />
     <Content Include="launcher\egret_loader.js" />
     <Content Include="launcher\egret_require.js" />
     <Content Include="launcher\index.html" />
@@ -124,25 +121,42 @@
     <Content Include="libs\core\extension\resource\events\ResourceEvent.js" />
     <Content Include="libs\core\extension\resource\Resource.js" />
     <Content Include="libs\core\jslib\NumberUtils.js" />
-    <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="build.bat" />
-    <Content Include="build_engine.bat" />
     <Content Include="egretProperties.json" />
     <Content Include="libs\module_reference.json" />
-    <Content Include="run.bat" />
-    <None Include="web.Debug.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="libs\core\core.d.ts" />
     <TypeScriptCompile Include="libs\core\egret\context\html5.d.ts" />
     <TypeScriptCompile Include="libs\_references.ts" />
+    <TypeScriptCompile Include="src\demo\MyDisplay.ts" />
+    <TypeScriptCompile Include="src\demo\MyGame.ts" />
+    <TypeScriptCompile Include="src\gameperture\config\Constant.ts" />
+    <TypeScriptCompile Include="src\gameperture\config\Device.ts" />
+    <TypeScriptCompile Include="src\gameperture\config\GameSetting.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\events\AssetsEvents.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\events\GameEvents.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\GameLauncher.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\interface\Igameperture.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\model\AssetsLoader.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\model\GameCycler.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\RouteDictionary.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\util\Dictionary.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\util\GameObjectPool.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\util\GameProfiler.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\util\Toolkit.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\viewc\GameDisplay.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\viewc\GameInterface.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\viewc\GameScenery.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\viewc\GameSprite.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\viewc\GameUiObject.ts" />
+    <TypeScriptCompile Include="src\gameperture\display\effect\EasyEffect.ts" />
+    <TypeScriptCompile Include="src\gameperture\display\Envirs.ts" />
+    <TypeScriptCompile Include="src\gameperture\display\ui\Button.ts" />
+    <TypeScriptCompile Include="src\gameperture\display\ui\ProgressBar.ts" />
+    <TypeScriptCompile Include="src\gameperture\display\ui\TextFiledEx.ts" />
+    <TypeScriptCompile Include="src\gameperture\display\Wisp.ts" />
     <TypeScriptCompile Include="src\Main.ts" />
   </ItemGroup>
   <ItemGroup>
