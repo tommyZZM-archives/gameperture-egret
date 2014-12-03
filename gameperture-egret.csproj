@@ -20,6 +20,55 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
+    <None Include="bin-debug\libs\_references.js" />
+    <Content Include="bin-debug\lib\egret_file_list.js" />
+    <Content Include="bin-debug\Main.js" />
+    <Content Include="bin-debug\MyDisplay.js" />
+    <Content Include="bin-debug\MyGame.js" />
+    <Content Include="bin-debug\src\demo\MyDisplay.js" />
+    <Content Include="bin-debug\src\demo\MyGame.js" />
+    <Content Include="bin-debug\src\gameperture\config\Constant.js" />
+    <Content Include="bin-debug\src\gameperture\config\Device.js" />
+    <Content Include="bin-debug\src\gameperture\config\GameSetting.js" />
+    <Content Include="bin-debug\src\gameperture\core\events\AssetsEvents.js" />
+    <Content Include="bin-debug\src\gameperture\core\events\GameEvents.js" />
+    <Content Include="bin-debug\src\gameperture\core\GameLauncher.js" />
+    <Content Include="bin-debug\src\gameperture\core\interface\Igameperture.js" />
+    <Content Include="bin-debug\src\gameperture\core\model\AssetsLoader.js" />
+    <Content Include="bin-debug\src\gameperture\core\model\GameCircler.js" />
+    <Content Include="bin-debug\src\gameperture\core\model\GameCycler.js" />
+    <Content Include="bin-debug\src\gameperture\core\RouteDictionary.js" />
+    <Content Include="bin-debug\src\gameperture\core\util\Dictionary.js" />
+    <Content Include="bin-debug\src\gameperture\core\util\extend\extend.js" />
+    <Content Include="bin-debug\src\gameperture\core\util\GameObjectPool.js" />
+    <Content Include="bin-debug\src\gameperture\core\util\GameProfiler.js" />
+    <Content Include="bin-debug\src\gameperture\core\util\GlobalConstant.js" />
+    <Content Include="bin-debug\src\gameperture\core\util\Toolkit.js" />
+    <Content Include="bin-debug\src\gameperture\core\util\typex\Art.js" />
+    <Content Include="bin-debug\src\gameperture\core\util\typex\dictionary.js" />
+    <Content Include="bin-debug\src\gameperture\core\viewc\GameDisplay.js" />
+    <Content Include="bin-debug\src\gameperture\core\viewc\GameInterface.js" />
+    <Content Include="bin-debug\src\gameperture\core\viewc\GameObject.js" />
+    <Content Include="bin-debug\src\gameperture\core\viewc\GameScenery.js" />
+    <Content Include="bin-debug\src\gameperture\core\viewc\GameSprite.js" />
+    <Content Include="bin-debug\src\gameperture\core\viewc\GameUiObject.js" />
+    <Content Include="bin-debug\src\gameperture\core\viewc\UiComponentBase.js" />
+    <Content Include="bin-debug\src\gameperture\display\effect\EasyEffect.js" />
+    <Content Include="bin-debug\src\gameperture\display\Envirs.js" />
+    <Content Include="bin-debug\src\gameperture\display\Scenery.js" />
+    <Content Include="bin-debug\src\gameperture\display\ui\Button.js" />
+    <Content Include="bin-debug\src\gameperture\display\ui\ProgressBar.js" />
+    <Content Include="bin-debug\src\gameperture\display\ui\TextFiledEx.js" />
+    <Content Include="bin-debug\src\gameperture\display\Wisp.js" />
+    <Content Include="bin-debug\src\gameperture\GamePerture.js" />
+    <Content Include="bin-debug\src\gameperture\interface\ICircle.js" />
+    <Content Include="bin-debug\src\gameperture\interface\IGameCircle.js" />
+    <Content Include="bin-debug\src\game_file_list.js" />
+    <Content Include="bin-debug\src\Main.js" />
+    <Content Include="bin-debug\src\MyDisplay.js" />
+    <Content Include="bin-debug\src\MyGame.js" />
+    <Content Include="bin-debug\src\mygame\MyDisplay.js" />
+    <Content Include="bin-debug\src\mygame\MyGame.js" />
     <Content Include="launcher\egret_loader.js" />
     <Content Include="launcher\egret_require.js" />
     <Content Include="launcher\index.html" />
@@ -166,6 +215,42 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin-debug\libs\_references.js.map" />
+    <Content Include="bin-debug\Main.js.map" />
+    <Content Include="bin-debug\MyDisplay.js.map" />
+    <Content Include="bin-debug\MyGame.js.map" />
+    <Content Include="bin-debug\src\demo\MyDisplay.js.map" />
+    <Content Include="bin-debug\src\demo\MyGame.js.map" />
+    <Content Include="bin-debug\src\gameperture\config\Constant.js.map" />
+    <Content Include="bin-debug\src\gameperture\config\Device.js.map" />
+    <Content Include="bin-debug\src\gameperture\config\GameSetting.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\events\AssetsEvents.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\events\GameEvents.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\GameLauncher.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\interface\Igameperture.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\model\AssetsLoader.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\model\GameCycler.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\RouteDictionary.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\util\Dictionary.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\util\GameObjectPool.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\util\GameProfiler.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\util\Toolkit.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\viewc\GameDisplay.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\viewc\GameInterface.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\viewc\GameScenery.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\viewc\GameSprite.js.map" />
+    <Content Include="bin-debug\src\gameperture\core\viewc\GameUiObject.js.map" />
+    <Content Include="bin-debug\src\gameperture\display\effect\EasyEffect.js.map" />
+    <Content Include="bin-debug\src\gameperture\display\Envirs.js.map" />
+    <Content Include="bin-debug\src\gameperture\display\ui\Button.js.map" />
+    <Content Include="bin-debug\src\gameperture\display\ui\ProgressBar.js.map" />
+    <Content Include="bin-debug\src\gameperture\display\ui\TextFiledEx.js.map" />
+    <Content Include="bin-debug\src\gameperture\display\Wisp.js.map" />
+    <Content Include="bin-debug\src\Main.js.map" />
+    <Content Include="bin-debug\src\MyDisplay.js.map" />
+    <Content Include="bin-debug\src\MyGame.js.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
