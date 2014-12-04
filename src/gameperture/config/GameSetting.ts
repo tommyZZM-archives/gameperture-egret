@@ -25,7 +25,8 @@ module gp.config{
             return this._setting[name];
         }
 
-        public setpara(name:string,value:any){
+        //@未开放
+        private setpara(name:string,value:any){
             if(typeof(value) === typeof(this._setting[name])){
                 this._setting[name] = value;
             }

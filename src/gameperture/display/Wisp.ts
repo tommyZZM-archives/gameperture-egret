@@ -14,7 +14,6 @@ module gp.display{
             this._moiveGroupList = [];
             super(x,y,parent,gravity,pivotX,pivotY);
             //TODO:your code here
-            this.key = 'Wisp_'+data+'_'+texture;
         }
 
         public _display(){

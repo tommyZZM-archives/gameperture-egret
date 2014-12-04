@@ -14,8 +14,11 @@ module MathEx{
         return result;
     }
 
-    export function probabilityPool(cdf) {
-        cdf = _pdf2cdf(cdf);
+    export function probabilityPool(pool:number[]) {
+        if(pool.length == 1){
+            pool.push(1-pool[0]);
+        }
+        var cdf = _pdf2cdf(pool);
         var y = Math.random();
         for (var x in cdf)
             if (y < cdf[x])

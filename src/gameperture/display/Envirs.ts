@@ -7,7 +7,6 @@ module gp.display{
 
             super(x,y,parent,gravity,pivotX,pivotY);
             //TODO:your code here
-            this.key = 'Envirs_'+texture;
         }
 
         public _display(){

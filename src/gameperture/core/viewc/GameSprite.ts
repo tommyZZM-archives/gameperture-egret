@@ -24,6 +24,7 @@ module gp.viewc{
             this.x = x;
             this.y = y;
             this._display();
+            if(this._skin){this.width = this._skin.width;this.height = this._skin.height;}
             if(parent){
                 this.transParent(parent);
             }
@@ -33,8 +34,6 @@ module gp.viewc{
         public _display(){
             if(this._skin){
                 this.addChild(this._skin);
-                this.width = this._skin.width;
-                this.height = this._skin.height;
             }
         }
 

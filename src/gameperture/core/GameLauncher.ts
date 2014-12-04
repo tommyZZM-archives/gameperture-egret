@@ -29,7 +29,7 @@ module gp{
                 this._assetsloader.addEventListener(event.AssetsEvents.ASSET_READY,this._onAssetsLoaded,this);
                 this._assetsloader.addEventListener(event.AssetsEvents.ASSET_PROGRESS,this._onAssetsProgress,this);
             }else{
-                //groups.push(preload);
+                if(groups.length == 0){groups.push(preload)}
                 this._onPreLoaded();
                 this._assetsloader = new model.AssetsLoader(null,groups);
                 this._assetsloader.addEventListener(event.AssetsEvents.ASSET_READY,this._onAssetsLoaded,this);
