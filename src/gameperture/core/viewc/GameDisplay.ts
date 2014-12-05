@@ -44,11 +44,6 @@ module gp.viewc{
 
         }
 
-        /*public addChild(child: egret.DisplayObject){
-         this._mainground.addChild(child);
-         return child;
-         }*/
-
         /**
          * Getter
          */

@@ -30,6 +30,8 @@ module gp.display.ui{
                 this.tween.to({scaleX:maxSize,scaleY:maxSize},500).to({scaleX:currscX,scaleY:currscY},500);
             }
             this._skin.text = text+'';
+            this.width = this._skin.width;
+            this.height = this._skin.height;
         }
     }
 }

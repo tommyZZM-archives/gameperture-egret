@@ -5,6 +5,7 @@ module gp.model{
         private _setting:any;
         private _router:RouteDictionary;
         private _display:any;
+        private _currstatu:any;
 
         public constructor(display:gp.viewc.GameDisplay) {
             this._display = display;
@@ -66,6 +67,7 @@ module gp.model{
          * @param e
          */
         private _onToggleStatus(e:event.GameEvents){
+            this._currstatu = e.statu;
             this._router[e.statu].surface.apply(this.display);
             this._router[e.statu].circler.apply(this);
             if(e.statu == GameStatus.RESTART && config.gamevar.isFirstPlay){
@@ -73,9 +75,18 @@ module gp.model{
             }
         }
 
-        //@protected
+
+        /***********
+         * 操作手柄 ↓
+         ************/
+
+        //@getter
         private get display(){
             return this._display;
+        }
+
+        public get statu(){
+            return this._currstatu;
         }
 
         public gameGover(){
@@ -107,6 +118,14 @@ module gp.model{
         //@protected @final
         public viewSelectUI(name):any{
             return this.display._interface.select(name);
+        }
+
+        public get viewBackground(){
+            return this._display._background;
+        }
+
+        public get viewForeground(){
+            return this._display._foreground;
         }
 
         //@protected

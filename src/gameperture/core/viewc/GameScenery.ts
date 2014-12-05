@@ -18,5 +18,12 @@ module gp.viewc{
             return egret.Tween.get(this);
         }
 
+        public transPan(speed:number = 1,direcion:string = 'left'){
+            this.x -= speed*gp.FPS.rateoffest();
+            if(this.x<=-(this.width*2/3)){
+                this.x += (this.width/3)+speed*gp.FPS.rateoffest();
+            }
+        }
+
     }
 }

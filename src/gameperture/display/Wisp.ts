@@ -5,7 +5,7 @@ module gp.display{
         private _currframeflag:any;
 
         private _data:any;
-
+        private _is_stop:boolean;
 
         public constructor(data:string,texture:string,x:number=0,y:number=0,parent:egret.DisplayObjectContainer = null,gravity:string='default',
                            pivotX?:number,pivotY?:number) {
@@ -29,14 +29,17 @@ module gp.display{
         }
 
         public stop(){
+            this._is_stop = true;
             this._skin.stop();
         }
 
         public play(){
+            this._is_stop = false;
             this._skin.play();
         }
 
         public gotoAndPlay(flag:string){
+            this._is_stop = false;
             this._skin.gotoAndPlay(flag);
             this._currframeflag = flag;
         }
