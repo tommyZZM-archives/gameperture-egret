@@ -1,4 +1,4 @@
-module gp.viewc{
+module gp{
     export class GameScenery extends egret.DisplayObjectContainer{
 
         public constructor() {
@@ -22,6 +22,7 @@ module gp.viewc{
             this.x -= speed*gp.FPS.rateoffest();
             if(this.x<=-(this.width*2/3)){
                 this.x += (this.width/3)+speed*gp.FPS.rateoffest();
+                this.x = +this.x.toFixed(0);
             }
         }
 

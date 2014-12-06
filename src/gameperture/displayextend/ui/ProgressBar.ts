@@ -1,5 +1,5 @@
 module gp.display.ui{
-    export class ProgressBar extends gp.viewc.GameUiObject{
+    export class ProgressBar extends GameUiObject{
 
         private _emptyclour:number;
         private _fillclour:number;

@@ -1,4 +1,4 @@
-module gp.viewc{
+module gp{
     export class GameDisplay extends egret.DisplayObjectContainer {
 
         private _rune:event.GameEvents;

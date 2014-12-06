@@ -1,4 +1,4 @@
-module gp.viewc{
+module gp{
     export class GameSprite extends egret.Sprite{
 
         public key:string;
@@ -13,8 +13,10 @@ module gp.viewc{
 
         private _temp_size:any = {scaleX:1,scaleY:1};
 
+        private _debugobj:any;
+
         public constructor(x:number=0,y:number=0,parent:egret.DisplayObjectContainer = null,gravity:string='default',
-                           pivotX?:number,pivotY?:number) {
+                           pivotX:number=0,pivotY:number=0) {
             super();
             if(!this.key){this.key = "undefined";/*console.warn('a GameSprite should define a key');*/}
             this._width?this.width = this._width:this.width = 0;
@@ -123,5 +125,42 @@ module gp.viewc{
 
         public onCreate():void {}
         public onDestroy():void {}
+
+
+        /**
+         * debug
+         * @param colour
+         * @param type
+         */
+        public enabledebug(colour:string='#c0392b',type:string='rect'){
+            if(!this._debugobj){
+                this._debugobj = new egret.Shape;
+                this._debugobj.graphics.beginFill(Art.colour(colour));
+                switch (type.toLowerCase()) {
+                    default :
+                    case 'rect':
+                    {
+                        this._debugobj.graphics.drawRect(0, 0, this.width, this.height);
+                        break;
+                    }
+                    case 'circle':
+                    {
+                        this._debugobj.graphics.drawCircle(0, 0, this.width);
+                        break;
+                    }
+                }
+                this._debugobj.graphics.endFill();
+                this._debugobj.alpha = 0.2;
+                this._debugobj.width = this.width;
+                this._debugobj.height = this.height;
+                this.addChild(this._debugobj);
+            }
+        }
+
+        public removedebug(){
+            if(this._debugobj)this.removeChild(this._debugobj);
+            this._debugobj = null;
+        }
+
     }
 }

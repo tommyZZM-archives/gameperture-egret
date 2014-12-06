@@ -1,4 +1,4 @@
-module gp.viewc{
+module gp{
     export class GameInterface extends egret.DisplayObjectContainer{
 
         private components:util.Dictionary;
@@ -9,7 +9,7 @@ module gp.viewc{
             //TODO:your code here
         }
 
-        public addChild(child: gp.viewc.GameUiObject):egret.DisplayObject{
+        public addChild(child: gp.GameUiObject):egret.DisplayObject{
             this.components.add(child.name,child);
             super.addChild(child);
             return child;
@@ -19,7 +19,7 @@ module gp.viewc{
             return this.components;
         }*/
 
-        public select(name):gp.viewc.GameUiObject{
+        public select(name):gp.GameUiObject{
             return this.components[name];
         }
     }

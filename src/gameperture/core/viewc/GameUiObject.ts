@@ -1,4 +1,4 @@
-module gp.viewc{
+module gp{
     export class GameUiObject extends GameSprite{
 
         public constructor(name:string,x:number=0,y:number=0,gravity:string='default',

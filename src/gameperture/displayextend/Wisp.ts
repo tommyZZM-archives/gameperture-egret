@@ -1,5 +1,5 @@
 module gp.display{
-    export class Wisp extends gp.viewc.GameSprite{
+    export class Wisp extends gp.GameSprite{
 
         private _moiveGroupList;
         private _currframeflag:any;

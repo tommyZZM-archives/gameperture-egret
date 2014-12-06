@@ -7,7 +7,7 @@ module gp.model{
         private _display:any;
         private _currstatu:any;
 
-        public constructor(display:gp.viewc.GameDisplay) {
+        public constructor(display:gp.GameDisplay) {
             this._display = display;
             this._display.addEventListener(event.GameEvents.GAME_RUN,this._onToggleStatus,this);
             this._router = new RouteDictionary(this._initRoutes());
