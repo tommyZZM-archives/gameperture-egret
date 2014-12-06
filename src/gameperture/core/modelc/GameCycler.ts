@@ -1,4 +1,4 @@
-module gp.model{
+module gp{
     export class GameCycler {
 
         //private _objpool:util.ObjectPool;

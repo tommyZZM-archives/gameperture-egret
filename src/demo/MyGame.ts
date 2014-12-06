@@ -1,3 +1,3 @@
-class MyGame extends gp.model.GameCycler {
+class MyGame extends gp.GameCycler {
 
 }

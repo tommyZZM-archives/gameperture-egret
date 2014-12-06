@@ -1,3 +1,3 @@
-class MyDisplay extends gp.viewc.GameDisplay{
+class MyDisplay extends gp.GameDisplay{
 
 }

@@ -1,4 +1,4 @@
-module gp.model{
+module gp{
     export class AssetsLoader extends egret.EventDispatcher{
 
         private _ispreload:any;

@@ -1,5 +1,5 @@
 module gp{
-    export var gpversion = '0.1 deving';
+    export var gpversion = '0.12 deving';
     export var isdebug = false;
     export var rootscene:egret.DisplayObjectContainer = null;
 

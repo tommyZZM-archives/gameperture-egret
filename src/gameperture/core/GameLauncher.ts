@@ -1,11 +1,11 @@
 module gp{
     export class GameLauncher{//implements GamePertureInterface
 
-        private _assetsloader:model.AssetsLoader;
-        private _gamecircler:model.GameCycler;
+        private _assetsloader:AssetsLoader;
+        private _gamecircler:GameCycler;
         private _progressbar:display.ui.ProgressBar;
 
-        public constructor(stage:egret.DisplayObjectContainer,circle:model.GameCycler,debug:boolean) {
+        public constructor(stage:egret.DisplayObjectContainer,circle:GameCycler,debug:boolean) {
             console.info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
                 "Quick Game FrameWork base on Egret Engine!");
             rootscene = stage;
@@ -24,14 +24,14 @@ module gp{
 
         public loadAssets(preload:string = null,...groups:string[]){
             if(preload && groups.length > 0){
-                this._assetsloader = new model.AssetsLoader(preload,groups);
+                this._assetsloader = new AssetsLoader(preload,groups);
                 this._assetsloader.addEventListener(event.AssetsEvents.PRELOAD_READY,this._onPreLoaded,this);
                 this._assetsloader.addEventListener(event.AssetsEvents.ASSET_READY,this._onAssetsLoaded,this);
                 this._assetsloader.addEventListener(event.AssetsEvents.ASSET_PROGRESS,this._onAssetsProgress,this);
             }else{
                 if(groups.length == 0){groups.push(preload)}
                 this._onPreLoaded();
-                this._assetsloader = new model.AssetsLoader(null,groups);
+                this._assetsloader = new AssetsLoader(null,groups);
                 this._assetsloader.addEventListener(event.AssetsEvents.ASSET_READY,this._onAssetsLoaded,this);
                 this._assetsloader.addEventListener(event.AssetsEvents.ASSET_PROGRESS,this._onAssetsProgress,this);
             }

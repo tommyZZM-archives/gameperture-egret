@@ -1,6 +1,5 @@
 module gp{
     export module event{}
-    export module model{}
     export module util{}
     export module toolkit{
         export module MathEx{}
