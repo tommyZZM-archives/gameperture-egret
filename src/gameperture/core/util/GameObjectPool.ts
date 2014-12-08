@@ -4,7 +4,7 @@ module gp.util {
         private _pool = {};
         private _list:Array<any> = [];
 
-        public createObject(classFactory:any,params?: any):viewc.GameSprite {
+        public createObject(classFactory:any,params?: any):GameSprite {
             var result;
             var key = classFactory.name;
             if(key == 'undefined'){
@@ -23,7 +23,7 @@ module gp.util {
             return result;
         }
 
-        public destroyObject(obj:viewc.GameSprite) {
+        public destroyObject(obj:GameSprite) {
             var key = obj.name;
             if (this._pool[key] == null) {
                 this._pool[key] = [];
