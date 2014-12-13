@@ -12,7 +12,6 @@ module gamep{
                 egret.Profiler.getInstance().run();
             }
             new gamep.utils.GameProfiler();
-            this._facade
         }
 
         /*public addProgress(progress:display.ui.ProgressBar){
@@ -41,7 +40,7 @@ module gamep{
 
         }
 
-        private _onprogress(e:event.AssetsEvents){
+        private _onprogress(e:event.AssetsEvent){
 
         }
 

@@ -190,7 +190,7 @@
     <TypeScriptCompile Include="src\gameperture\core\interface\Igameperture.ts" />
     <TypeScriptCompile Include="src\gameperture\core\model\AssetsLoader.ts" />
     <TypeScriptCompile Include="src\gameperture\core\model\GameCycler.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\RouteDictionary.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\PostalDictionary.ts" />
     <TypeScriptCompile Include="src\gameperture\core\util\Dictionary.ts" />
     <TypeScriptCompile Include="src\gameperture\core\util\GameObjectPool.ts" />
     <TypeScriptCompile Include="src\gameperture\core\util\GameProfiler.ts" />
