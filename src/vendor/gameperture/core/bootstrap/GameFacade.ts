@@ -2,18 +2,21 @@ module gamep {
     export class GameFacade{
         
         private _dispatcher:egret.EventDispatcher;
+        private _game:GameCycler;
+        private _display:GameDisplay;
 
         public constructor() {
-            super();
             this._dispatcher = new egret.DisplayObject();
         }
 
-        public addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number){
-            this._dispatcher.addEventListener(type,listener,thisObject,useCapture,priority)
+
+
+        public registGame(game:GameCycler){
+            this._game = game;
         }
 
-        public removeEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean){
-            this._dispatcher.removeEventListener(type,listener,thisObject,useCapture)
+        public registDisplay(display:GameDisplay){
+            this._display = display;
         }
 
         //instance mode

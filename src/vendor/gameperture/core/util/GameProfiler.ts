@@ -1,4 +1,4 @@
-module gamep.util{
+module gamep.utils{
     export class GameProfiler {
 
         public static s_time:number = 0;
@@ -37,7 +37,7 @@ module gamep.util{
 module gamep {
     export class FPS {
         public static get $60():any {
-            return util.GameProfiler.s_fps.toFixed(0);
+            return utils.GameProfiler.s_fps.toFixed(0);
         }
 
         public static rateoffest(worldrate:number = 60):number {
@@ -45,7 +45,7 @@ module gamep {
         }
 
         public static get counttime():number{
-            return util.GameProfiler.s_time;
+            return utils.GameProfiler.s_time;
         }
 
     }

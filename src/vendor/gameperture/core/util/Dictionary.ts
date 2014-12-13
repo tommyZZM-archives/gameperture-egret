@@ -1,4 +1,4 @@
-module gamep.util{
+module gamep.utils{
     export interface IDictionary {
         add(key: string, value: any): void;
         remove(key: string): void;

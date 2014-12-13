@@ -1,10 +1,10 @@
-module gp{
+module gamep{
     export class GameInterface extends egret.DisplayObjectContainer{
 
-        private components:util.Dictionary;
+        private components:utils.Dictionary;
 
         public constructor() {
-            this.components = new util.Dictionary();
+            this.components = new utils.Dictionary();
             super();
             //TODO:your code here
         }

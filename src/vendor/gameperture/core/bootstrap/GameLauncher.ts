@@ -2,16 +2,17 @@ module gamep{
     export class GameLauncher{//implements GamePertureInterface
 
         private _assetsloader:AssetsLoader;
+        private _facade:GameFacade = GameFacade.instance;
 
-        public constructor(stage:egret.DisplayObjectContainer,debug:boolean) {
+        public constructor(game:GameCycler,display:GameDisplay,debug:boolean) {
             console.info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
                 "Quick Game FrameWork base on Egret Engine!");
-            rootscene = stage;
             isdebug = debug;
             if(isdebug){
                 egret.Profiler.getInstance().run();
             }
-            new gp.util.GameProfiler();
+            new gamep.utils.GameProfiler();
+            this._facade
         }
 
         /*public addProgress(progress:display.ui.ProgressBar){

@@ -1,4 +1,4 @@
-module gp{
+module gamep{
     export class GameScenery extends egret.DisplayObjectContainer{
 
         public constructor() {
@@ -19,7 +19,7 @@ module gp{
         }
 
         public transPan(speed:number = 1,direcion:string = 'left'){
-            this.x -= speed*gp.FPS.rateoffest();
+            this.x -= speed*gamep.FPS.rateoffest();
             if(this.x<=-(this.width*2/3)){
                 this.x += (this.width/3)+speed;
                 this.x = +this.x.toFixed(0);

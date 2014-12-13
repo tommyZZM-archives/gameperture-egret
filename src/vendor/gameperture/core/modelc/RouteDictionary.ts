@@ -1,8 +1,8 @@
 /**
  * Created by 2014-11-06 on 2014/11/27.
  */
-module gp{
-    export class RouteDictionary extends gp.util.Dictionary{
+module gamep{
+    export class RouteDictionary extends gamep.utils.Dictionary{
         constructor(route: { statu: number; circler: Function;surface: Function; }[]) {
             var dic:{key: any; value: any;}[] = [];
             for(var i in route){

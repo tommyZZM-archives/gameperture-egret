@@ -1,54 +1,21 @@
-module gp{
+module gamep{
     export class GameDisplay extends egret.DisplayObjectContainer {
 
-        private _rune:event.GameEvents;
+        private static _isinit:boolean;
 
-        public _background = new GameScenery();
-        /** 背景 **/
-        public _mainground = new GameScenery();
-        /** 主要逻辑层 **/
-        public _foreground = new GameScenery();
-        /** 前景 **/
-        public _interface = new GameInterface();
+        private _scenery = new egret.DisplayObjectContainer();
+        /** 舞台 **/
+
+        private _interface = new egret.DisplayObjectContainer();
         /** 界面 **/
 
-        public constructor() {
+        public constructor(root:egret.DisplayObjectContainer) {
             super();
-            this.addChild(this._background);
-            this.addChild(this._mainground);
-            this.addChild(this._foreground);
+            rootscene = root;
+            rootscene.addChild(this);
+            this.addChild(this._scenery);
             this.addChild(this._interface);
+            GameFacade.instance.registDisplay(this);
         }
-
-        public loadingBoard() {
-
-        }
-
-        public dispatchStatu(statu:any = GameStatus.READY) {
-            this.dispatchEvent(new event.GameEvents(statu));
-        }
-
-        public readyBoard() {
-
-        }
-
-        public playingBoard() {
-
-        }
-
-        public overBoard() {
-
-        }
-
-        public restarBoard() {
-
-        }
-
-        /**
-         * Getter
-         */
-        /*public get runevent() {
-            return this._rune
-        }*/
     }
 }

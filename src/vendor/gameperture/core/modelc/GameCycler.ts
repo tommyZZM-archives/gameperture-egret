@@ -1,4 +1,4 @@
-module gp{
+module gamep{
     export class GameCycler {
 
         //private _objpool:util.ObjectPool;
@@ -7,18 +7,8 @@ module gp{
         private _display:any;
         private _currstatu:any;
 
-        public constructor(display:gp.GameDisplay) {
-            this._display = display;
-            this._display.addEventListener(event.GameEvents.GAME_RUN,this._onToggleStatus,this);
-            this._router = new RouteDictionary(this._initRoutes());
-            this._router.addroutes(this._customRoutes());
-
-            /**各种对象池**/
-            //this._hidenpool = [];//隐藏对象池;
-
-            if(!this._router.numkeys){
-                console.error('must initialize routes in _initRoutes()');
-            }
+        public constructor() {
+            GameFacade.instance.registGame(this);
         }
 
         /** 映射路由 **/
@@ -40,8 +30,8 @@ module gp{
             this._setting = setting;
         }
 
-        public get setting():gp.config.gamesetting{
-            return gp.config.gamesetting.getInstance();
+        public get setting():config.gamesetting{
+            return config.gamesetting.getInstance();
         }
 
         public zPreLoadWrapper(){
@@ -67,12 +57,12 @@ module gp{
          * @param e
          */
         private _onToggleStatus(e:event.GameEvents){
-            this._currstatu = e.statu;
+            /*this._currstatu = e.statu;
             this._router[e.statu].surface.apply(this.display);
             this._router[e.statu].circler.apply(this);
             if(e.statu == GameStatus.RESTART && config.gamevar.isFirstPlay){
                 config.gamevar.isFirstPlay = false;
-            }
+            }*/
         }
 
 
