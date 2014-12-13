@@ -1,4 +1,4 @@
-module gp.util{
+module gamep.util{
     export class GameProfiler {
 
         public static s_time:number = 0;
@@ -34,7 +34,7 @@ module gp.util{
     }
 }
 
-module gp {
+module gamep {
     export class FPS {
         public static get $60():any {
             return util.GameProfiler.s_fps.toFixed(0);

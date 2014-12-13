@@ -1,6 +1,5 @@
-module gp.util{
+module gamep.util{
     export interface IDictionary {
-
         add(key: string, value: any): void;
         remove(key: string): void;
         containsKey(key: string): boolean;

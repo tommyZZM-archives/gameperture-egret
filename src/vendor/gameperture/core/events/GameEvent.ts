@@ -1,5 +1,5 @@
 module gp.event {
-    export class GameEvents extends egret.Event {
+    export class GameEvent extends egret.Event {
 
         public static GAME_RUN:string = "gameRun";
         private _statu:any;
@@ -8,7 +8,7 @@ module gp.event {
         public constructor(statu:any,bubbles:boolean = false, cancelable:boolean = false) {
             //TODO:your code here
             this._statu = statu;
-            super(GameEvents.GAME_RUN, bubbles, cancelable);
+            super(GameEvent.GAME_RUN, bubbles, cancelable);
         }
 
         public get statu():any {

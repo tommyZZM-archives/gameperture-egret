@@ -1,5 +1,5 @@
-module gp.event{
-    export class AssetsEvents extends egret.Event {
+module gamep.event{
+    export class AssetsEvent extends egret.Event {
 
         public static PRELOAD_READY:string = "preReady";
         public static ASSET_READY:string = "assetReady";

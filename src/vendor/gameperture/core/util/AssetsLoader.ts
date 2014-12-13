@@ -1,4 +1,4 @@
-module gp{
+module gamep{
     export class AssetsLoader extends egret.EventDispatcher{
 
         private _ispreload:any;
@@ -29,14 +29,14 @@ module gp{
             if(this._ispreload){
                 this._ispreload = false;
                 trace('Pre Load Complete!');
-                this.dispatchEvent(new event.AssetsEvents(event.AssetsEvents.PRELOAD_READY));
+                this.dispatchEvent(new event.AssetsEvent(event.AssetsEvent.PRELOAD_READY));
                 RES.loadGroup(this._assets_groups[this._currload]);
             }else{
                 if(this._currload < this._assets_groups.length){
                     RES.loadGroup(this._assets_groups[this._currload]);
                 }else{
                     trace('All Load Complete!');
-                    this.dispatchEvent(new event.AssetsEvents(event.AssetsEvents.ASSET_READY));
+                    this.dispatchEvent(new event.AssetsEvent(event.AssetsEvent.ASSET_READY));
                 }
             }
         }
@@ -46,7 +46,7 @@ module gp{
                 var pct = e.itemsLoaded / e.itemsTotal;
                 trace('Loading '+e.resItem.url+' in '+e.groupName+' '+pct*100+'%');
                 if(e.groupName != this._ispreload){
-                    var eve = new event.AssetsEvents(event.AssetsEvents.ASSET_PROGRESS);
+                    var eve = new event.AssetsEvent(event.AssetsEvent.ASSET_PROGRESS);
                     eve.percent = pct;
                     this.dispatchEvent(eve);
                 }

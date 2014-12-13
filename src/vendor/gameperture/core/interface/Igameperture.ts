@@ -1,4 +1,4 @@
-module gp{
+module gamep{
     export module event{}
     export module util{}
     export module toolkit{

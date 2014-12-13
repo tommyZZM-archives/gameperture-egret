@@ -1,4 +1,4 @@
-module gp{
+module gamep{
     export var gpversion = '0.12 deving';
     export var isdebug = false;
     export var rootscene:egret.DisplayObjectContainer = null;

@@ -35,13 +35,5 @@ module gp.util {
                 this._list.splice(index, 1);
             }
         }
-
-        private static instance:ObjectPool;
-        public static getInstance():ObjectPool {
-            if (ObjectPool.instance == null) {
-                ObjectPool.instance = new ObjectPool();
-            }
-            return ObjectPool.instance;
-        }
     }
 }
