@@ -42,7 +42,7 @@ egret_h5.startGame = function () {
         winWidth = window.innerWidth;
     }
 
-    var GameWin = {w:640,h:960};
+    var GameWin = {w:460,h:800};
     var Gper = GameWin.h/GameWin.w;
     var per = winHeight/winWidth;
     if(per<Gper){

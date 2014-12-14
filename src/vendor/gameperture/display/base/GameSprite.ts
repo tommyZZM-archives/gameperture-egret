@@ -1,4 +1,4 @@
-module gp{
+module gamep{
     export class GameSprite extends egret.Sprite{
 
         public key:string;

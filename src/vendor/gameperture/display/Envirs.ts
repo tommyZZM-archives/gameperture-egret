@@ -1,5 +1,5 @@
-module gp.display{
-    export class Envirs extends gp.GameSprite{
+module gamep.display{
+    export class Envirs extends GameSprite{
 
         public constructor(texture:string,x:number=0,y:number=0,parent:egret.DisplayObjectContainer = null,gravity:string='default',
                            pivotX?:number,pivotY?:number) {

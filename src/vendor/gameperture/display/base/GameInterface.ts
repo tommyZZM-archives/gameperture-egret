@@ -9,8 +9,8 @@ module gamep{
             //TODO:your code here
         }
 
-        public addChild(child: gp.GameUiObject):egret.DisplayObject{
-            this.components.add(child.name,child);
+        public addChild(child: GameUiObject):egret.DisplayObject{
+            this.components.set(child.name,child);
             super.addChild(child);
             return child;
         }

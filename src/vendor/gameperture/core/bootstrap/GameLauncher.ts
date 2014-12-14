@@ -2,7 +2,9 @@ module gamep{
     export class GameLauncher{//implements GamePertureInterface
 
         private _assetsloader:AssetsLoader;
+        private _progressbar:display.ui.ProgressBar;
         private _facade:GameFacade = GameFacade.instance;
+
 
         public constructor(game:GameCycler,display:GameDisplay,debug:boolean) {
             console.info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
@@ -14,11 +16,11 @@ module gamep{
             new gamep.utils.GameProfiler();
         }
 
-        /*public addProgress(progress:display.ui.ProgressBar){
+        public addProgress(progress:display.ui.ProgressBar){
             this._progressbar = progress;
-        }*/
+        }
 
-        public launchWith(preload?:string = null,...groups?:string[]){
+        public launchWith(preload:string = null,...groups:string[]){
             if(preload && groups.length > 0){
                 this._assetsloader = new AssetsLoader(preload,groups);
                 this._assetsloader.addEventListener(event.AssetsEvent.PRELOAD_READY,this._preLoaded,this);
@@ -37,11 +39,11 @@ module gamep{
 
         /** 启动 **/
         private _launch(){
-
+            this._facade.startUp();
         }
 
         private _onprogress(e:event.AssetsEvent){
-
+            if(this._progressbar)this._progressbar.update(e.percent);
         }
 
     }

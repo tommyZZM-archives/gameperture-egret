@@ -1,5 +1,5 @@
-module gp.display.ui{
-    export class TouchAbleObject extends gp.GameUiObject{
+module gamep.display.ui{
+    export class TouchAbleObject extends GameUiObject{
 
         private _callbak:any;
 

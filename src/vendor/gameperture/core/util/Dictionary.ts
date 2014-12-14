@@ -21,10 +21,10 @@ module gamep.utils {
         _values: any[] = [];
 
         constructor(dic?: { key: any; value: any; }[]) {
-            if(dic)this.addgroup(dic);
+            if(dic)this.setGroup(dic);
         }
 
-        addgroup(dic: { key: any; value: any; }[]){
+        public setGroup(dic: { key: any; value: any; }[]){
             if(dic){
                 for (var x = 0; x < dic.length; x++) {
                     this.set(dic[x].key+'',dic[x].value);

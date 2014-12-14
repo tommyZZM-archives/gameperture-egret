@@ -1,7 +1,7 @@
 /**
  * Created by 2014-11-06 on 2014/12/6.
  */
-module gp.display.ui {
+module gamep.display.ui {
     export class TouchArea extends TouchAbleObject {
 
         public constructor(name:string,x:number,y:number,width:number,height:number,

@@ -12,7 +12,7 @@ class Main extends egret.DisplayObjectContainer{
         var display = new MyGameDisplay(this);
 
         var launch  = new gamep.GameLauncher(game,display,true);
-        launch.launchWith("preload", "testload", "testload2");
+        launch.launchWith("preload");
     }
 
 }

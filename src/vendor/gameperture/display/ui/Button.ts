@@ -1,4 +1,4 @@
-module gp.display.ui{
+module gamep.display.ui{
     export class Button extends TouchAbleObject{
 
         public constructor(name:string,texture:string,x:number,y:number,gravity:string='center',

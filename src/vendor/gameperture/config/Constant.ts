@@ -1,5 +1,5 @@
 module gamep{
-    export var gpversion = '0.12 deving';
+    export var gpversion = '0.16 deving';
     export var isdebug = false;
     export var rootscene:egret.DisplayObjectContainer = null;
 
@@ -23,12 +23,8 @@ module gamep{
         return egret.MainContext.instance.stage.stageHeight;
     }
 
-}
+    export module notify{
+        export var GameReady:string = 'gameready0112';
+    }
 
-class GameStatus{
-    public static NOTRUN = -2;
-    public static READY = 1;
-    public static PLAYING = 2;
-    public static RESTART = -1;
-    public static OVER = 0;
 }

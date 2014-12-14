@@ -17,5 +17,11 @@ module gamep{
             this.addChild(this._interface);
             GameFacade.instance.registDisplay(this);
         }
+
+        //@public @final
+        public dispatchNotify(notify:string, ...courier:any[]){
+            this.dispatchEvent(new FacadeEvent(notify,courier));
+        }
+
     }
 }

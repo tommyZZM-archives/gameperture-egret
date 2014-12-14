@@ -1,4 +1,4 @@
-module gp.display{
+module gamep.display{
     export class Wisp extends gp.GameSprite{
 
         private _moiveGroupList;

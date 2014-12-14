@@ -1,4 +1,4 @@
-module gp{
+module gamep{
     export class GameUiObject extends GameSprite{
 
         public constructor(name:string,x:number=0,y:number=0,gravity:string='default',

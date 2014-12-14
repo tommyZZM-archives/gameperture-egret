@@ -1,4 +1,4 @@
-module gp.display.ui{
+module gamep.display.ui{
     export class TextFiledEx extends GameUiObject{
 
         public _charlist:any;

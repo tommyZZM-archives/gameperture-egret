@@ -1,10 +1,10 @@
-module gp.util {
+module gamep.util {
     export class ObjectPool{
         constructor() {}
         private _pool = {};
         private _list:Array<any> = [];
 
-        public createObject(classFactory:any,params?: any):GameSprite {
+        /*public createObject(classFactory:any,params?: any):GameSprite {
             var result;
             var key = classFactory.name;
             if(key == 'undefined'){
@@ -34,6 +34,6 @@ module gp.util {
             if (index != -1) {
                 this._list.splice(index, 1);
             }
-        }
+        }*/
     }
 }

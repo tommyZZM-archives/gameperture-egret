@@ -45,9 +45,9 @@ module MathEx{
 }
 
 module Art {
-    export function colour(c:any, alpha:number = 1){
+    export function colour(c:any, alpha:number = 1):number{
         if (typeof(c) == "string") {
-            c = _parse_colour(c)*1;
+            c = +_parse_colour(c);
         }
         return c;
     }

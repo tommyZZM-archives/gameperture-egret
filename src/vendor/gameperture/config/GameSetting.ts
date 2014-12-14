@@ -17,7 +17,7 @@ module gamep.config{
             }
             this._setting = new utils.Dictionary();
             for(var i in setting){
-                this._setting.add(i+'',setting[i])
+                this._setting.set(i+'',setting[i])
             }
         }
 

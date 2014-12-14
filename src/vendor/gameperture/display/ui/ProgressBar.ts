@@ -1,4 +1,4 @@
-module gp.display.ui{
+module gamep.display.ui{
     export class ProgressBar extends GameUiObject{
 
         private _emptyclour:number;
