@@ -1,3 +1,3 @@
-class MyGame extends gp.GameCycler {
+class MyGame extends gamep.GameCycler {
 
 }

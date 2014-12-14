@@ -1,3 +1,3 @@
-class MyDisplay extends gp.GameDisplay{
+class MyGameDisplay extends gamep.GameDisplay{
 
 }
