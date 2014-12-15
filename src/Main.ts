@@ -5,14 +5,12 @@ class Main extends egret.DisplayObjectContainer{
         this.addEventListener(egret.Event.ADDED_TO_STAGE,this.start,this);
     }
 
-    private start(e:egret.Event){
+    private start(){
         this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.start,this);
 
-        var game = new MyGame();
-        var display = new MyGameDisplay(this);
-
-        var launch  = new gamep.GameLauncher(game,display,true);
-        launch.launchWith("preload");
+        new MyGame();
+        new MyGameDisplay(this);
+        (new gamep.GameLauncher(true)).launchWith("preload");
     }
 
 }
