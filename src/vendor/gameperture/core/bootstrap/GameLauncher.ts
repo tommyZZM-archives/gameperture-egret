@@ -6,7 +6,7 @@ module gamep{
         private _facade:GameFacade = GameFacade.instance;
 
 
-        public constructor(game:GameCycler,display:GameDisplay,debug:boolean) {
+        public constructor(debug:boolean) {
             console.info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
                 "Quick Game FrameWork base on Egret Engine!");
             isdebug = debug;
