@@ -3,9 +3,11 @@ module gamep{
     export var isdebug = false;
     export var rootscene:egret.DisplayObjectContainer = null;
 
-    export function trace(message?: any, ...optionalParams: any[]){
+    export function trace(...optionalParams: any[]){
         if(isdebug){
-            console.log(message,optionalParams?'':optionalParams);
+            //TODO:需要改进...
+            var out = optionalParams.join(',');
+            console.log(out);
         }
     }
 
@@ -24,6 +26,7 @@ module gamep{
     }
 
     export module notify{
+        export var GamePre:string = 'gamepre0112';
         export var GameReady:string = 'gameready0112';
     }
 

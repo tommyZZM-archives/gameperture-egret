@@ -23,23 +23,26 @@ module gamep{
         public launchWith(preload:string = null,...groups:string[]){
             if(preload && groups.length > 0){
                 this._assetsloader = new AssetsLoader(preload,groups);
-                this._assetsloader.addEventListener(event.AssetsEvent.PRELOAD_READY,this._preLoaded,this);
+                this._assetsloader.addEventListener(event.AssetsEvent.PRELOAD_READY,this._preloaded,this);
             }else{
                 if(groups.length == 0){groups.push(preload)}
-                this._preLoaded();
                 this._assetsloader = new AssetsLoader(null,groups);
             }
-            this._assetsloader.addEventListener(event.AssetsEvent.ASSET_READY,this._launch,this);
+            this._assetsloader.addEventListener(event.AssetsEvent.ASSET_READY,this._startup,this);
             this._assetsloader.addEventListener(event.AssetsEvent.ASSET_PROGRESS,this._onprogress,this);
+            this._facade.init();
         }
 
-        private _preLoaded(){
-
+        private _preloaded(){
+            this._facade.prestar();
+            this._assetsloader.removeEventListener(event.AssetsEvent.PRELOAD_READY,this._preloaded,this);
         }
 
         /** 启动 **/
-        private _launch(){
-            this._facade.startUp();
+        private _startup(){
+            this._facade.startup();
+            this._assetsloader.removeEventListener(event.AssetsEvent.ASSET_READY,this._startup,this);
+            this._assetsloader.removeEventListener(event.AssetsEvent.ASSET_PROGRESS,this._onprogress,this);
         }
 
         private _onprogress(e:event.AssetsEvent){

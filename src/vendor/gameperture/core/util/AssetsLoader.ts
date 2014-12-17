@@ -37,6 +37,8 @@ module gamep{
                 }else{
                     trace('All Load Complete!');
                     this.dispatchEvent(new event.AssetsEvent(event.AssetsEvent.ASSET_READY));
+                    RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.loadComplete,this);
+                    RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.loadProgress,this);
                 }
             }
         }

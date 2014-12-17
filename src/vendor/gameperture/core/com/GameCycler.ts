@@ -13,8 +13,13 @@ module gamep{
         }
 
         //@protected
-        public _onReady(arg?){
+        public _onPre(){
+            trace('GameCycler#17','_onPre()');
+        }
 
+        //@protected
+        public _onReady(){
+            trace('GameCycler#22','_onReady()');
         }
 
     }
