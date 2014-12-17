@@ -13,7 +13,7 @@ module gamep{
             if(isdebug){
                 egret.Profiler.getInstance().run();
             }
-            new gamep.utils.GameProfiler();
+            utils.GameProfiler.instance;
         }
 
         public addProgress(progress:display.ui.ProgressBar){
