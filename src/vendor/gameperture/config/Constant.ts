@@ -15,14 +15,14 @@ module gamep{
         return egret.MainContext.instance.stage;
     }
 
-    export function stageWidth():number
+    export function stageWidth(multiple:number=1):number
     {
-        return egret.MainContext.instance.stage.stageWidth;
+        return egret.MainContext.instance.stage.stageWidth*multiple;
     }
 
-    export function stageHeight():number
+    export function stageHeight(multiple:number=1):number
     {
-        return egret.MainContext.instance.stage.stageHeight;
+        return egret.MainContext.instance.stage.stageHeight*multiple;
     }
 
     export module notify{
