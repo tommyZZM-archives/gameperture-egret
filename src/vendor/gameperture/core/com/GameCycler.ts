@@ -9,7 +9,7 @@ module gamep{
          * returns { notify: string; callback: Function; }[]
          */
         protected commandRoutes():{ notify: string; callback: Function; }[]{
-            return [];
+            return null;
         }
 
         //@protected

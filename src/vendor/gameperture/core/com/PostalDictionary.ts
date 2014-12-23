@@ -12,7 +12,7 @@ module gamep{
                 var value = route[i].callback;
                 dic.push({key:key,value:value});
             }
-            if(route.length>0){
+            if(route && route['length']>0){
                 super.setGroup(dic);
             }
         }
