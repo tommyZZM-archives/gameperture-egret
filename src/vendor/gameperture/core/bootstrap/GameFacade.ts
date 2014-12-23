@@ -1,7 +1,8 @@
 module gamep {
     export class GameFacade{
-        
-        //private _dispatcher:egret.EventDispatcher;
+
+        //private _isinit:boolean;
+
         private _game:GameCycler;
         private _display:GameDisplay;
         private _postals:PostalDictionary;
@@ -11,8 +12,8 @@ module gamep {
         }
 
         public init(){
-            this._postals.setRoute(notify.GamePre,this._game['_onPre']);
-            this._postals.setRoute(notify.GameReady,this._game['_onReady']);
+            this._postals.setRoute(notify.GamePre,this._game['onPre']);//默认路由
+            this._postals.setRoute(notify.GameReady,this._game['onReady']);
             this._postals.setRoutes(this._game['commandRoutes']());
             this._display.addEventListener(FacadeEvent.UNIQUE,this._postOffice,this);
         }
@@ -24,8 +25,8 @@ module gamep {
             this._postals[e.notify].apply(this._game,e.courier);
         }
 
-        public registGame(game:GameCycler){this._game = game;}
-        public registDisplay(display:GameDisplay){this._display = display;}
+        private registGame(game:GameCycler){this._game = game;}
+        private registDisplay(display:GameDisplay){this._display = display;}
 
         //instance mode
         private static _instance:GameFacade;
@@ -33,6 +34,7 @@ module gamep {
             if (this._instance == null) {
                 this._instance = new GameFacade();
             }
+            //if(this._instance['_game'] && this._instance['_display']){this._instance['_isinit'] = true;}
             return this._instance;
         }
     }

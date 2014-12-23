@@ -15,7 +15,7 @@ module gamep{
             rootscene.addChild(this);
             this.addChild(this._scenery);
             this.addChild(this._interface);
-            GameFacade.instance.registDisplay(this);
+            GameFacade.instance['registDisplay'](this);
         }
 
         //@public @final

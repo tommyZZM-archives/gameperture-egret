@@ -2,7 +2,7 @@ module gamep{
     export class GameCycler {
 
         public constructor() {
-            GameFacade.instance.registGame(this);
+            GameFacade.instance['registGame'](this);
         }
 
         /**
@@ -13,12 +13,12 @@ module gamep{
         }
 
         //@protected
-        protected _onPre(){
+        protected onPre(){
 
         }
 
         //@protected
-        protected _onReady(){
+        protected onReady(){
 
         }
 
