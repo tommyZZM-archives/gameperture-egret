@@ -1,3 +1,6 @@
+/**
+ * Created by 2014-11-06 on 2014/12/23.
+ */
 module gamep.display.ui{
     export class ProgressBar extends GameUiObject{
 
@@ -12,7 +15,7 @@ module gamep.display.ui{
             this._height = heigth;
             emptyclour?this._emptyclour = emptyclour:this._emptyclour=Art.colour('d6d6d6');
             fillclour?this._fillclour = fillclour:this._fillclour=Art.colour('1ac2ff');
-            super(name,x,y,'center');
+            super(name,x,y,0.5,0.5);
             //TODO:your code
         }
 

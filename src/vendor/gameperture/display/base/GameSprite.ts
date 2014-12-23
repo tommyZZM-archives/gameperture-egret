@@ -6,84 +6,47 @@ module gamep{
         public _width:number;
         public _height:number;
 
-        public _skin:any;
-        public _texture:egret.Texture;
-
-        private _tween:egret.Tween;
-
-        private _temp_size:any = {scaleX:1,scaleY:1};
-
         private _debugobj:any;
 
-        public constructor(x:number=0,y:number=0,parent:egret.DisplayObjectContainer = null,gravity:string='default',
+        public constructor(x:number=0,y:number=0,parent:egret.DisplayObjectContainer = null,
                            pivotX:number=0,pivotY:number=0) {
             super();
             if(!this.key){this.key = "undefined";/*console.warn('a GameSprite should define a key');*/}
             this._width?this.width = this._width:this.width = 0;
             this._height?this.height = this._height:this.height = 0;
             //TODO:your code here
-            this._position_fix(gravity,pivotX,pivotY);
+            this._position_fix(pivotX,pivotY);
             this.x = x;
             this.y = y;
-            this._display();
-            if(this._skin){this.width = this._skin.width;this.height = this._skin.height;}
-            if(parent){
-                this.transParent(parent);
-            }
         }
 
         //@overwrite
-        public _display(){
-            if(this._skin){
-                this.addChild(this._skin);
-            }
+        protected display(){
         }
 
-        private _position_fix(gravity:string,pivotX:number,pivotY:number):void{
-            switch(gravity){
-                case 'center':
-                {
-                    this.anchorX = this.anchorY = 0.5;
-                    break;
-                }
-                case 'bottom_center':
-                {
-                    this.anchorX = 0.5;
-                    this.anchorY =  1;
-                    break;
-                }
-                case 'custom':{
-                    this.anchorX = pivotX*1;
-                    this.anchorY =  pivotY*1;
-                    break;
-                }
-                default:{
-                    break;
-                }
-            }
+        private _position_fix(pivotX:number,pivotY:number):void{
+            this.anchorX = +pivotX;
+            this.anchorY = +pivotY;
         }
 
-        public scale(i:number,j:any=false):void{
-            if(!j){
-                this.scaleX = this.scaleY = i;
+        public scale(xi:number,y:number=null):void{
+            if(!y){
+                this.scaleX = this.scaleY = xi;
             }else{
-                if(i!=1){
-                    this.scaleX = i;
-                }
-                this.scaleY = j;
+                this.scaleX = xi;
+                this.scaleY = y;
             }
-            this._temp_size.scaleX = this.scaleX;
-            this._temp_size.scaleY = this.scaleY;
         }
 
-        public get tempScaleX():number{return this._temp_size.scaleX}
-        public get tempScaleY():number{return this._temp_size.scaleY}
+        public scaleTo(width:number,height:number){
+            //TODO:缩放到指定宽高...
+        }
 
-        public show(arg?):void{
+        public show(...arg):void{
             this.visible = true;
         }
 
-        public hide(arg?):void{
+        public hide(...arg):void{
             this.visible = false;
         }
 
@@ -91,18 +54,17 @@ module gamep{
             return egret.Tween.get(this);
         }
 
-        public fade(is_in:any = true,duration:number=200){
-            if(is_in){
-                this.show();
-                this.alpha = 0;
-                this.tween.to({alpha:1},duration);
-            }else{
-                this.alpha = 1;
-                this.tween.to({alpha:0},duration).call(this.hide,this);
-            }
+        public fadeIn(duration:number=200){
+            this.show();
+            this.alpha = 0;
+            this.tween.to({alpha:1},duration);
         }
 
-        public removetween(){
+        public fadeOut(duration:number=200){
+            this.tween.to({alpha:0},duration).call(this.hide,this);
+        }
+
+        public removeTween(){
             egret.Tween.removeTweens(this);
         }
 
@@ -125,42 +87,6 @@ module gamep{
 
         public onCreate():void {}
         public onDestroy():void {}
-
-
-        /**
-         * debug
-         * @param colour
-         * @param type
-         */
-        public enabledebug(colour:string='#c0392b',type:string='rect'){
-            if(!this._debugobj){
-                this._debugobj = new egret.Shape;
-                this._debugobj.graphics.beginFill(Art.colour(colour));
-                switch (type.toLowerCase()) {
-                    default :
-                    case 'rect':
-                    {
-                        this._debugobj.graphics.drawRect(0, 0, this.width, this.height);
-                        break;
-                    }
-                    case 'circle':
-                    {
-                        this._debugobj.graphics.drawCircle(0, 0, this.width);
-                        break;
-                    }
-                }
-                this._debugobj.graphics.endFill();
-                this._debugobj.alpha = 0.2;
-                this._debugobj.width = this.width;
-                this._debugobj.height = this.height;
-                this.addChild(this._debugobj);
-            }
-        }
-
-        public removedebug(){
-            if(this._debugobj)this.removeChild(this._debugobj);
-            this._debugobj = null;
-        }
 
     }
 }

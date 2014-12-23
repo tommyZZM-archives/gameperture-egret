@@ -19,7 +19,7 @@ module gamep{
             return this.components;
         }*/
 
-        public select(name):gp.GameUiObject{
+        public select(name):GameUiObject{
             return this.components[name];
         }
     }
