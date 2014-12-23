@@ -19,7 +19,7 @@ module gamep{
         }
 
         //@public @final
-        public dispatchNotify(notify:string, ...courier:any[]){
+        protected dispatchNotify(notify:string, ...courier:any[]){
             this.dispatchEvent(new FacadeEvent(notify,courier));
         }
 

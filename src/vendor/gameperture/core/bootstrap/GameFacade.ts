@@ -13,12 +13,12 @@ module gamep {
         public init(){
             this._postals.setRoute(notify.GamePre,this._game['_onPre']);
             this._postals.setRoute(notify.GameReady,this._game['_onReady']);
-            this._postals.setRoutes(this._game.commandRoutes());
+            this._postals.setRoutes(this._game['commandRoutes']());
             this._display.addEventListener(FacadeEvent.UNIQUE,this._postOffice,this);
         }
 
-        public prestar(){this._display.dispatchNotify(notify.GamePre);}
-        public startup(){this._display.dispatchNotify(notify.GameReady);}
+        public prestar(){this._display['dispatchNotify'](notify.GamePre);}
+        public startup(){this._display['dispatchNotify'](notify.GameReady);}
 
         private _postOffice(e:FacadeEvent){
             this._postals[e.notify].apply(this._game,e.courier);
