@@ -1,32 +1,28 @@
 module gamep{
     export class GameSprite extends egret.Sprite{
 
-        public key:string;
+        protected _key:string;
 
-        public _width:number;
-        public _height:number;
-
-        private _debugobj:any;
+        protected _width:number;
+        protected _height:number;
 
         public constructor(x:number=0,y:number=0,parent:egret.DisplayObjectContainer = null,
                            pivotX:number=0,pivotY:number=0) {
             super();
-            if(!this.key){this.key = "undefined";/*console.warn('a GameSprite should define a key');*/}
-            this._width?this.width = this._width:this.width = 0;
-            this._height?this.height = this._height:this.height = 0;
+            if(!this._key){this._key = undefined;/*console.warn('a GameSprite should define a key');*/}
             //TODO:your code here
-            this._position_fix(pivotX,pivotY);
-            this.x = x;
-            this.y = y;
+            this.pivotFix(pivotX,pivotY);
+            this.x = x;this.y = y;
+            this.display();
         }
 
         //@overwrite
         protected display(){
         }
 
-        private _position_fix(pivotX:number,pivotY:number):void{
-            this.anchorX = +pivotX;
-            this.anchorY = +pivotY;
+        public pivotFix(pivotX:number,pivotY:number):void{
+            this.anchorX = pivotX;
+            this.anchorY = pivotY;
         }
 
         public scale(xi:number,y:number=null):void{
@@ -41,6 +37,10 @@ module gamep{
         public scaleTo(width:number,height:number){
             //TODO:缩放到指定宽高...
         }
+
+        /**
+         * 显示动作/动画
+         */
 
         public show(...arg):void{
             this.visible = true;
@@ -85,8 +85,14 @@ module gamep{
             }
         }
 
+        /**
+         * 创建和销毁对象
+         */
         public onCreate():void {}
         public onDestroy():void {}
+        public get key():string{
+            return this._key;
+        }
 
     }
 }

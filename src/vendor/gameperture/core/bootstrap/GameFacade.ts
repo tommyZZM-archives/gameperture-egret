@@ -25,9 +25,6 @@ module gamep {
             this._postals[e.notify].apply(this._game,e.courier);
         }
 
-        private registGame(game:GameCycler){this._game = game;}
-        private registDisplay(display:GameDisplay){this._display = display;}
-
         //instance mode
         private static _instance:GameFacade;
         public static get instance():GameFacade{

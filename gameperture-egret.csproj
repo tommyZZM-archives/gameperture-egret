@@ -196,7 +196,7 @@
     <TypeScriptCompile Include="src\gameperture\core\util\GameProfiler.ts" />
     <TypeScriptCompile Include="src\gameperture\core\util\Toolkit.ts" />
     <TypeScriptCompile Include="src\gameperture\core\viewc\GameDisplay.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\viewc\GameInterface.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\viewc\GameContainer.ts" />
     <TypeScriptCompile Include="src\gameperture\core\viewc\GameScenery.ts" />
     <TypeScriptCompile Include="src\gameperture\core\viewc\GameSprite.ts" />
     <TypeScriptCompile Include="src\gameperture\core\viewc\GameUiObject.ts" />

@@ -1,5 +1,5 @@
 module gamep{
-    export class GameInterface extends egret.DisplayObjectContainer{
+    export class GameContainer extends egret.DisplayObjectContainer{
 
         private components:utils.Dictionary;
 
@@ -9,15 +9,16 @@ module gamep{
             //TODO:your code here
         }
 
-        public addChild(child: GameUiObject):egret.DisplayObject{
+        public addChild(child: GameSprite):GameSprite{
             this.components.set(child.name,child);
             super.addChild(child);
             return child;
         }
 
-        /*public get debug(){
-            return this.components;
-        }*/
+        public clear(){this.removeChildren();}
+
+        public hide(...arg):void{this.visible = false;}
+        public show(...arg):void{this.visible = true;}
 
         public select(name):GameUiObject{
             return this.components[name];

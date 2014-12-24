@@ -19,7 +19,7 @@ module gamep.display.ui{
             //TODO:your code
         }
 
-        public _display(){
+        protected display(){
             this._emptycrumb =  new egret.Shape();
             this._emptycrumb = new egret.Shape();
             this._emptycrumb.graphics.beginFill(this._emptyclour,1);
