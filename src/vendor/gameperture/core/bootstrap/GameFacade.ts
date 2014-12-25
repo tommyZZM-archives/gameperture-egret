@@ -4,7 +4,7 @@ module gamep {
         //private _isinit:boolean;
 
         private _game:GameCycler;
-        private _display:GameDisplay;
+        private _display:GameStage;
         private _postals:PostalDictionary;
 
         public constructor() {

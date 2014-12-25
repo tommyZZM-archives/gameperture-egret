@@ -73,10 +73,18 @@ module gamep{
          */
 
         public transParent(target:egret.DisplayObjectContainer){
+            var gpos:egret.Point;
+            var npos:egret.Point;
             if(this.parent){
                 this.parent.removeChild(this);
+                gpos = this.parent.localToGlobal(this.x,this.y);
             }
             target.addChild(this);
+            if(gpos){
+                npos = target.globalToLocal(gpos.x,gpos.y);
+                this.x = npos.x;
+                this.y = npos.y;
+            }
         }
 
         public removeFromParent(){

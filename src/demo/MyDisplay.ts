@@ -1,3 +1,3 @@
-class MyGameDisplay extends gamep.GameDisplay{
+class MyGameDisplay extends gamep.GameStage{
 
 }
