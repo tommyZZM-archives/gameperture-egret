@@ -21,7 +21,7 @@ module gamep {
         }
 
         public init(){
-            this._cmdPostals.setRoute(notify.CMD.GameReady,this._game,this._game['hello']);
+            this._cmdPostals.setRoute(notify.CMD.GameReady,this._game,this._game['onReady']);
             this._cmdPostals.setRoutes(this._game.createRoutes());
             this._logicPostals.setRoutes(this._display.createRoutes());
             rootscene.addEventListener(event.FacadeEvent.UNIQUE,this._postOffice,this);
@@ -42,7 +42,7 @@ module gamep {
                     break;
                 }
                 case notify.call:{
-                    this._logicPostals[e.notify].callback.apply(this._display,e.courier);
+                    this._logicPostals[e.notify].callback.apply(this._logicPostals[e.notify].thisobj,e.courier);
                     break;
                 }
                 default:

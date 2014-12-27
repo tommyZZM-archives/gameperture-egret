@@ -20,32 +20,38 @@ module gamep{
         }
 
         private startup(){
-            this.hello();
+            this.onReady();
             this.dispatchCmd(notify.CMD.GameReady)
         }
 
-        public hello(){
-            console.log('hello');
+        protected onReady(){
+
         }
 
         /**
          *
          * @returns {null}
          */
-        protected callRoutes():{ notify: string; callback: Function; }[]{
+        protected callRoutes():{ notify: string; displayobj:egret.DisplayObject; callback: Function; }[]{
             return null;
         }
 
         /** @deprecated */
         public createRoutes():{ notify: string; thisobj:any; callback: Function; }[]{
-            var rs:any = this.callRoutes();
-            for(var i in rs){rs[i].thisobj = null;}
+            var prs:any = this.callRoutes();
+            var rs:any = []
+            for(var i in prs){
+                rs[i] = {};
+                rs[i].notify = prs[i].notify;
+                rs[i].callback = prs[i].callback;
+                rs[i].thisobj = prs[i].displayobj;
+            }
             return rs;
         }
 
         //@public @final
         protected dispatchCmd(cmd:string, ...courier:any[]){
-            rootscene.dispatchEvent(new FacadeEvent(notify.cmd,cmd,courier));
+            rootscene.dispatchEvent(new event.FacadeEvent(notify.cmd,cmd,courier));
         }
 
         //禁用方法

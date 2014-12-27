@@ -6,7 +6,11 @@ module gamep {
 
         public constructor(name) {
             this._name = name;
-            //super();
+            this._regLogics();
+        }
+
+        protected regLogics():GameLogicer[]{
+            return null;
         }
 
         protected cmdRoutes():{ notify: string; callback: Function; }[]{
@@ -40,8 +44,14 @@ module gamep {
         protected getLogic(name):any{
             return this._logicPool[name];
         }
-        protected get _logicPool():utils.Dictionary{
+        private get _logicPool():utils.Dictionary{
             return GameFacade.instance['_logicpool']
+        }
+        protected _regLogics(){
+            for(var i in this.regLogics()){
+                var logic = (this.regLogics())[i];
+                if(logic)this._logicPool.set(logic.name,logic);
+            }
         }
     }
 }

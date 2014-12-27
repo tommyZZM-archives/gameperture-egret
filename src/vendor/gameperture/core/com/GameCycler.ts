@@ -5,6 +5,11 @@ module gamep{
         public constructor() {
             super(null);
             GameFacade.instance['_game']=this;
+            this._regCommands();
+        }
+
+        protected regCommands():GameCmder[]{
+            return null;
         }
 
         /**
@@ -14,7 +19,7 @@ module gamep{
             return null;
         }
 
-        protected hello(){
+        protected onReady(){
 
         }
 
@@ -23,19 +28,17 @@ module gamep{
         }
 
         //控制器
-        private regCommand(command:GameCmder){
-            this._cmdPool.set(command.name,command);
+        private _regCommands(){
+            for(var i in this.regCommands()){
+                var cmd = (this.regCommands())[i];
+                if(cmd)this._cmdPool.set(cmd.name,cmd);
+            }
         }
         protected getCommand(name):any{
             return this._cmdPool[name];
         }
         private get _cmdPool():utils.Dictionary{
             return GameFacade.instance['_cmdpool']
-        }
-
-        //业务逻辑
-        private regLogic(logic:GameLogicer){
-            this._logicPool.set(logic.name,logic);
         }
     }
 }

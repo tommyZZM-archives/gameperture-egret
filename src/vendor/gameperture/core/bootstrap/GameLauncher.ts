@@ -2,7 +2,7 @@ module gamep{
     export class GameLauncher{//implements GamePertureInterface
 
         private _assetsloader:AssetsLoader;
-        private _progressbar:display.ui.ProgressBar;
+        private _progressbar:gamep.display.ui.ProgressBar;
         private _facade:GameFacade = GameFacade.instance;
 
 

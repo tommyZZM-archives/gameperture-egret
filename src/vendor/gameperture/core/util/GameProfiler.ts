@@ -28,7 +28,7 @@ module gamep.utils{
             if(this._countTime>=1000){
                 this._countTime = 0;
                 counttime++;
-                this.dispatchEvent(new event.ProfilerEvent(event.ProfilerEvent.ON_SECOND));
+                this.dispatchEvent(new gamep.event.ProfilerEvent(event.ProfilerEvent.ON_SECOND));
             }
 
             this._fps = 1000/dt;
