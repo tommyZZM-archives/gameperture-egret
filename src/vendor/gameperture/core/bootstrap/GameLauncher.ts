@@ -34,7 +34,7 @@ module gamep{
         }
 
         private _preloaded(){
-            this._facade.prestar();
+            //this._facade.prestar();
             this._assetsloader.removeEventListener(event.AssetsEvent.PRELOAD_READY,this._preloaded,this);
         }
 

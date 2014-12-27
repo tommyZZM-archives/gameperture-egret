@@ -2,37 +2,47 @@ module gamep{
     /**
      * 游戏舞台
      */
-    export class GameStage extends egret.DisplayObjectContainer {
+    export class GameStage extends egret.DisplayObjectContainer implements ISceneryComponent{
 
-        private _scenery = new GameContainer();
+        private _scenery;
         /** 舞台 **/
 
-        private _uinterface = new GameContainer();
+        private _uinterface;
         /** 界面 **/
 
         public constructor(root:egret.DisplayObjectContainer) {
             super();
             rootscene = root;
             rootscene.addChild(this);
-            this.addChild(this._scenery);
-            this.addChild(this._uinterface);
+            this._scenery   = new GameScenery(this);
+            this._uinterface= new GameScenery(this);
             GameFacade.instance['_display']=this;
         }
 
+        private startup(){
+            this.hello();
+            this.dispatchCmd(notify.CMD.GameReady)
+        }
+
+        public hello(){
+
+        }
+
         //@public @final
-        protected dispatchNotify(notify:string, ...courier:any[]){
-            this.dispatchEvent(new FacadeEvent(notify,courier));
+        protected dispatchCmd(cmd:string, ...courier:any[]){
+            rootscene.dispatchEvent(new FacadeEvent(notify.cmd,cmd,courier));
         }
 
         //禁用方法
         /** @deprecated */
         public addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number):void{
-            super.addEventListener(type,listener,thisObject,useCapture,priority);
+            //super.addEventListener(type,listener,thisObject,useCapture,priority);
         }
 
         /** @deprecated */
         public dispatchEvent(event: egret.Event):boolean{
-            return super.dispatchEvent(event);
+            return null;
+            //return super.dispatchEvent(event);
         }
 
     }

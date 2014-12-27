@@ -26,8 +26,17 @@ module gamep{
     }
 
     export module notify{
-        export var GamePre:string = 'gamepre0112';
+        export var cmd:string = 'cmd0112';
+        export var call:string= 'call0112';
+    }
+
+    export module notify.CMD{
+        //export var GamePre:string = 'gamepre0112';
         export var GameReady:string = 'gameready0112';
+    }
+
+    export module notify.CALL{
+
     }
 
 }
