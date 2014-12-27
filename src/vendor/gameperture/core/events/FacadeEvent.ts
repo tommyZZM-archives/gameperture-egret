@@ -1,4 +1,4 @@
-module gamep {
+module gamep.event {
     export class FacadeEvent extends egret.Event{
 
         public static UNIQUE:string = 'facadeEvent0811';

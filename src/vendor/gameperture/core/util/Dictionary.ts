@@ -32,8 +32,9 @@ module gamep.utils {
             }
         }
 
-        public set(key: string, value: any) {
+        public set(key: string, value: any,__hard:boolean=false) {
             if(this[key]){
+                if(!__hard){console.warn(key+'already has value!try to remove hard!');return;}
                 this.remove(key);//如果重复把之前的映射先移除
             }
             this[key] = value;

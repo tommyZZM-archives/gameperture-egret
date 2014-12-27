@@ -6,8 +6,8 @@ module gamep {
             parent.addChild(this);
         }
 
-        protected dispatchCmd(notify:string, ...courier:any[]){
-            this.parent.dispatchEvent(new FacadeEvent(notify,courier));
+        protected dispatchCmd(cmd:string, ...courier:any[]){
+            rootscene.dispatchEvent(new event.FacadeEvent(notify.cmd,cmd,courier));
         }
 
     }

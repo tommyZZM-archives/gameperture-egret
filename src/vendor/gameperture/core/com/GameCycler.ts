@@ -10,7 +10,7 @@ module gamep{
         /**
          * returns { notify: string; callback: Function; }[]
          */
-        protected grateRoutes():{ notify: string; callback: Function; }[]{
+        protected cmdRoutes():{ notify: string; callback: Function; }[]{
             return null;
         }
 
@@ -23,7 +23,7 @@ module gamep{
         }
 
         //控制器
-        protected regCommand(command:GameCmder){
+        private regCommand(command:GameCmder){
             this._cmdPool.set(command.name,command);
         }
         protected getCommand(name):any{
@@ -34,7 +34,7 @@ module gamep{
         }
 
         //业务逻辑
-        protected regLogic(logic:GameLogicer){
+        private regLogic(logic:GameLogicer){
             this._logicPool.set(logic.name,logic);
         }
     }

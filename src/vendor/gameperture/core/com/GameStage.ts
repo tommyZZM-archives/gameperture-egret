@@ -2,7 +2,7 @@ module gamep{
     /**
      * 游戏舞台
      */
-    export class GameStage extends egret.DisplayObjectContainer implements ISceneryComponent{
+    export class GameStage extends egret.DisplayObjectContainer implements ISceneryComponent,ICom{
 
         private _scenery;
         /** 舞台 **/
@@ -25,7 +25,22 @@ module gamep{
         }
 
         public hello(){
+            console.log('hello');
+        }
 
+        /**
+         *
+         * @returns {null}
+         */
+        protected callRoutes():{ notify: string; callback: Function; }[]{
+            return null;
+        }
+
+        /** @deprecated */
+        public createRoutes():{ notify: string; thisobj:any; callback: Function; }[]{
+            var rs:any = this.callRoutes();
+            for(var i in rs){rs[i].thisobj = null;}
+            return rs;
         }
 
         //@public @final

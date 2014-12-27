@@ -1,12 +1,25 @@
 module gamep {
     //commander
-    export class GameCmder {
+    export class GameCmder implements ICom{
 
         private _name:string;
 
         public constructor(name) {
             this._name = name;
             //super();
+        }
+
+        protected cmdRoutes():{ notify: string; callback: Function; }[]{
+            return null;
+        }
+
+        /** @deprecated */
+        public createRoutes():{ notify: string; thisobj:any; callback: Function; }[]{
+            var rs:any = this.cmdRoutes();
+            for(var i in rs){
+                rs[i].thisobj = this;
+            }
+            return rs;
         }
 
         // @final

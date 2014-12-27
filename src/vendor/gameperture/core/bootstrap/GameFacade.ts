@@ -8,22 +8,23 @@ module gamep {
 
         private _cmdpool:utils.Dictionary;//存放所有命令
         private _logicpool:utils.Dictionary;//存放所有业务逻辑
-        private _logicpostals:PostalDictionary;//逻辑->命令映射
 
-        private _gratePostals:PostalDictionary;//场景->场景控制器映射
+        private _logicPostals:PostalDictionary;//逻辑->命令映射
+        private _cmdPostals:PostalDictionary;//场景->场景控制器映射
 
         public constructor() {
-            this._gratePostals = new PostalDictionary();
+            this._cmdPostals = new PostalDictionary();
+            this._logicPostals = new PostalDictionary();
 
             this._cmdpool = new gamep.utils.Dictionary();
             this._logicpool = new gamep.utils.Dictionary();
-            this._logicpostals = new PostalDictionary();
         }
 
         public init(){
-            this._gratePostals.setRoute(notify.CMD.GameReady,this._game['hello']);
-            this._gratePostals.setRoutes(this._game['grateRoutes']());
-            rootscene.addEventListener(FacadeEvent.UNIQUE,this._postOffice,this);
+            this._cmdPostals.setRoute(notify.CMD.GameReady,this._game,this._game['hello']);
+            this._cmdPostals.setRoutes(this._game.createRoutes());
+            this._logicPostals.setRoutes(this._display.createRoutes());
+            rootscene.addEventListener(event.FacadeEvent.UNIQUE,this._postOffice,this);
         }
 
         public startup(){
@@ -34,14 +35,14 @@ module gamep {
         }
 
         //邮局
-        private _postOffice(e:FacadeEvent){
+        private _postOffice(e:event.FacadeEvent){
             switch (e.fatype){
-                case notify.CMD:{
-                    this._gratePostals[e.notify].apply(this._game,e.courier);
+                case notify.cmd:{
+                    this._cmdPostals[e.notify].callback.apply(this._cmdPostals[e.notify].thisobj,e.courier);
                     break;
                 }
-                case notify.CALL:{
-                    //this._logicpostals[e.notify].apply(this._display,e.courier);
+                case notify.call:{
+                    this._logicPostals[e.notify].callback.apply(this._display,e.courier);
                     break;
                 }
                 default:
