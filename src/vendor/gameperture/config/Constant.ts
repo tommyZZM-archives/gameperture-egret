@@ -1,6 +1,7 @@
 module gamep{
     export var gpversion = '0.16 deving';
     export var isdebug = false;
+    export var root:egret.DisplayObjectContainer = null;
     export var rootscene:egret.DisplayObjectContainer = null;
 
     export function trace(...optionalParams: any[]){

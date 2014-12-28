@@ -18,7 +18,7 @@ module gamep.utils{
         }
 
         private run(){
-            rootscene.addEventListener(egret.Event.ENTER_FRAME,this.calculateFPS,this)
+            root.addEventListener(egret.Event.ENTER_FRAME,this.calculateFPS,this)
         }
 
         private calculateFPS(){

@@ -21,7 +21,7 @@ module gamep {
         }
 
         public init(){
-            rootscene.addEventListener(event.FacadeEvent.UNIQUE,this._postOffice,this);
+            root.addEventListener(event.FacadeEvent.UNIQUE,this._postOffice,this);
         }
 
         public startup(){
