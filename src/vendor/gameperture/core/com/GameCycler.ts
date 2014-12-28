@@ -5,6 +5,7 @@ module gamep{
         public constructor() {
             super(null);
             GameFacade.instance['_game']=this;
+            GameFacade.instance['_cmdPostals'].setRoute(notify.CMD.GameReady,this,this.onReady);
             this._regCommands();
         }
 

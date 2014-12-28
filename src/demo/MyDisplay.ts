@@ -11,6 +11,8 @@ class MyGameDisplay extends gamep.GameStage{
     }
 
     private hellocallback(hi){
-        console.log('MyGameDisplay...hellocallback(hi) hi='+hi)
+        console.log('MyGameDisplay...hellocallback(hi) hi='+hi);
+        //console.log(gamep.GameFacade.instance['_cmdPostals']);
+        //console.log(gamep.GameFacade.instance['_logicPostals']);
     }
 }

@@ -2,7 +2,7 @@ module gamep{
     /**
      * 游戏舞台
      */
-    export class GameStage extends egret.DisplayObjectContainer implements ISceneryComponent,ICom{
+    export class GameStage extends egret.DisplayObjectContainer implements ISceneryComponent{
 
         private _scenery;
         /** 舞台 **/
@@ -17,16 +17,16 @@ module gamep{
             this._scenery   = new GameScenery(this);
             this._uinterface= new GameScenery(this);
             GameFacade.instance['_display']=this;
+            GameFacade.instance['_logicPostals'].setRoutes(this.createRoutes());
         }
 
-        private startup(){
-            this.onReady();
-            this.dispatchCmd(notify.CMD.GameReady)
-        }
+        private startup(){this.onReady();this.dispatchCmd(notify.CMD.GameReady)}
 
         protected onReady(){
 
         }
+
+        //TODO:实现场景切换的功能~
 
         /**
          *
@@ -37,7 +37,7 @@ module gamep{
         }
 
         /** @deprecated */
-        public createRoutes():{ notify: string; thisobj:any; callback: Function; }[]{
+        private createRoutes():{ notify: string; thisobj:any; callback: Function; }[]{
             var prs:any = this.callRoutes();
             var rs:any = []
             for(var i in prs){

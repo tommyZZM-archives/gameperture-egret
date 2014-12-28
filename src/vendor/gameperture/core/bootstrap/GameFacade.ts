@@ -21,9 +21,6 @@ module gamep {
         }
 
         public init(){
-            this._cmdPostals.setRoute(notify.CMD.GameReady,this._game,this._game['onReady']);
-            this._cmdPostals.setRoutes(this._game.createRoutes());
-            this._logicPostals.setRoutes(this._display.createRoutes());
             rootscene.addEventListener(event.FacadeEvent.UNIQUE,this._postOffice,this);
         }
 

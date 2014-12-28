@@ -1,12 +1,13 @@
 module gamep {
     //commander
-    export class GameCmder implements ICom{
+    export class GameCmder{
 
         private _name:string;
 
         public constructor(name) {
             this._name = name;
             this._regLogics();
+            GameFacade.instance['_cmdPostals'].setRoutes(this.createRoutes());
         }
 
         protected regLogics():GameLogicer[]{
@@ -17,8 +18,7 @@ module gamep {
             return null;
         }
 
-        /** @deprecated */
-        public createRoutes():{ notify: string; thisobj:any; callback: Function; }[]{
+        private createRoutes():{ notify: string; thisobj:any; callback: Function; }[]{
             var rs:any = this.cmdRoutes();
             for(var i in rs){
                 rs[i].thisobj = this;

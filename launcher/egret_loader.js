@@ -42,14 +42,16 @@ egret_h5.startGame = function () {
         winWidth = window.innerWidth;
     }
 
-    var GameWin = {w:460,h:800};
+    var GameWin = {w:480,h:800};
     var Gper = GameWin.h/GameWin.w;
     var per = winHeight/winWidth;
     if(per<Gper){
-        egret.StageDelegate.getInstance().setDesignSize(GameWin.h/per, GameWin.h);
+        GameWin.w = GameWin.h/per;
     }else{
-        egret.StageDelegate.getInstance().setDesignSize(GameWin.w, GameWin.w*per);
+        GameWin.h = GameWin.w*per;
     }
+
+    egret.StageDelegate.getInstance().setDesignSize(GameWin.w, GameWin.h);
 
     context.stage = new egret.Stage();
     var scaleMode =  egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.SHOW_ALL : egret.StageScaleMode.NO_SCALE;
