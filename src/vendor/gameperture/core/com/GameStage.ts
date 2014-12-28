@@ -29,6 +29,8 @@ module gamep{
 
         //TODO:实现场景切换的功能~
 
+        //TODO:实现OnEnterFrame()~
+
         /**
          *
          * @returns {null}
