@@ -4,13 +4,16 @@ module gamep.utils{
     export function rateoffest(worldrate:number = 60):number {
         return worldrate / FPS;
     }
-    export var counttime:number = 0;
+    export var countsecond:number = 0;
+    var countmicrosecond:number = 0;
 
     export class GameProfiler extends egret.EventDispatcher{
 
         private _fps:number = 0;
         private _lastTime:number = 0;
-        private _countTime:number = 0;
+
+        private _countMicroSecond:number = 0;
+        private _countSecond:number = 0;
 
         public constructor() {
             super();
@@ -24,11 +27,19 @@ module gamep.utils{
         private calculateFPS(){
             var nowTime:number = egret.getTimer();
             var dt = nowTime-this._lastTime;
-            this._countTime+=dt;
-            if(this._countTime>=1000){
-                this._countTime = 0;
-                counttime++;
-                this.dispatchEvent(new gamep.event.ProfilerEvent(event.ProfilerEvent.ON_SECOND));
+            this._countSecond+=dt;
+            this._countMicroSecond+=dt;
+
+            if(this._countMicroSecond>=10){
+                this._countMicroSecond = 0;
+                countmicrosecond++;
+                this.dispatchEvent(new gamep.Event.ProfilerEvent(Event.ProfilerEvent.ON_MICROSECOND));
+            }
+
+            if(this._countSecond>=1000){
+                this._countSecond = 0;
+                countsecond++;
+                this.dispatchEvent(new gamep.Event.ProfilerEvent(Event.ProfilerEvent.ON_SECOND));
             }
 
             this._fps = 1000/dt;

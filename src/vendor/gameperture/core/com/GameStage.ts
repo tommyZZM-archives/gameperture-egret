@@ -2,7 +2,7 @@ module gamep{
     /**
      * 游戏舞台
      */
-    export class GameStage extends egret.DisplayObjectContainer implements ISceneryComponent{
+    export class GameStage extends GameContainer implements ISceneryComponent{
 
         private _scenery;
         /** 舞台 **/
@@ -10,13 +10,16 @@ module gamep{
         private _uinterface;
         /** 界面 **/
 
+        public static SCENERY_ROOT:string = 'sceneryroot0112';
+        public static UI_INTERFACE:string = 'uinterface0112';
+
         public constructor(root:egret.DisplayObjectContainer) {
             super();
             gamep.root = root;
             gamep.rootscene = this;
             root.addChild(this);
-            this._scenery   = new GameScenery(this);
-            this._uinterface= new GameScenery(this);
+            this._scenery   = new GameScenery(GameStage.SCENERY_ROOT,this);
+            this._uinterface= new GameScenery(GameStage.UI_INTERFACE,this);
             GameFacade.instance['_display']=this;
             GameFacade.instance['_logicPostals'].setRoutes(this.createRoutes());
         }
@@ -29,7 +32,7 @@ module gamep{
 
         //TODO:实现场景切换的功能~
 
-        //TODO:实现OnEnterFrame()~
+        //TODO:实现OnEnterMicroSecond()~
 
         /**
          *
@@ -53,8 +56,8 @@ module gamep{
         }
 
         //@public @final
-        protected dispatchCmd(cmd:string, ...courier:any[]){
-            root.dispatchEvent(new event.FacadeEvent(notify.cmd,cmd,courier));
+        public dispatchCmd(cmd:string, ...courier:any[]){
+            root.dispatchEvent(new Event.FacadeEvent(notify.cmd,cmd,courier));
         }
 
         //禁用方法

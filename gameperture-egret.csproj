@@ -181,7 +181,7 @@
     <TypeScriptCompile Include="libs\_references.ts" />
     <TypeScriptCompile Include="src\demo\MyDisplay.ts" />
     <TypeScriptCompile Include="src\demo\MyGame.ts" />
-    <TypeScriptCompile Include="src\gameperture\config\Constant.ts" />
+    <TypeScriptCompile Include="src\gameperture\config\Global.ts" />
     <TypeScriptCompile Include="src\gameperture\config\Device.ts" />
     <TypeScriptCompile Include="src\gameperture\config\GameSetting.ts" />
     <TypeScriptCompile Include="src\gameperture\core\events\AssetsEvents.ts" />

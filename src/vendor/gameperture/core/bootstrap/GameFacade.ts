@@ -21,7 +21,7 @@ module gamep {
         }
 
         public init(){
-            root.addEventListener(event.FacadeEvent.UNIQUE,this._postOffice,this);
+            root.addEventListener(Event.FacadeEvent.UNIQUE,this._postOffice,this);
         }
 
         public startup(){
@@ -32,7 +32,7 @@ module gamep {
         }
 
         //邮局
-        private _postOffice(e:event.FacadeEvent){
+        private _postOffice(e:Event.FacadeEvent){
             switch (e.fatype){
                 case notify.cmd:{
                     this._cmdPostals[e.notify].callback.apply(this._cmdPostals[e.notify].thisobj,e.courier);

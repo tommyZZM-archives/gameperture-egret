@@ -29,14 +29,14 @@ module gamep{
             if(this._ispreload){
                 this._ispreload = false;
                 trace('Pre Load Complete!');
-                this.dispatchEvent(new event.AssetsEvent(event.AssetsEvent.PRELOAD_READY));
+                this.dispatchEvent(new Event.AssetsEvent(Event.AssetsEvent.PRELOAD_READY));
                 RES.loadGroup(this._assets_groups[this._currload]);
             }else{
                 if(this._currload < this._assets_groups.length){
                     RES.loadGroup(this._assets_groups[this._currload]);
                 }else{
                     trace('All Load Complete!');
-                    this.dispatchEvent(new event.AssetsEvent(event.AssetsEvent.ASSET_READY));
+                    this.dispatchEvent(new Event.AssetsEvent(Event.AssetsEvent.ASSET_READY));
                     RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.loadComplete,this);
                     RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.loadProgress,this);
                 }
@@ -48,7 +48,7 @@ module gamep{
                 var pct = e.itemsLoaded / e.itemsTotal;
                 trace('Loading '+e.resItem.url+' in '+e.groupName+' '+pct*100+'%');
                 if(e.groupName != this._ispreload){
-                    var eve = new event.AssetsEvent(event.AssetsEvent.ASSET_PROGRESS);
+                    var eve = new Event.AssetsEvent(Event.AssetsEvent.ASSET_PROGRESS);
                     eve.percent = pct;
                     this.dispatchEvent(eve);
                 }
