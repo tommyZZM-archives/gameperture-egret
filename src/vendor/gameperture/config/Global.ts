@@ -27,8 +27,9 @@ module gamep{
     }
 
     export module notify{
-        export var cmd:string = 'cmd0112';
-        export var call:string= 'call0112';
+        export var cmd:string      = 'cmd0112';
+        export var call:string     = 'call0112';
+        export var feedback:string = 'feed0112';
     }
 
     export module notify.CMD{

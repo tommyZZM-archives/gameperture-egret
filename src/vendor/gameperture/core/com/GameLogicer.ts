@@ -10,8 +10,8 @@ module gamep {
             //super();
         }
 
-        protected get object():any{
-            return null;
+        protected getObject(scenery:string,obj:string):any{
+            return GameFacade.instance['_display'].selectChild(scenery).selectChild(obj);
         }
 
         protected dispatchCall(call:string, ...courier:any[]){

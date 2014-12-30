@@ -15,12 +15,12 @@ module gamep{
                 this._componentpool.set(child.name,child);
                 return child
             }else{
-                console.warn('child must have a name!')
+                console.warn('child must have a name!');
                 return null;
             }
         }
 
-        public selectChild(name):egret.DisplayObject{
+        public selectChild(name):any{
             return this._componentpool[name];
         }
     }

@@ -1,18 +1,11 @@
 class MyGameDisplay extends gamep.GameStage{
 
-    protected callRoutes():{ notify: string; displayobj:egret.DisplayObject; callback: Function; }[]{
-        return [
-            {notify: 'hellocalbck',displayobj:this, callback:this.hellocallback}
-        ];
-    }
-
     protected onReady(){
-        console.log('MyGameDisplay....onReady()')
+        console.log('MyGameDisplay....onReady()');
+        this.addCmdFeedback('hellofeedback',this.onHello);
     }
 
-    private hellocallback(hi){
-        console.log('MyGameDisplay...hellocallback(hi) hi='+hi);
-        //console.log(gamep.GameFacade.instance['_cmdPostals']);
-        //console.log(gamep.GameFacade.instance['_logicPostals']);
+    protected onHello(){
+        console.log('MyGameDisplay....onHello()')
     }
 }

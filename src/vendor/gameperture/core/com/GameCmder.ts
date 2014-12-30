@@ -7,41 +7,30 @@ module gamep {
         public constructor(name) {
             this._name = name;
             this._regLogics();
-            GameFacade.instance['_cmdPostals'].setRoutes(this.createRoutes());
         }
 
         protected regLogics():GameLogicer[]{
             return null;
         }
 
-        protected cmdRoutes():{ notify: string; callback: Function; }[]{
-            return null;
+        public dispatchFeedback(feedback: string, ...courier:any[]):void{//,thisObject: any
+            root.dispatchEvent(new Event.FacadeEvent(notify.feedback,feedback,courier));
         }
 
-        private createRoutes():{ notify: string; thisobj:any; callback: Function; }[]{
-            var rs:any = this.cmdRoutes();
-            for(var i in rs){
-                rs[i].thisobj = this;
-            }
-            return rs;
+        public addCmdListener(notify: string, callback: Function):void{//,thisObject: any
+            GameFacade.instance['_cmdPostals'].setRoute(notify,this,callback);
+        }
+
+        public addLogicListener(notify: string, callback: Function):void{//,thisObject: any
+            GameFacade.instance['_logicPostals'].setRoute(notify,this,callback);
         }
 
         // @final
         // 看我滥用索引...
-        protected get uInterface(){
-            return GameFacade.instance['_display']['_uinterface'];
-        }
-
-        // @final
-        protected get scenery(){
-            return GameFacade.instance['_display']['_scenery'];
-        }
-
-        public get name(){
-            return this._name;
-        }
-
-        protected getLogic(name):any{
+        /*protected getView(name?:string):any{
+            return name?GameFacade.instance['_display'].selectChild(name):GameFacade.instance['_display'];
+        }*/
+        protected getLogic(name:string):any{
             return this._logicPool[name];
         }
         private get _logicPool():utils.Dictionary{
@@ -52,6 +41,10 @@ module gamep {
                 var logic = (this.regLogics())[i];
                 if(logic)this._logicPool.set(logic.name,logic);
             }
+        }
+
+        public get name(){
+            return this._name;
         }
     }
 }

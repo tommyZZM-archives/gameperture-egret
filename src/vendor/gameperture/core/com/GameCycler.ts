@@ -35,7 +35,8 @@ module gamep{
                 if(cmd)this._cmdPool.set(cmd.name,cmd);
             }
         }
-        protected getCommand(name):any{
+        /** @deprecated */
+        private getCommand(name):any{
             return this._cmdPool[name];
         }
         private get _cmdPool():utils.Dictionary{
