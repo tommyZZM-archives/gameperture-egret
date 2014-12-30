@@ -13,4 +13,7 @@ class Main extends egret.DisplayObjectContainer{
         (new gamep.GameLauncher(true)).launchWith("preload");
     }
 
+    //Devlog:
+    //20141230 TODO:用Map()和Set()代替字典
+
 }
