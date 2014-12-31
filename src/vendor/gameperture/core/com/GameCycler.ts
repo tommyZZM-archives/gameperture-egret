@@ -7,11 +7,6 @@ module gamep{
             GameFacade.instance['_game']=this;
             //GameFacade.instance['_cmdPostals'].setRoute(notify.CMD.GameReady,this,this.onReady);
             this.addNotifyListener(NotifyType.Cmd,Notify.Cmd.GameReady,this.onReady);
-            this._regCommands();
-        }
-
-        protected regCommands():GameCmder[]{
-            return null;
         }
 
         /**
@@ -28,16 +23,12 @@ module gamep{
             return GameFacade.instance['_display'];
         }
 
-        //控制器
-        private _regCommands(){
-            for(var i in this.regCommands()){
-                var cmd = (this.regCommands())[i];
-                if(cmd)this._cmdPool.set(cmd.name,cmd);
-            }
-        }
         /** @deprecated */
-        private getCommand(name):any{
-            return this._cmdPool[name];
+        protected getCommand(command:any):any{
+            if(!this._cmdPool.get(command.name)){
+                this._cmdPool.set(command.name,new command());
+            }
+            return this._cmdPool.get(command.name);
         }
         private get _cmdPool():Map<string,GameCmder>{
             return GameFacade.instance['_cmdpool']
