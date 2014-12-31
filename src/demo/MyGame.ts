@@ -8,7 +8,7 @@ class MyGame extends gamep.GameCycler {
 
     private hellocallback(hi){
         console.log('4.MyGame...hellocallback(hi) hi='+hi);
-        this.dispatchFeedback('hellofeedback')
+        this.dispatchFeedback('hellofeedback');
     }
 
 

@@ -18,8 +18,10 @@ module gamep{
             gamep.root = root;
             gamep.rootscene = this;
             root.addChild(this);
-            this._scenery   = new GameScenery(GameStage.SCENERY_ROOT,this);
-            this._uinterface= new GameScenery(GameStage.UI_INTERFACE,this);
+            this._scenery   = new GameScenery(GameStage.SCENERY_ROOT);
+            this._uinterface= new GameScenery(GameStage.UI_INTERFACE);
+            super.addChild(this._scenery);
+            super.addChild(this._uinterface);
             GameFacade.instance['_display']=this;
         }
 
@@ -60,5 +62,11 @@ module gamep{
             //return super.dispatchEvent(event);
         }
 
+        /** @deprecated */public addChild(child: egret.DisplayObject): egret.DisplayObject{return null}
+        /** @deprecated */public addChildAt(child: egret.DisplayObject, index: number): egret.DisplayObject{return null}
+        /** @deprecated */public removeChild(child: egret.DisplayObject): egret.DisplayObject{return null}
+        /** @deprecated */public removeChildAt(index: number): egret.DisplayObject{return null}
+        /** @deprecated */public setChildIndex(child: egret.DisplayObject, index: number){}
+        /** @deprecated */public removeChildren(){}
     }
 }

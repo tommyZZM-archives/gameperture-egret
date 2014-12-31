@@ -12,6 +12,7 @@ module gamep {
             root.dispatchEvent(new Event.FacadeEvent(NotifyType.Feedback,feedback,courier));
         }
 
+        //TODO:添加多个侦听有BUG...
         public addNotifyListener(type:NotifyType,notify: string, callback: Function):void{//,thisObject: any
             GameFacade.instance['_postals'].get(type).set(notify,{thisobj:this, callback: callback})
         }
