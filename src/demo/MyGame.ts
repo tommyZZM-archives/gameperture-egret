@@ -12,7 +12,7 @@ class MyGame extends gamep.GameCycler {
 
     protected onReady(){
         console.log('MyGame...onReady()');
-        this.addNotifyListener(gamep.notify.result,'hellocalbck',this.hellocallback)
+        this.addNotifyListener(gamep.NotifyType.Result,'hellocalbck',this.hellocallback)
         this.getLogic('mylogic').hellocallback()
     }
 

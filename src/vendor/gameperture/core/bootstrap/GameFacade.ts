@@ -6,18 +6,20 @@ module gamep {
         private _game:GameCycler;
         private _display:GameStage;
 
-        private _cmdpool:utils.Dictionary;//存放所有命令
-        private _logicpool:utils.Dictionary;//存放所有业务逻辑
-        private _postals:Map<string, any>;
+        private _cmdpool:Map<string,GameCmder>;//存放所有命令
+        private _logicpool:Map<string,GameLogicer>;//存放所有业务逻辑
+        private _postals:Map<NotifyType, Map<string,{thisobj:any; callback: Function}>>;
 
         public constructor() {
-            this._postals = new Map();
-            this._postals.set(notify.cmd,new Map());///V->C
-            this._postals.set(notify.result,new Map());//M->C
-            this._postals.set(notify.feedback,new Map());//C->V
+            this._postals = new Map<NotifyType, Map<string,{thisobj:any; callback: Function}>>();
 
-            this._cmdpool = new gamep.utils.Dictionary();
-            this._logicpool = new gamep.utils.Dictionary();
+            this._postals.set(NotifyType.Cmd,new Map<string,{thisobj:any; callback: Function}>());///V->C
+            this._postals.set(NotifyType.Result,new Map<string,{thisobj:any; callback: Function}>());//M->C
+            this._postals.set(NotifyType.Feedback,new Map<string,{thisobj:any; callback: Function}>());//C->V
+
+            this._cmdpool = new Map<string, GameCmder>();
+            this._logicpool = new Map<string, GameLogicer>();
+
         }
 
         public init(){

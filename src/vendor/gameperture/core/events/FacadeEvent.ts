@@ -4,9 +4,9 @@ module gamep.Event{
         public static UNIQUE:string = 'facadeEvent0811';
         private _notify:any;
         private _courier:any;
-        private _fatype:string;
+        private _fatype:NotifyType;
 
-        public constructor(type:string,notify:string, courier?:any[]) {
+        public constructor(type:NotifyType,notify:string, courier?:any[]) {
             //TODO:your code here
             this._fatype = type;
             this._notify = notify;
@@ -22,7 +22,7 @@ module gamep.Event{
             return this._courier;
         }
 
-        public get fatype(){
+        public get fatype():NotifyType{
             return this._fatype;
         }
     }

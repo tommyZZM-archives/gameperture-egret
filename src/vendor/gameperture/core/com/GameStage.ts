@@ -23,7 +23,7 @@ module gamep{
             GameFacade.instance['_display']=this;
         }
 
-        private startup(){this.onReady();this.dispatchCmd(notify.CMD.GameReady)}
+        private startup(){this.onReady();this.dispatchCmd(Notify.Cmd.GameReady)}
 
         protected onReady(){
 
@@ -35,11 +35,11 @@ module gamep{
 
         //@public @final
         public dispatchCmd(cmd:string, ...courier:any[]){
-            root.dispatchEvent(new Event.FacadeEvent(notify.cmd,cmd,courier));
+            root.dispatchEvent(new Event.FacadeEvent(NotifyType.Cmd,cmd,courier));
         }
 
         public addFeedbackListener(feed: string, callback: Function,thisObject: egret.DisplayObject = this):void{
-            GameFacade.instance['_postals'].get(notify.feedback).set(feed,{thisobj:thisObject, callback: callback})
+            GameFacade.instance['_postals'].get(NotifyType.Feedback).set(feed,{thisobj:thisObject, callback: callback})
         }
 
         //禁用方法

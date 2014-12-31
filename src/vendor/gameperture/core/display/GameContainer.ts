@@ -1,10 +1,10 @@
 module gamep{
     export class GameContainer extends egret.DisplayObjectContainer{
 
-        private _componentpool:utils.Dictionary;
+        private _componentpool:Map<string,egret.DisplayObject>;
 
         public constructor() {
-            this._componentpool = new utils.Dictionary();
+            this._componentpool = new Map<string,egret.DisplayObject>();
             super();
             //TODO:your code here
         }
@@ -21,7 +21,7 @@ module gamep{
         }
 
         public selectChild(name):any{
-            return this._componentpool[name];
+            return this._componentpool.get(name);
         }
     }
 }

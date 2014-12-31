@@ -26,18 +26,18 @@ module gamep{
         return egret.MainContext.instance.stage.stageHeight*multiple;
     }
 
-    export module notify{
-        export var cmd:string      = 'cmd0112';
-        export var result:string   = 'result0112';
-        export var feedback:string = 'feed0112';
+    export enum NotifyType{
+        Cmd = 1,
+        Result = 2,
+        Feedback = 3
     }
 
-    export module notify.CMD{
+    export module Notify.Cmd{
         //export var GamePre:string = 'gamepre0112';
         export var GameReady:string = 'gameready0112';
     }
 
-    export module notify.CALL{
+    export module Notify.Call{
 
     }
 

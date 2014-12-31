@@ -14,10 +14,10 @@ module gamep {
         }
 
         public dispatchFeedback(feedback: string, ...courier:any[]):void{//,thisObject: any
-            root.dispatchEvent(new Event.FacadeEvent(notify.feedback,feedback,courier));
+            root.dispatchEvent(new Event.FacadeEvent(NotifyType.Feedback,feedback,courier));
         }
 
-        public addNotifyListener(type:string,notify: string, callback: Function):void{//,thisObject: any
+        public addNotifyListener(type:NotifyType,notify: string, callback: Function):void{//,thisObject: any
             GameFacade.instance['_postals'].get(type).set(notify,{thisobj:this, callback: callback})
         }
 
@@ -27,9 +27,9 @@ module gamep {
             return name?GameFacade.instance['_display'].selectChild(name):GameFacade.instance['_display'];
         }*/
         protected getLogic(name:string):any{
-            return this._logicPool[name];
+            return this._logicPool.get(name);
         }
-        private get _logicPool():utils.Dictionary{
+        private get _logicPool():Map<string,GameLogicer>{
             return GameFacade.instance['_logicpool']
         }
         protected _regLogics(){

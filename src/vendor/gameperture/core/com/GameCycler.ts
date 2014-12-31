@@ -6,7 +6,7 @@ module gamep{
             super(null);
             GameFacade.instance['_game']=this;
             //GameFacade.instance['_cmdPostals'].setRoute(notify.CMD.GameReady,this,this.onReady);
-            this.addNotifyListener(notify.cmd,notify.CMD.GameReady,this.onReady);
+            this.addNotifyListener(NotifyType.Cmd,Notify.Cmd.GameReady,this.onReady);
             this._regCommands();
         }
 
@@ -39,7 +39,7 @@ module gamep{
         private getCommand(name):any{
             return this._cmdPool[name];
         }
-        private get _cmdPool():utils.Dictionary{
+        private get _cmdPool():Map<string,GameCmder>{
             return GameFacade.instance['_cmdpool']
         }
     }
