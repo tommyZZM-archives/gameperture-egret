@@ -179,7 +179,7 @@
     <TypeScriptCompile Include="libs\core\core.d.ts" />
     <TypeScriptCompile Include="libs\core\egret\context\html5.d.ts" />
     <TypeScriptCompile Include="libs\_references.ts" />
-    <TypeScriptCompile Include="src\demo\MyDisplay.ts" />
+    <TypeScriptCompile Include="src\demo\MyGameDisplay.ts" />
     <TypeScriptCompile Include="src\demo\MyGame.ts" />
     <TypeScriptCompile Include="src\gameperture\config\Global.ts" />
     <TypeScriptCompile Include="src\gameperture\config\Device.ts" />

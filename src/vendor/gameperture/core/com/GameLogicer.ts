@@ -6,7 +6,7 @@ module gamep {
 
         public constructor(name) {
             super();
-            this._name = name;
+            this._name = this['__proto__']['__class__'];
             //super();
         }
 
@@ -14,8 +14,8 @@ module gamep {
             return GameFacade.instance['_display'].selectChild(scenery).selectChild(obj);
         }
 
-        protected dispatchCall(call:string, ...courier:any[]){
-            root.dispatchEvent(new Event.FacadeEvent(NotifyType.Result,call,courier));
+        protected dispatchCall(controller:any,call:string, ...courier:any[]){
+            root.dispatchEvent(new Event.FacadeEvent(NotifyType.Result,call+controller.name,courier));
         }
 
         public get name(){

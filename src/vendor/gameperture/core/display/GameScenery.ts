@@ -1,10 +1,9 @@
 module gamep {
     export class GameScenery extends GameContainer{// implements ISceneryComponent
 
-        public constructor(name:string,parent?:GameStage){
+        public constructor(name:string){
             super();
             this.name = name;
-            if(parent)parent.addChild(this);
         }
         
         public clear(){this.removeChildren();}

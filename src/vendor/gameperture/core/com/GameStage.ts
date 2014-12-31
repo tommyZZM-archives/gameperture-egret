@@ -23,9 +23,10 @@ module gamep{
             super.addChild(this._scenery);
             super.addChild(this._uinterface);
             GameFacade.instance['_display']=this;
+            this.name = this['__proto__']['__class__'];
         }
 
-        private startup(){this.onReady();this.dispatchCmd(Notify.Cmd.GameReady)}
+        private startup(){this.onReady();this.dispatchCmd(GameFacade.instance['_game'],Notify.Cmd.GameReady)}
 
         protected onReady(){
 
@@ -36,10 +37,11 @@ module gamep{
         //TODO:实现OnEnterMicroSecond()~
 
         //@public @final
-        public dispatchCmd(cmd:string, ...courier:any[]){
-            root.dispatchEvent(new Event.FacadeEvent(NotifyType.Cmd,cmd,courier));
+        public dispatchCmd(controller:any,cmd:string, ...courier:any[]){
+            root.dispatchEvent(new Event.FacadeEvent(NotifyType.Cmd,cmd+controller.name,courier));
         }
 
+        //TODO:添加多个侦听有BUG...
         public addFeedbackListener(feed: string, callback: Function,thisObject: egret.DisplayObject = this):void{
             GameFacade.instance['_postals'].get(NotifyType.Feedback).set(feed,{thisobj:thisObject, callback: callback})
         }

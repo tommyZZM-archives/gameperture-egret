@@ -4,17 +4,17 @@ module gamep {
 
         private _name:string;
 
-        public constructor(name) {
-            this._name = name;
+        public constructor() {
+            this._name = this['__proto__']['__class__'];
         }
 
         public dispatchFeedback(feedback: string, ...courier:any[]):void{//,thisObject: any
             root.dispatchEvent(new Event.FacadeEvent(NotifyType.Feedback,feedback,courier));
         }
 
-        //TODO:添加多个侦听有BUG...
+        //FIX:添加多个侦听有BUG...
         public addNotifyListener(type:NotifyType,notify: string, callback: Function):void{//,thisObject: any
-            GameFacade.instance['_postals'].get(type).set(notify,{thisobj:this, callback: callback})
+            GameFacade.instance['_postals'].get(type).set(notify+this.name,{thisobj:this, callback: callback})
         }
 
         // @final

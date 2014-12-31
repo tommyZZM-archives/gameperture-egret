@@ -3,7 +3,7 @@ module gamep{
     export class GameCycler extends GameCmder{
 
         public constructor() {
-            super(null);
+            super();
             GameFacade.instance['_game']=this;
             //GameFacade.instance['_cmdPostals'].setRoute(notify.CMD.GameReady,this,this.onReady);
             this.addNotifyListener(NotifyType.Cmd,Notify.Cmd.GameReady,this.onReady);

@@ -8,6 +8,8 @@ module gamep {
 
         private _cmdpool:Map<string,GameCmder>;//存放所有命令
         private _logicpool:Map<string,GameLogicer>;//存放所有业务逻辑
+
+
         private _postals:Map<NotifyType, Map<string,{thisobj:any; callback: Function}>>;
 
         public constructor() {
