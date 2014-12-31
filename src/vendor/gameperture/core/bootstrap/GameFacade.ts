@@ -8,15 +8,13 @@ module gamep {
 
         private _cmdpool:utils.Dictionary;//存放所有命令
         private _logicpool:utils.Dictionary;//存放所有业务逻辑
-
-        private _logicPostals:PostalDictionary;//M->C
-        private _cmdPostals:PostalDictionary;//V->C
-        private _viewPostals:PostalDictionary;//C->V
+        private _postals:Map<string, any>;
 
         public constructor() {
-            this._cmdPostals = new PostalDictionary();
-            this._logicPostals = new PostalDictionary();
-            this._viewPostals = new PostalDictionary();
+            this._postals = new Map();
+            this._postals.set(notify.cmd,new Map());///V->C
+            this._postals.set(notify.result,new Map());//M->C
+            this._postals.set(notify.feedback,new Map());//C->V
 
             this._cmdpool = new gamep.utils.Dictionary();
             this._logicpool = new gamep.utils.Dictionary();
@@ -35,25 +33,8 @@ module gamep {
 
         //邮局
         private _postOffice(e:Event.FacadeEvent){
-            var postals:PostalDictionary;
-            switch (e.fatype){
-                case notify.cmd:{
-                    postals = this._cmdPostals;
-                    break;
-                }
-                case notify.call:{
-                    postals = this._logicPostals;
-                    break;
-                }
-                case notify.feedback:{
-                    postals = this._viewPostals;
-                    break;
-                }
-                default:
-                    break;
-            }
-            postals[e.notify].callback.apply(postals[e.notify].thisobj,e.courier);
-
+            var ant:any = this._postals.get(e.fatype).get(e.notify);
+            ant.callback.apply(ant.thisobj,e.courier);
         }
 
         //instance mode

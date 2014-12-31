@@ -1,18 +1,10 @@
 module gamep {
-    export class GameScenery extends GameContainer implements ISceneryComponent{
+    export class GameScenery extends GameContainer{// implements ISceneryComponent
 
         public constructor(name:string,parent?:GameStage){
             super();
             this.name = name;
             if(parent)parent.addChild(this);
-        }
-
-        public dispatchCmd(cmd:string, ...courier:any[]){
-            root.dispatchEvent(new Event.FacadeEvent(notify.cmd,cmd,courier));
-        }
-
-        public addCmdFeedback(notify: string, callback: Function,thisObject: egret.DisplayObject):void{
-            GameFacade.instance['_cmdPostals'].setRoute(notify,thisObject,callback);
         }
         
         public clear(){this.removeChildren();}

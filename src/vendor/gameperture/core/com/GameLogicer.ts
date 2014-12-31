@@ -15,7 +15,7 @@ module gamep {
         }
 
         protected dispatchCall(call:string, ...courier:any[]){
-            root.dispatchEvent(new Event.FacadeEvent(notify.call,call,courier));
+            root.dispatchEvent(new Event.FacadeEvent(notify.result,call,courier));
         }
 
         public get name(){

@@ -17,12 +17,8 @@ module gamep {
             root.dispatchEvent(new Event.FacadeEvent(notify.feedback,feedback,courier));
         }
 
-        public addCmdListener(notify: string, callback: Function):void{//,thisObject: any
-            GameFacade.instance['_cmdPostals'].setRoute(notify,this,callback);
-        }
-
-        public addLogicListener(notify: string, callback: Function):void{//,thisObject: any
-            GameFacade.instance['_logicPostals'].setRoute(notify,this,callback);
+        public addNotifyListener(type:string,notify: string, callback: Function):void{//,thisObject: any
+            GameFacade.instance['_postals'].get(type).set(notify,{thisobj:this, callback: callback})
         }
 
         // @final

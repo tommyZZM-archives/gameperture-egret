@@ -5,7 +5,8 @@ module gamep{
         public constructor() {
             super(null);
             GameFacade.instance['_game']=this;
-            GameFacade.instance['_cmdPostals'].setRoute(notify.CMD.GameReady,this,this.onReady);
+            //GameFacade.instance['_cmdPostals'].setRoute(notify.CMD.GameReady,this,this.onReady);
+            this.addNotifyListener(notify.cmd,notify.CMD.GameReady,this.onReady);
             this._regCommands();
         }
 
@@ -21,7 +22,6 @@ module gamep{
         }
 
         protected onReady(){
-
         }
 
         protected get stage():any{

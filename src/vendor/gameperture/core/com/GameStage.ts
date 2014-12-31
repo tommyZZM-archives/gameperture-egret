@@ -38,9 +38,8 @@ module gamep{
             root.dispatchEvent(new Event.FacadeEvent(notify.cmd,cmd,courier));
         }
 
-        public addCmdFeedback(notify: string, callback: Function,thisObject?: egret.DisplayObject):void{
-            if(!thisObject){thisObject = this;}
-            GameFacade.instance['_viewPostals'].setRoute(notify,thisObject,callback);
+        public addFeedbackListener(feed: string, callback: Function,thisObject: egret.DisplayObject = this):void{
+            GameFacade.instance['_postals'].get(notify.feedback).set(feed,{thisobj:thisObject, callback: callback})
         }
 
         //禁用方法

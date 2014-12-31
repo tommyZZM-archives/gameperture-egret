@@ -9,7 +9,7 @@ module gamep.utils {
     export interface IDictionary {
 
         set(key: string, value: any): void;//设置映射
-        remove(key: string): void;//移除映射
+        delete(key: string): void;//移除映射
         containsKey(key: string): boolean;//是否包括映射
         keys: string[];//获取所有key
         values: any[];//获取所有values
@@ -32,17 +32,21 @@ module gamep.utils {
             }
         }
 
+        public get(key: string) {
+            return this[key];
+        }
+
         public set(key: string, value: any,__hard:boolean=false) {
             if(this[key]){
                 if(!__hard){console.warn(key+' has already valued!try to remove hard!');return;}
-                this.remove(key);//如果重复把之前的映射先移除
+                this.delete(key);//如果重复把之前的映射先移除
             }
             this[key] = value;
             this._keys.push(key);
             this._values.push(value);
         }
 
-        public remove(key: string) {
+        public delete(key: string) {
             var index = this._keys.indexOf(key, 0);
             this._keys.splice(index, 1);
             this._values.splice(index, 1);
