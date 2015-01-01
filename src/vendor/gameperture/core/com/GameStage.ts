@@ -28,9 +28,9 @@ module gamep{
             this.name = /\.?(\w+)$/.exec(this.name)[1];
         }
 
-        private startup(){this.dispatchCmd(GameFacade.instance['_game'],Notify.Cmd.GameReady)}
+        private startup(){this.onStartup();this.dispatchCmd(GameFacade.instance['_game'],Notify.Cmd.GameReady)}
 
-        protected onReady(){
+        protected onStartup(){
 
         }
 
@@ -44,8 +44,11 @@ module gamep{
         }
 
         //TODO:添加多个侦听有BUG...
-        public addFeedbackListener(feed: string, callback: Function,thisObject: egret.DisplayObject = this):void{
-            GameFacade.instance['_postals'].get(NotifyType.Feedback).set(feed,{thisobj:thisObject, callback: callback})
+        public addFeedbackListener(proxy:any,type: string, callback: Function,thisObject: egret.DisplayObject = this):void{
+            proxy = GameFacade.instance['getProxy'](proxy);
+            if(proxy){
+                proxy.addFeedbackListener(type,callback,thisObject);
+            }
         }
 
         //禁用方法

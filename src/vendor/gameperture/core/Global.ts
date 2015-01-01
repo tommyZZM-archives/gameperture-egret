@@ -28,7 +28,6 @@ module gamep{
 
     export enum NotifyType{
         Cmd = 1,
-        Result = 2,
         Feedback = 3
     }
 

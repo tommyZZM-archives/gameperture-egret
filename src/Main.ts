@@ -9,7 +9,7 @@ class Main extends egret.DisplayObjectContainer{
         this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.start,this);
 
         new gamep.MyGame();
-        new gamep.MyGameDisplay(this);
+        new gamep.MyDisplay(this);
         (new gamep.GameLauncher(true)).launch();
     }
 

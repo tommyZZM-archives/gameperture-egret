@@ -3,15 +3,7 @@ module gamep{
 
         protected onStartup(){
             console.log('1.MyGame...onReady()');
-            this.getLogic(Proxy.AssetsLoaderProxy).loadAssets('preload');
-        }
-
-        protected onAssetLoaded(e:Event.AssetsEvent){
-            console.log('2.MyGame...onAssetLaded()')
-        }
-
-        protected onAssetProgress(e:Event.AssetsEvent){
-
+            this.getProxy(Proxy.AssetsLoaderProxy).loadAssets('preload');
         }
 
     }

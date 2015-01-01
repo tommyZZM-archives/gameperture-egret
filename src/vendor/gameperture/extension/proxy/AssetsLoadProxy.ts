@@ -28,13 +28,13 @@ module gamep.Proxy{
                 trace('Pre Load Complete!');
                 delete this._assets_groups[-1];
                 RES.loadGroup(this._assets_groups[this._loadcount]);
-                this.dispatchEvent(new Event.AssetsEvent(Event.AssetsEvent.PRELOAD_READY));
+                this.dispatchEvent(new gamep.Event.AssetsEvent(Event.AssetsEvent.PRELOAD_READY));
             }else{
                 if(this._loadcount < this._assets_groups.length){
                     RES.loadGroup(this._assets_groups[this._loadcount]);
                 }else{
                     trace('All Load Complete!');
-                    this.dispatchEvent(new Event.AssetsEvent(Event.AssetsEvent.ASSET_READY));
+                    this.dispatchEvent(new gamep.Event.AssetsEvent(Event.AssetsEvent.ASSET_READY));
                 }
             }
 

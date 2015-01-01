@@ -11,12 +11,20 @@ module gamep {
             //super();
         }
 
-        protected getObject(scenery:string,obj:string):any{
-            return GameFacade.instance['_display'].selectChild(scenery).selectChild(obj);
-        }
-
         public get name(){
             return this._name;
         }
+
+        private addFeedbackListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number){
+            super.addEventListener(type,listener,thisObject,useCapture,priority);
+        }
+
+        /** @deprecated */
+        public addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number): void{}
+
+        /*public destory(){
+            GameFacade.instance['logoffCom'](GameFacade.instance['_proxypool'],this);
+        }*/
+
     }
 }
