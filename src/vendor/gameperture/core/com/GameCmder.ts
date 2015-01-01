@@ -6,6 +6,7 @@ module gamep {
 
         public constructor() {
             this._name = this['__proto__']['__class__'];
+            this._name = /\.?(\w+)$/.exec(this.name)[1];
         }
 
         public dispatchFeedback(feedback: string, ...courier:any[]):void{//,thisObject: any
@@ -25,7 +26,14 @@ module gamep {
             }
             return this._logicPool.get(logic.name);
         }
-        private get _logicPool():Map<string,GameLogicer>{
+        protected logoffLogic(logic:any):boolean{
+            if(this._logicPool.get(logic.name)){
+                this._logicPool.delete(logic.name);
+                return true;
+            }
+            return false;
+        }
+        private get _logicPool():Map<string,GameProxyer>{
             return GameFacade.instance['_logicpool']
         }
 

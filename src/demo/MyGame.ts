@@ -1,15 +1,18 @@
-class MyGame extends gamep.GameCycler {
+module gamep{
+    export class MyGame extends GameCycler {
 
-    protected onReady(){
-        console.log('2.MyGame...onReady()');
-        this.addNotifyListener(gamep.NotifyType.Result,'hellocalbck',this.hellocallback)
-        this.getLogic(MyLogic).hellocallback();
+        protected onStartup(){
+            console.log('1.MyGame...onReady()');
+            this.getLogic(Proxy.AssetsLoaderProxy).loadAssets('preload');
+        }
+
+        protected onAssetLoaded(e:Event.AssetsEvent){
+            console.log('2.MyGame...onAssetLaded()')
+        }
+
+        protected onAssetProgress(e:Event.AssetsEvent){
+
+        }
+
     }
-
-    private hellocallback(hi){
-        console.log('4.MyGame...hellocallback(hi) hi='+hi);
-        this.dispatchFeedback('hellofeedback');
-    }
-
-
 }

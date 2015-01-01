@@ -7,8 +7,7 @@ module gamep {
         private _display:GameStage;
 
         private _cmdpool:Map<string,GameCmder>;//存放所有命令
-        private _logicpool:Map<string,GameLogicer>;//存放所有业务逻辑
-
+        private _logicpool:Map<string,GameProxyer>;//存放所有业务逻辑
 
         private _postals:Map<NotifyType, Map<string,{thisobj:any; callback: Function}>>;
 
@@ -16,11 +15,10 @@ module gamep {
             this._postals = new Map<NotifyType, Map<string,{thisobj:any; callback: Function}>>();
 
             this._postals.set(NotifyType.Cmd,new Map<string,{thisobj:any; callback: Function}>());///V->C
-            this._postals.set(NotifyType.Result,new Map<string,{thisobj:any; callback: Function}>());//M->C
             this._postals.set(NotifyType.Feedback,new Map<string,{thisobj:any; callback: Function}>());//C->V
 
             this._cmdpool = new Map<string, GameCmder>();
-            this._logicpool = new Map<string, GameLogicer>();
+            this._logicpool = new Map<string, GameProxyer>();
 
         }
 

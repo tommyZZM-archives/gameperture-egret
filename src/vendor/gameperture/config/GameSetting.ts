@@ -7,7 +7,7 @@ module gamep.config{
 
     export class gamesetting {
 
-        private _setting:utils.Dictionary;
+        private _setting:Map<any,any>;
 
         public constructor(settingfile) {
             var setting = RES.getRes(settingfile);

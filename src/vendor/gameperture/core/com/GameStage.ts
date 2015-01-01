@@ -23,10 +23,12 @@ module gamep{
             super.addChild(this._scenery);
             super.addChild(this._uinterface);
             GameFacade.instance['_display']=this;
+
             this.name = this['__proto__']['__class__'];
+            this.name = /\.?(\w+)$/.exec(this.name)[1];
         }
 
-        private startup(){this.onReady();this.dispatchCmd(GameFacade.instance['_game'],Notify.Cmd.GameReady)}
+        private startup(){this.dispatchCmd(GameFacade.instance['_game'],Notify.Cmd.GameReady)}
 
         protected onReady(){
 

@@ -1,9 +1,7 @@
 module gamep{
     export class GameLauncher{//implements GamePertureInterface
 
-        private _assetsloader:AssetsLoader;
         private _facade:GameFacade = GameFacade.instance;
-
 
         public constructor(debug:boolean) {
             console.info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
