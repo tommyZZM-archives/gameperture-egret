@@ -34,6 +34,8 @@ module gamep.Proxy{
                     RES.loadGroup(this._assets_groups[this._loadcount]);
                 }else{
                     trace('All Load Complete!');
+                    RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.loadcomplete,this);
+                    RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.loadprogress,this);
                     this.dispatchEvent(new gamep.Event.AssetsEvent(Event.AssetsEvent.ASSET_READY));
                 }
             }

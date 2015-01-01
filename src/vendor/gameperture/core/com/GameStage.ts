@@ -36,39 +36,6 @@ module gamep{
 
         //TODO:实现场景切换的功能~
 
-        //TODO:实现OnEnterMicroSecond()~
-
-        //@public @final
-        public dispatchCmd(controller:any,cmd:string, ...courier:any[]){
-            root.dispatchEvent(new Event.FacadeEvent(NotifyType.Cmd,cmd+controller.name,courier));
-        }
-
-        //TODO:添加多个侦听有BUG...
-        public addFeedbackListener(proxy:any,type: string, callback: Function,thisObject: egret.DisplayObject = this):void{
-            proxy = GameFacade.instance['getProxy'](proxy);
-            if(proxy){
-                proxy.addFeedbackListener(type,callback,thisObject);
-            }
-        }
-
-        //禁用方法
-        /** @deprecated */
-        public addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number):void{
-            console.warn('addEventListener('+type+') has been deprecated!');
-            //super.addEventListener(type,listener,thisObject,useCapture,priority);
-        }
-
-        /** @deprecated */
-        public dispatchEvent(event: egret.Event):boolean{
-            if(event._type == egret.Event.ADDED_TO_STAGE || event._type == egret.Event.ADDED){
-                super.dispatchEvent(event);
-                return !(!event);
-            }
-            console.warn('dispatchEvent() has been deprecated!use dispatchCmd() instead~');
-            return null;
-            //return super.dispatchEvent(event);
-        }
-
         /** @deprecated */public addChild(child: egret.DisplayObject): egret.DisplayObject{return null}
         /** @deprecated */public addChildAt(child: egret.DisplayObject, index: number): egret.DisplayObject{return null}
         /** @deprecated */public removeChild(child: egret.DisplayObject): egret.DisplayObject{return null}
