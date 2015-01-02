@@ -1,53 +1,60 @@
 module gamep.utils{
-    export class GameProfiler {
 
-        public static s_time:number = 0;
-        public static s_fps:number = 0;
+    export var FPS:number = 0;
+    export function rateoffest(worldrate:number = 60):number {
+        return worldrate / FPS;
+    }
+    export var countsecond:number = 0;
+    var countmicrosecond:number = 0;
+
+    export class GameProfiler extends egret.EventDispatcher{
 
         private _fps:number = 0;
         private _lastTime:number = 0;
-        private _countTime:number = 0;
+
+        private _countMicroSecond:number = 0;
+        private _countSecond:number = 0;
 
         public constructor() {
-            //TODO:your code here
+            super();
             this.run();
         }
 
         private run(){
-            rootscene.addEventListener(egret.Event.ENTER_FRAME,this.calculateFPS,this)
+            root.addEventListener(egret.Event.ENTER_FRAME,this.calculateFPS,this)
         }
 
         private calculateFPS(){
             var nowTime:number = egret.getTimer();
             var dt = nowTime-this._lastTime;
-            this._countTime+=dt;
-            if(this._countTime>=1000){
-                this._countTime = 0;
-                GameProfiler.s_time++;
+            this._countSecond+=dt;
+            this._countMicroSecond+=dt;
+
+            if(this._countMicroSecond>=10){
+                this._countMicroSecond = 0;
+                countmicrosecond++;
+                this.dispatchEvent(new gamep.Event.ProfilerEvent(Event.ProfilerEvent.ON_MICROSECOND));
+            }
+
+            if(this._countSecond>=1000){
+                this._countSecond = 0;
+                countsecond++;
+                this.dispatchEvent(new gamep.Event.ProfilerEvent(Event.ProfilerEvent.ON_SECOND));
             }
 
             this._fps = 1000/dt;
             this._lastTime = nowTime;
 
-            GameProfiler.s_fps = this._fps;
+            FPS = this._fps;
+        }
+
+        //instance mode
+        private static _instance:GameProfiler;
+        public static get instance():GameProfiler{
+            if (GameProfiler._instance == null) {
+                GameProfiler._instance = new GameProfiler();
+            }
+            return GameProfiler._instance;
         }
     }
-}
-
-module gamep {
-    export class FPS {
-        public static get $60():any {
-            return utils.GameProfiler.s_fps.toFixed(0);
-        }
-
-        public static rateoffest(worldrate:number = 60):number {
-            return worldrate / FPS.$60;
-        }
-
-        public static get counttime():number{
-            return utils.GameProfiler.s_time;
-        }
-
-    }
-
 }

@@ -16,3 +16,4 @@ bin/
 web.Debug.config
 web.Release.config
 web.config
+doc/*.~vsdx

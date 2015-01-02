@@ -1,4 +1,4 @@
-module gamep.util {
+module gamep.utils {
     export class ObjectPool{
         constructor() {}
         private _pool = {};

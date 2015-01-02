@@ -1,12 +1,14 @@
-module gamep {
+module gamep.Event{
     export class FacadeEvent extends egret.Event{
 
-        public static UNIQUE:string = 'FacadeEvent0811';
+        public static UNIQUE:string = 'facadeEvent0811';
         private _notify:any;
         private _courier:any;
+        private _fatype:NotifyType;
 
-        public constructor(notify:string, courier?:any[]) {
+        public constructor(type:NotifyType,notify:string, courier?:any[]) {
             //TODO:your code here
+            this._fatype = type;
             this._notify = notify;
             this._courier = courier;
             super(FacadeEvent.UNIQUE, false, false);
@@ -18,6 +20,10 @@ module gamep {
 
         public get courier(){
             return this._courier;
+        }
+
+        public get fatype():NotifyType{
+            return this._fatype;
         }
     }
 }

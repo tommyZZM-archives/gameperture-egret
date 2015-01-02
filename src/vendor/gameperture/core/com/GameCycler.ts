@@ -1,21 +1,26 @@
 module gamep{
-    export class GameCycler {
+    //游戏场景控制器。
+    export class GameCycler extends GameCmder{
+
+        //private _assetLoader:Proxy.AssetsLoaderProxy;
 
         public constructor() {
-            GameFacade.instance.registGame(this);
+            super();
+            GameFacade.instance['_game']=this;
+            //GameFacade.instance['_cmdPostals'].setRoute(notify.CMD.GameReady,this,this.onReady);
+            this.addNotifyListener(Notify.Cmd.GameReady,this.onStartup);
         }
 
-        /**
-         * returns { notify: string; callback: Function; }[]
-         */
-        public commandRoutes():{ notify: string; callback: Function; }[]{
-            return [];
+        protected onStartup(){
         }
 
-        //@protected
-        public _onReady(arg?){
-
+        protected get stage():any{
+            return GameFacade.instance['_display'];
         }
 
+        /** @deprecated */
+        protected getCommand(command:any):any{
+            return GameFacade.instance['getCommand'](command);
+        }
     }
 }

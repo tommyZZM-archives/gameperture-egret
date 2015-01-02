@@ -8,9 +8,13 @@ class Main extends egret.DisplayObjectContainer{
     private start(){
         this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.start,this);
 
-        new MyGame();
-        new MyGameDisplay(this);
-        (new gamep.GameLauncher(true)).launchWith("preload");
+        new gamep.MyGame();
+        new gamep.MyDisplay(this);
+        (new gamep.GameLauncher(true)).launch();
     }
+
+    //Devlog:
+    //20141230 done:用Map()和Set()代替字典
+    //201511   TODO:场景切换
 
 }
