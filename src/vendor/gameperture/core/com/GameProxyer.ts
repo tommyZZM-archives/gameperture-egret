@@ -15,7 +15,7 @@ module gamep {
             return this._name;
         }
 
-        private addFeedbackListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number){
+        protected addEventListenerP(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number){
             super.addEventListener(type,listener,thisObject,useCapture,priority);
         }
 

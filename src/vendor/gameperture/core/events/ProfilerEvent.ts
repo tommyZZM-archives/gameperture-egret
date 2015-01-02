@@ -1,12 +1,21 @@
 module gamep.Event{
     export class ProfilerEvent extends egret.Event {
 
-        public static ON_MICROSECOND:string = "profiler_onmicrosecond";
-        public static ON_SECOND:string = "profiler_onsecond";
+        private _count:number;
 
-        public constructor(type:string) {
-            super(type, false , false);
+        public constructor(type:IProfilerEvent,count:number) {
+            super(type+'ProfilerEvent', false , false);
+            this._count = count;
         }
+
+        public get count():number{
+            return this._count
+        }
+
     }
 
+    export enum IProfilerEvent{
+        ON_MICROSECOND = 1,
+        ON_SECOND      = 2
+    }
 }
