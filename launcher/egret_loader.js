@@ -28,7 +28,7 @@
 egret_h5.startGame = function () {
     var  context = egret.MainContext.instance;
     context.touchContext = new egret.HTML5TouchContext();
-    context.deviceContext = new egret.HTML5DeviceContext();
+    context.deviceContext = new egret.HTML5DeviceContext(60);
     context.netContext = new egret.HTML5NetContext();
 
     var winHeight;

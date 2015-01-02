@@ -15,7 +15,7 @@ module gamep.Event{
     }
 
     export enum IProfilerEvent{
-        ON_MICROSECOND = 1,
+        ON_MILLSECOND100 = 1,
         ON_SECOND      = 2
     }
 }

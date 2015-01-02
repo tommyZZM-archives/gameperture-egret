@@ -7,8 +7,8 @@ module gamep {
         public addTimeListener(type:Event.IProfilerEvent){
             var callback:Function;
             switch (type){
-                case Event.IProfilerEvent.ON_MICROSECOND:
-                    callback = this.onEnterMicrosecond;
+                case Event.IProfilerEvent.ON_MILLSECOND100:
+                    callback = this.onEnter100MillSecond;
                     break;
                 case Event.IProfilerEvent.ON_SECOND:
                     callback = this.onEnterSecond;
@@ -21,7 +21,7 @@ module gamep {
             return GameFacade.instance['_display'].selectChild(scenery).selectChild(obj);
         }
 
-        protected onEnterMicrosecond(e:Event.ProfilerEvent){
+        protected onEnter100MillSecond(e:Event.ProfilerEvent){
 
         }
 

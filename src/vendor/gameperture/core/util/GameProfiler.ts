@@ -12,8 +12,8 @@ module gamep.utils{
         private _fps:number = 0;
         private _lastTime:number = 0;
 
-        private _countMicroSecond:number = 0;
-        private _countSecond:number = 0;
+        private _countmillisecond:number = 0;
+        private _countsecond:number = 0;
 
         public constructor() {
             super();
@@ -27,19 +27,23 @@ module gamep.utils{
         private calculateFPS(){
             var nowTime:number = egret.getTimer();
             var dt = nowTime-this._lastTime;
-            this._countSecond+=dt;
-            this._countMicroSecond+=dt;
+            this._countsecond+=dt;
+            this._countmillisecond+=dt;
 
-            if(this._countMicroSecond>=10){
-                this._countMicroSecond = 0;
+            for(var i:number=0;i<(+(this._countmillisecond/100)^0);i++){
                 countmicrosecond++;
-                this.dispatchEvent(new gamep.Event.ProfilerEvent(Event.IProfilerEvent.ON_MICROSECOND,countmicrosecond));
+                this.dispatchEvent(new gamep.Event.ProfilerEvent(Event.IProfilerEvent.ON_MILLSECOND100,countmicrosecond));
+                if(i>=(+(this._countmillisecond/100)^0)-1){
+                    this._countmillisecond = 0;
+                }
             }
 
-            if(this._countSecond>=1000){
-                this._countSecond = 0;
+            for(var i:number=0;i<(+(this._countsecond/1000)^0);i++){
                 countsecond++;
                 this.dispatchEvent(new gamep.Event.ProfilerEvent(Event.IProfilerEvent.ON_SECOND,countsecond));
+                if(i>=(+(this._countsecond/1000)^0)-1){
+                    this._countsecond = 0;
+                }
             }
 
             this._fps = 1000/dt;
