@@ -181,7 +181,7 @@
     <TypeScriptCompile Include="libs\_references.ts" />
     <TypeScriptCompile Include="src\demo\MyDisplay.ts" />
     <TypeScriptCompile Include="src\demo\MyGame.ts" />
-    <TypeScriptCompile Include="src\gameperture\config\Constant.ts" />
+    <TypeScriptCompile Include="src\gameperture\config\Global.ts" />
     <TypeScriptCompile Include="src\gameperture\config\Device.ts" />
     <TypeScriptCompile Include="src\gameperture\config\GameSetting.ts" />
     <TypeScriptCompile Include="src\gameperture\core\events\AssetsEvents.ts" />
@@ -195,8 +195,8 @@
     <TypeScriptCompile Include="src\gameperture\core\util\GameObjectPool.ts" />
     <TypeScriptCompile Include="src\gameperture\core\util\GameProfiler.ts" />
     <TypeScriptCompile Include="src\gameperture\core\util\Toolkit.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\viewc\GameDisplay.ts" />
-    <TypeScriptCompile Include="src\gameperture\core\viewc\GameInterface.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\viewc\GameStage.ts" />
+    <TypeScriptCompile Include="src\gameperture\core\viewc\GameContainer.ts" />
     <TypeScriptCompile Include="src\gameperture\core\viewc\GameScenery.ts" />
     <TypeScriptCompile Include="src\gameperture\core\viewc\GameSprite.ts" />
     <TypeScriptCompile Include="src\gameperture\core\viewc\GameUiObject.ts" />

@@ -1,4 +1,4 @@
-module gamep.event{
+module gamep.Event{
     export class AssetsEvent extends egret.Event {
 
         public static PRELOAD_READY:string = "preReady";
