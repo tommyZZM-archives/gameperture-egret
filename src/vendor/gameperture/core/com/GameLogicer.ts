@@ -14,7 +14,7 @@ module gamep {
                     callback = this.onEnterSecond;
                     break;
             }
-            utils.GameProfiler.instance.addEventListener(type+'ProfilerEvent',callback,this);
+            GameProfiler.instance.addEventListener(type+'ProfilerEvent',callback,this);
         }
 
         protected getObject(scenery:string,obj:string):any{

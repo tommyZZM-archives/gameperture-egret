@@ -19,8 +19,8 @@ module gamep{
         }
 
         /** @deprecated */
-        protected getCommand(command:any):any{
+        /*private getCommand(command:any):any{
             return GameFacade.instance['getCommand'](command);
-        }
+        }*/
     }
 }

@@ -1,5 +1,5 @@
 module gamep.Event{
-    export class AssetsEvent extends egret.Event {
+    export class AssetsEvent extends ProxyEvent {
 
         public static PRELOAD_READY:string = "preReady";
         public static ASSET_READY:string = "assetReady";
@@ -7,9 +7,9 @@ module gamep.Event{
 
         public percent:number = 0;
 
-        public constructor(type:string, bubbles:boolean = false, cancelable:boolean = false) {
+        public constructor(type:string) {
             //TODO:your code here
-            super(type, bubbles, cancelable);
+            super(type);
         }
     }
 

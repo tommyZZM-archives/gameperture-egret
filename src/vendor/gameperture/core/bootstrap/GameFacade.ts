@@ -6,19 +6,19 @@ module gamep {
         private _game:GameCycler;
         private _display:GameStage;
 
-        private _cmdpool:Map<string,GameCmder>;//存放所有命令
-        private _proxypool:Map<string,GameProxyer>;//存放所有业务逻辑
+        private _cmdpool:Dict;//Map<string,GameCmder>;//存放所有命令
+        private _proxypool:Dict;//Map<string,GameProxyer>;//存放所有业务逻辑
 
-        private _postals:Map<NotifyType, Map<string,{thisobj:any; callback: Function}>>;
+        private _postals:Dict;//Map<NotifyType, Map<string,{thisobj:any; callback: Function}>>;
 
         public constructor() {
-            this._postals = new Map<NotifyType, Map<string,{thisobj:any; callback: Function}>>();
+            this._postals = new Dict();
 
-            this._postals.set(NotifyType.Cmd,new Map<string,{thisobj:any; callback: Function}>());///V->C
-            this._postals.set(NotifyType.Feedback,new Map<string,{thisobj:any; callback: Function}>());//C->V
+            this._postals.set(NotifyType.Cmd,new Dict());///V->C
+            this._postals.set(NotifyType.Feedback,new Dict());//C->V
 
-            this._cmdpool = new Map<string, GameCmder>();
-            this._proxypool = new Map<string, GameProxyer>();
+            this._cmdpool = new Dict();
+            this._proxypool = new Dict();
 
         }
 
@@ -36,7 +36,7 @@ module gamep {
         //邮局
         private _postOffice(e:Event.FacadeEvent){
             var ant:any = this._postals.get(e.fatype).get(e.notify);
-            ant.callback.apply(ant.thisobj,e.courier);
+            if(ant){ant.callback.apply(ant.thisobj,e.courier);}
         }
 
         private getProxy(proxy:any):any{
@@ -47,21 +47,22 @@ module gamep {
             return this.getCom(this._cmdpool,command);
         }
 
-        private getCom(pool:Map<string,any>,com:any):any{
-            if(!pool.get(com.name)){
-                pool.set(com.name,new com());
+        private getCom(pool:Dict,com:any):any{
+            var key = com.prototype['__class__'];
+            if(!pool.get(key)){
+                pool.set(key,new com());
             }
-            return pool.get(com.name);
+            return pool.get(key);
         }
 
-        private logoffCom(pool:Map<string,any>,proxy:any):boolean{
+        /*private logoffCom(pool:Map<string,any>,proxy:any):boolean{
             if(pool.get(proxy.name)){
                 pool.delete(proxy.name);
                 console.log(pool);
                 return true;
             }
             return false;
-        }
+        }*/
 
         //instance mode
         private static _instance:GameFacade;

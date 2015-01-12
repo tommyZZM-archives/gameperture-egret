@@ -1,4 +1,4 @@
-module gamep.utils{
+module gamep{
 
     export var FPS:number = 0;
     export function rateoffest(worldrate:number = 60):number {

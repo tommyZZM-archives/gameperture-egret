@@ -10,7 +10,7 @@ module gamep{
             if(isdebug){
                 egret.Profiler.getInstance().run();
             }
-            utils.GameProfiler.instance;
+            GameProfiler.instance;
         }
 
         public launch(){

@@ -1,24 +1,25 @@
 module gamep{
     export class GameContainer extends egret.DisplayObjectContainer{
 
-        private _componentpool:Map<string,egret.DisplayObject>;
+        private _componentpool:Dict;//Map<string,egret.DisplayObject>;
 
         public constructor() {
-            this._componentpool = new Map<string,egret.DisplayObject>();
+            this._componentpool = new Dict();//new Map<string,egret.DisplayObject>();
             super();
             //TODO:your code here
         }
 
         //@public @final
-        public dispatchCmd(controller:any,cmd:string, ...courier:any[]){
-            root.dispatchEvent(new Event.FacadeEvent(NotifyType.Cmd,cmd+controller.name,courier));
+        public dispatchCmd(command:any,cmd:string, ...courier:any[]){
+            if(command.name != GameFacade.instance['_game'].name)GameFacade.instance['getCommand'](command);
+            root.dispatchEvent(new Event.FacadeEvent(NotifyType.Cmd,cmd+command.name,courier));
         }
 
         //TODO:添加多个侦听有BUG...
         public addFeedbackListener(proxy:any,type: string, callback: Function,thisObject: egret.DisplayObject = this):void{
             proxy = GameFacade.instance['getProxy'](proxy);
             if(proxy){
-                proxy.addEventListenerP(type,callback,thisObject);
+                proxy.addProxyEventListener(type,callback,thisObject);
             }
         }
 
@@ -31,11 +32,14 @@ module gamep{
 
         /** @deprecated */
         public dispatchEvent(event: egret.Event):boolean{
-            if(event._type == egret.Event.ADDED_TO_STAGE || event._type == egret.Event.ADDED){
+            if(event._type == egret.Event.ADDED_TO_STAGE
+                || event._type == egret.Event.ADDED
+                || event._type == egret.Event.REMOVED
+                || event._type == egret.Event.REMOVED_FROM_STAGE){
                 super.dispatchEvent(event);
                 return !(!event);
             }
-            console.warn('dispatchEvent() has been deprecated!use dispatchCmd() instead~');
+            console.warn('dispatchEvent() has been deprecated!use dispatchCmd() instead~','type:'+event._type);
             return null;
             //return super.dispatchEvent(event);
         }

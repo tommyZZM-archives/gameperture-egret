@@ -11,19 +11,34 @@ module gamep {
             //super();
         }
 
+        public init(...arg){
+
+        }
+
         public get name(){
             return this._name;
         }
 
-        protected addEventListenerP(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number){
+        protected addProxyEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number){
             super.addEventListener(type,listener,thisObject,useCapture,priority);
         }
 
         /** @deprecated */
         public addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number): void{}
 
+        protected dispatchCmd(command:any,cmd:string, ...courier:any[]){
+            if(command.name != GameFacade.instance['_game'].name)GameFacade.instance['getCommand'](command);
+            root.dispatchEvent(new Event.FacadeEvent(NotifyType.Cmd,cmd+command.name,courier));
+        }
+        /*public dispatchEvent(event:{event:Event}){
+            super.dispatchEvent()
+        }*/
         /*public destory(){
             GameFacade.instance['logoffCom'](GameFacade.instance['_proxypool'],this);
+        }*/
+
+        /*protected getProxy(proxy:any):any{
+            return GameFacade.instance['getProxy'](proxy);
         }*/
 
     }

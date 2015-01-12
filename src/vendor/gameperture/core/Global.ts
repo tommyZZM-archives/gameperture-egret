@@ -4,28 +4,6 @@ module gamep{
     export var root:egret.DisplayObjectContainer = null;
     export var rootscene:egret.DisplayObjectContainer = null;
 
-    export function trace(...optionalParams: any[]){
-        if(isdebug){
-            //TODO:需要改进...
-            var out = optionalParams.join(',');
-            console.log(out);
-        }
-    }
-
-    export function stage():egret.Stage{
-        return egret.MainContext.instance.stage;
-    }
-
-    export function stageWidth(multiple:number=1):number
-    {
-        return egret.MainContext.instance.stage.stageWidth*multiple;
-    }
-
-    export function stageHeight(multiple:number=1):number
-    {
-        return egret.MainContext.instance.stage.stageHeight*multiple;
-    }
-
     export enum NotifyType{
         Cmd = 1,
         Feedback = 3
@@ -39,5 +17,28 @@ module gamep{
     export module Notify.Call{
 
     }
+}
 
+function trace(...optionalParams: any[]){
+    if(gamep.isdebug){
+        //TODO:需要改进...
+        for(var i:number=0;i<optionalParams.length;i++){
+            console.log(optionalParams[i]);
+        }
+        //var out = optionalParams.join(',');
+    }
+}
+
+function stage():egret.Stage{
+    return egret.MainContext.instance.stage;
+}
+
+function stageWidth(multiple:number=1):number
+{
+    return egret.MainContext.instance.stage.stageWidth*multiple;
+}
+
+function stageHeight(multiple:number=1):number
+{
+    return egret.MainContext.instance.stage.stageHeight*multiple;
 }
