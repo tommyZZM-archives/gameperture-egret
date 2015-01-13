@@ -3,10 +3,30 @@
  * 禁止export!
  */
 module gamep {
+    /*class GameCmder{
+        protected getProxy(proxy:any){}
+    }
+
+    class GameCycler{
+        protected onStartup(){}
+        protected get stage(){}
+    }
+
+    class GameStage{
+        protected addScenery(scene:GameScenery){}
+        protected toggleToScenery(name:string,mail:any,transitions?){}
+    }*/
+
+    class GameLogicer{
+        protected getObject(scenery:string,obj:string):any{}
+        protected onEnter100MillSecond(e:Event.ProfilerEvent){}
+        protected onEnterSecond(e:Event.ProfilerEvent){}
+    }
+
     class WebSocketProxy {
-        public onConnect(e:egret.Event):void {}
-        public onData(e:egret.Event):void {}
-        public send(data:any):void {}
-        public close():void {}
+        public onConnect(...arg){}
+        public onData(...arg){}
+        public send(data:any){}
+        public close(...arg){}
     }
 }
