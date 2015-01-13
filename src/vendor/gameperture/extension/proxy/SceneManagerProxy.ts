@@ -1,7 +1,7 @@
 module gamep {
     export module Proxy{
         export class SceneManagerProxy extends gamep.GameProxyer{
-            public enterScene(scene:string,data:any){
+            public enterScene(scene:string,data?:any){
                 this.dispatchEvent(new Event.SceneManagerEvent(Event.SceneManagerEvent.ENTER_SCENE,scene,data));
             }
         }

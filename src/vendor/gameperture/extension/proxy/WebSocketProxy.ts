@@ -6,7 +6,7 @@ module gamep {
 
         private _socket:egret.HTML5WebSocket;
 
-        public connect(ip:string, port:number,binary:any = BinaryType.Blob,...arg):void {
+        public connect(ip:any, port:any,binary:any = BinaryType.Blob,...arg):void {
             this._socket = new egret.HTML5WebSocket();
             this._socket.connect(ip, port);
             this._socket["socket"].binaryType = binary;
@@ -14,9 +14,9 @@ module gamep {
             this._socket.addCallBacks(this.onConnect,this.onClose,this.onData,this.onError,this);
         }
 
-        protected onConnect():void {
+        protected onConnect(data?:any):void {
             trace("onOpen ... "+this._socket["host"]+":"+this._socket["port"]);
-            this.dispatchEvent(new Event.WebSocketEvent(Event.WebSocketEvent.ON_CONNECT));
+            this.dispatchEvent(new Event.WebSocketEvent(Event.WebSocketEvent.ON_CONNECT,data));
         }
 
         protected onData(data:any):void {

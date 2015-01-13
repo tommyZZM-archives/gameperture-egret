@@ -41,5 +41,9 @@ module gamep {
             return GameFacade.instance['getProxy'](proxy);
         }*/
 
+        public addTimeListener(type:Event.IProfilerEvent,callback:Function){
+            GameProfiler.instance.addEventListener(type+'ProfilerEvent',callback,this);
+        }
+
     }
 }
