@@ -9,6 +9,9 @@ module gamep {
             this._name = this['__proto__']['__class__'];
             this._name = /\.?(\w+)$/.exec(this.name)[1];
             //super();
+            this.mixExtendMethod(GameCmder,'getProxy',true);
+            this.mixExtendMethod(GameCmder,'dispatchSimpleFeedback',true);
+            this.mixExtendMethod(GameContainer,'dispatchCmd',true);
         }
 
         public init(...arg){
@@ -26,24 +29,30 @@ module gamep {
         /** @deprecated */
         public addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number): void{}
 
-        protected dispatchCmd(command:any,cmd:string, ...courier:any[]){
-            if(command.name != GameFacade.instance['_game'].name)GameFacade.instance['getCommand'](command);
-            root.dispatchEvent(new Event.FacadeEvent(NotifyType.Cmd,cmd+command.name,courier));
-        }
-        /*public dispatchEvent(event:{event:Event}){
-            super.dispatchEvent()
-        }*/
-        /*public destory(){
-            GameFacade.instance['logoffCom'](GameFacade.instance['_proxypool'],this);
-        }*/
-
-        /*protected getProxy(proxy:any):any{
-            return GameFacade.instance['getProxy'](proxy);
-        }*/
+        /** @mixExtendMethod **/
+        protected dispatchCmd(command:any,cmd:string, ...courier:any[]){}
+        protected getProxy(proxy:any):any{}
+        protected dispatchSimpleFeedback(type:string, courier?:any){}
 
         public addTimeListener(type:Event.IProfilerEvent,callback:Function){
             GameProfiler.instance.addEventListener(type+'ProfilerEvent',callback,this);
         }
 
+        private mixExtendMethod(Class,method:string,forceOverride:boolean=false){
+            var f = Class['prototype'][method];
+            if(f && method!='__class__'){
+                if(!forceOverride){
+                    if(this[method]){
+                        console.warn(method+"() already exist in "+this._name+" use forceOverride and try?");
+                        return;
+                    }
+                }
+                this['__proto__'][method] = f;
+            }
+        }
+
+        /*public destory(){
+         GameFacade.instance['logoffCom'](GameFacade.instance['_proxypool'],this);
+         }*/
     }
 }

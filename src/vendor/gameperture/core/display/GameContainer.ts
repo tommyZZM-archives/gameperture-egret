@@ -15,8 +15,13 @@ module gamep{
             root.dispatchEvent(new Event.FacadeEvent(NotifyType.Cmd,cmd+command.name,courier));
         }
 
-        //TODO:添加多个侦听有BUG...
+        public addSimpleFeedbackListener(type: string, callback: Function,thisObject: egret.DisplayObject = this){
+            var proxy = GameFacade.instance['getProxy'](SimpleFeedbackProxy);
+            proxy.addProxyEventListener(type,callback,thisObject);
+        }
+        //Done:添加多个侦听有BUG...
         public addFeedbackListener(proxy:any,type: string, callback: Function,thisObject: egret.DisplayObject = this):void{
+            if(proxy.prototype['__class__']==SimpleFeedbackProxy.prototype['__class__']){console.warn('use addCmdFeedbackListener() instead!');return;}
             proxy = GameFacade.instance['getProxy'](proxy);
             if(proxy){
                 proxy.addProxyEventListener(type,callback,thisObject);

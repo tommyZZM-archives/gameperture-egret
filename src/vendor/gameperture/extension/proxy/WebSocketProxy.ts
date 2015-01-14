@@ -6,12 +6,12 @@ module gamep {
 
         private _socket:egret.HTML5WebSocket;
 
-        public connect(ip:any, port:any,binary:any = BinaryType.Blob,...arg):void {
+        public connect(ip:any, port:any,binary:any = BinaryType.Blob,onConnect:any = this.onConnect,...arg):void {
             this._socket = new egret.HTML5WebSocket();
             this._socket.connect(ip, port);
             this._socket["socket"].binaryType = binary;
             //console.log(this.socketObj.socket);
-            this._socket.addCallBacks(this.onConnect,this.onClose,this.onData,this.onError,this);
+            this._socket.addCallBacks(onConnect,this.onClose,this.onData,this.onError,this);
         }
 
         protected onConnect(data?:any):void {

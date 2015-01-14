@@ -14,6 +14,10 @@ module gamep {
         protected display(){
 
         }
+
+        protected setBackground(){
+
+        }
         
         public clear(){this.removeChildren();}
         public hide(...arg):void{this.visible = false;}

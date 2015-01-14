@@ -14,9 +14,14 @@ module gamep {
             GameFacade.instance['_postals'].get(NotifyType.Cmd).set(notify+this.name,{thisobj:this, callback: callback})
         }
 
+        public dispatchSimpleFeedback(type:string, courier?:any){
+            GameFacade.instance['getProxy'](SimpleFeedbackProxy).dispatchCmdFeedback(type,courier);
+        }
+
         // @final
         // 看我滥用索引...
         protected getProxy(proxy:any):any{
+            if(proxy.prototype['__class__']==SimpleFeedbackProxy.prototype['__class__'])return;
             return GameFacade.instance['getProxy'](proxy);
         }
 

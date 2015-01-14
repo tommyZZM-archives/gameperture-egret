@@ -1,4 +1,4 @@
-module gamep.Proxy{
+module gamep{
     export class AssetsLoaderProxy extends GameProxyer{
 
         private _assets_groups:any;
@@ -8,8 +8,9 @@ module gamep.Proxy{
             this._loadcount = 0;
             this._assets_groups = groups;
             if(preload && groups.length>=1){
-                this._assets_groups.unshift(preload);
+                //this._assets_groups.unshift(preload);
                 this._loadcount = -1;
+                this._assets_groups[this._loadcount] = preload
             }else if(preload){
                 this._assets_groups = [preload];
             }
