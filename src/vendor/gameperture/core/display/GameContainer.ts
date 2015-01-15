@@ -72,6 +72,18 @@ module gamep{
             }
         }
 
+        public removeChild(child: egret.DisplayObject):egret.DisplayObject{
+            if(this._componentpool.get(child.name)){
+                super.removeChild(child);
+                this._componentpool.delete(child.name);
+                return child;
+            }else{
+                console.warn('remove fail!');
+                return null;
+            }
+
+        }
+
         public selectChild(name):any{
             return this._componentpool.get(name);
         }

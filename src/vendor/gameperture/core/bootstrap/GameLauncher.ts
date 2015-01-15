@@ -6,6 +6,7 @@ module gamep{
         public constructor(debug:boolean) {
             console.info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
                 "Quick Game Devlope Template base on Egret Engine!");
+            console.info("gitHub:",'https://github.com/tommyZZM/gameperture-egret')
             isdebug = debug;
             if(isdebug){
                 egret.Profiler.getInstance().run();
