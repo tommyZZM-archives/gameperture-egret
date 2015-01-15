@@ -21,10 +21,22 @@ module gamep{
         }
         //Done:添加多个侦听有BUG...
         public addFeedbackListener(proxy:any,type: string, callback: Function,thisObject: egret.DisplayObject = this):void{
-            if(proxy.prototype['__class__']==SimpleFeedbackProxy.prototype['__class__']){console.warn('use addCmdFeedbackListener() instead!');return;}
+            if(proxy.prototype['__class__']==SimpleFeedbackProxy.prototype['__class__']){console.warn('use addSimpleFeedbackListener() instead!');return;}
             proxy = GameFacade.instance['getProxy'](proxy);
             if(proxy){
                 proxy.addProxyEventListener(type,callback,thisObject);
+            }
+        }
+
+        public removeSimpleFeedbackListener(type: string, callback: Function,thisObject: egret.DisplayObject = this){
+            var proxy = GameFacade.instance['getProxy'](SimpleFeedbackProxy);
+            proxy.removeProxyEventListener(type,callback,thisObject);
+        }
+        public removeFeedbackListener(proxy:any,type: string, callback: Function,thisObject: egret.DisplayObject = this):void{
+            if(proxy.prototype['__class__']==SimpleFeedbackProxy.prototype['__class__']){console.warn('use removeSimpleFeedbackListener() instead!');return;}
+            proxy = GameFacade.instance['getProxy'](proxy);
+            if(proxy){
+                proxy.removeProxyEventListener(type,callback,thisObject);
             }
         }
 

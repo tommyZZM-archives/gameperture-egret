@@ -26,6 +26,10 @@ module gamep {
             super.addEventListener(type,listener,thisObject,useCapture,priority);
         }
 
+        protected removeProxyEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean){
+            super.removeEventListener(type,listener,thisObject,useCapture);
+        }
+
         /** @deprecated */
         public addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number): void{}
 
