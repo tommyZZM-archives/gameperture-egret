@@ -1,36 +1,45 @@
 class Dict{
     private _map:any;
+    private _keys:string[];
 
     public constructor() {
         this._map = {};
+        this._keys=[];
         //var a:Map = new Map()
     }
 
-    public set(value:any,key){
-        this._map[value] = key;
+    public set(key:any,value){
+        this._keys.push(key);
+        this._map[key] = value;
     }
 
-    public get(value):any{
-        return this._map[value]
+    public get(key):any{
+        return this._map[key]
     }
 
-    public delete(value){
-        if(this.has(value))delete this._map[value];
+    public delete(key){
+        var index = this._keys.indexOf(key, 0);
+        this._keys.splice(index, 1);
+        if(this.has(key))delete this._map[key];
     }
 
-    public has(value):boolean{
-        return this._map[value]?true:false;
+    public has(key):boolean{
+        return this._map[key]?true:false;
     }
 
     public clear(){
-        for(var value in this._map){
-            delete this._map[value];
+        for(var i in this._keys){
+            this.delete(this._keys[i])
         }
     }
 
-    /** @deprecated */
-    public forEach(callbackfn: (value, key)=>void, thisArg?: any): void{
-
+    /** @/deprecated */
+    public forEach(callbackfn: (value, key:string)=>void, thisArg: any): void{
+        for(var i in this._keys){
+            var key = this._keys[i]
+            var value = this._map[this._keys[i]];
+            callbackfn.apply(thisArg,[value,key]);
+        }
     }
 
     public get size():number{

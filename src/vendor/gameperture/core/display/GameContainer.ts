@@ -72,6 +72,18 @@ module gamep{
             }
         }
 
+        public addChildAt(child: egret.DisplayObject,index: number):egret.DisplayObject{
+            if(child.name){
+                super.addChildAt(child,index);
+                this._componentpool.set(child.name,child);
+                return child
+            }else{
+                console.warn('child must have a name!');
+                return null;
+            }
+        }
+
+
         public removeChild(child: egret.DisplayObject):egret.DisplayObject{
             if(this._componentpool.get(child.name)){
                 super.removeChild(child);
