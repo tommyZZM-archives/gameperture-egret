@@ -1,5 +1,5 @@
 module gamep {
-    export class TestLogic extends GameLogicer{
+    export class TestLogic extends GameProxyer{
         protected onEnterSecond(e:any){
             console.log(e.count);
         }

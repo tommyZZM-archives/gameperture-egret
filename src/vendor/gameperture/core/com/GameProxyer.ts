@@ -9,9 +9,9 @@ module gamep {
             this._name = this['__proto__']['__class__'];
             this._name = /\.?(\w+)$/.exec(this.name)[1];
             //super();
-            this.mixExtendMethod(GameCmder,'getProxy',true);
-            this.mixExtendMethod(GameCmder,'dispatchSimpleFeedback',true);
-            this.mixExtendMethod(GameContainer,'dispatchCmd',true);
+            extendImplements(this,GameCmder,'getProxy',true);
+            extendImplements(this,GameCmder,'dispatchSimpleFeedback',true);
+            extendImplements(this,GameContainer,'dispatchCmd',true);
         }
 
         public init(...arg){
@@ -41,20 +41,6 @@ module gamep {
         public addTimeListener(type:Event.IProfilerEvent,callback:Function){
             GameProfiler.instance.addEventListener(type+'ProfilerEvent',callback,this);
         }
-
-        private mixExtendMethod(Class,method:string,forceOverride:boolean=false){
-            var f = Class['prototype'][method];
-            if(f && method!='__class__'){
-                if(!forceOverride){
-                    if(this[method]){
-                        console.warn(method+"() already exist in "+this._name+" use forceOverride and try?");
-                        return;
-                    }
-                }
-                this['__proto__'][method] = f;
-            }
-        }
-
         /*public destory(){
          GameFacade.instance['logoffCom'](GameFacade.instance['_proxypool'],this);
          }*/

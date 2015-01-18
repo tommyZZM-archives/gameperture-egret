@@ -63,7 +63,7 @@ module gamep{
             this.visible = false;
         }
 
-        public get tween(){
+        public get tween():egret.Tween{
             return egret.Tween.get(this);
         }
 

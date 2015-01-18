@@ -96,6 +96,11 @@ module gamep{
 
         }
 
+        public removeChildren():void{
+            super.removeChildren();
+            this._componentpool.clear();
+        }
+
         public selectChild(name):any{
             return this._componentpool.get(name);
         }
