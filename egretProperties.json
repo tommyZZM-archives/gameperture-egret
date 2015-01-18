@@ -3,10 +3,13 @@
 	"modules": [
 		{
 			"name": "core"
+		},
+		{
+			"name": "socket"
 		}
 	],
 	"native": {
 		"path_ignore": []
 	},
-	"egret_version": "1.5.1"
+	"egret_version": "1.5.2"
 }
