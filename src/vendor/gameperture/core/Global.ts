@@ -64,3 +64,19 @@ function extendImplementsAll(thisArg:any,Class:any,forceOverride:boolean=true){
         extendImplements(thisArg,Class,i,forceOverride);
     }
 }
+
+function getClassName(obj:any):string{
+    //class?
+    if (obj.prototype) {
+        if (obj.prototype.__class__ && obj.prototype.constructor){
+            return obj.prototype.__class__;
+        }
+    }else if(obj.__proto__){
+        if (obj.__proto__.__class__ && obj.__proto__.constructor){
+            return obj.__proto__.__class__;
+        }
+    }else{
+        console.warn(obj,'is not a class!');
+        return undefined;
+    }
+}
