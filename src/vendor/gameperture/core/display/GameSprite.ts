@@ -13,6 +13,8 @@ module gamep{
             this.x = x;this.y = y;
             this._size = {scaleX:1,scaleY:1,height:this.height,width:this.width};
             this.display();
+
+            //extendImplements(this,GameContainer,'dispatchCmd');
         }
 
         //@overwrite
@@ -115,6 +117,8 @@ module gamep{
         public get key():string{
             return this._key;
         }
+
+        //public dispatchCmd(command:any,cmd:string, ...courier:any[]){}
 
     }
 }

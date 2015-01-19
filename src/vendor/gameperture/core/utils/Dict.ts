@@ -9,7 +9,9 @@ class Dict{
     }
 
     public set(key:any,value){
-        this._keys.push(key);
+        if(!this._map[key]){
+            this._keys.push(key);
+        }
         this._map[key] = value;
     }
 
@@ -29,12 +31,13 @@ class Dict{
 
     public clear(){
         for(var i in this._keys){
-            this.delete(this._keys[i])
+            this.delete(this._keys[i]);
         }
+        this._keys = [];
     }
 
     /** @/deprecated */
-    public forEach(callbackfn: (value, key:string)=>void, thisArg: any): void{
+    public forEach(callbackfn: (value, key?:string)=>void, thisArg: any): void{
         for(var i in this._keys){
             var key = this._keys[i]
             var value = this._map[this._keys[i]];
@@ -42,12 +45,17 @@ class Dict{
         }
     }
 
-    public get size():number{
-        var size:number = 0;
-        for(var value in this._map){
-            size++;
+    public get values(){
+        var values = [];
+        for(var i in this._keys){
+            var value = this._map[this._keys[i]];
+            values.push(value);
         }
-        return size;
+        return values;
+    }
+
+    public get size():number{
+        return this._keys.length;
     }
 
 }
