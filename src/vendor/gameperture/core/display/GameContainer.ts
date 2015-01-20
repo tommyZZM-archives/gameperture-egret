@@ -90,7 +90,8 @@ module gamep{
                 this._componentpool.delete(child.name);
                 return child;
             }else{
-                console.warn('remove fail!');
+                //super.removeChild(child);
+                console.warn(getClassName(this),'remove a unname child!',getClassName(child));
                 return null;
             }
 
