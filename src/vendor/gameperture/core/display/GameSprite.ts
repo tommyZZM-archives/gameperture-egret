@@ -6,6 +6,7 @@ module gamep{
 
         public constructor(x:number=0,y:number=0,parent:egret.DisplayObjectContainer = null,
                            pivotX:number=0,pivotY:number=0) {
+            extendImplements(this,GameContainer,'addSimpleFeedbackListener');
             super();
             if(!this._key){this._key = undefined;/*console.warn('a GameSprite should define a key');*/}
             //TODO:your code here
@@ -13,8 +14,6 @@ module gamep{
             this.x = x;this.y = y;
             this._size = {scaleX:1,scaleY:1,height:this.height,width:this.width};
             this.display();
-
-            //extendImplements(this,GameContainer,'dispatchCmd');
         }
 
         //@overwrite
@@ -118,7 +117,25 @@ module gamep{
             return this._key;
         }
 
-        //public dispatchCmd(command:any,cmd:string, ...courier:any[]){}
+        public addSimpleFeedbackListener(type: string, callback: Function,thisObject: egret.DisplayObject = this){
+            console.log('extendImplements faile');
+        }
 
+        /**
+         * Beta 方法
+         */
+        private _proxy:gamep.GameProxyer;
+
+        /**@final**/
+        protected bindProxy(proxy:any){
+            if(proxy.prototype['__class__']==SimpleFeedbackProxy.prototype['__class__'])return;
+            this._proxy = GameFacade.instance['getProxy'](proxy);
+        }
+
+        /**@final**/
+        public get proxy():gamep.GameProxyer{
+            if(!this._proxy){console.warn('bindProxy() first!')}
+            return this._proxy;
+        }
     }
 }

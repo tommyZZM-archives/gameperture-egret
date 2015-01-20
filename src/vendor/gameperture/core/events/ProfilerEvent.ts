@@ -14,6 +14,9 @@ module gamep.Event{
 
     }
 
+    export var ON_MILLSECOND100 = IProfilerEvent.ON_MILLSECOND100;
+    export var ON_SECOND = IProfilerEvent.ON_SECOND;
+
     export enum IProfilerEvent{
         ON_MILLSECOND100 = 1,
         ON_SECOND      = 2
