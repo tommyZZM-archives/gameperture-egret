@@ -9,7 +9,6 @@ module gamep {
             var type = SceneryManagerEvent.ENTER_SCENE;
             if(getClassName(command)){
                 type = getClassName(command)+type;
-                console.log('SceneryManagerProxy');
                 var feeback = {scenery:scenery,mail:data};
                 this.dispatchSimpleFeedback(type,feeback);
             }

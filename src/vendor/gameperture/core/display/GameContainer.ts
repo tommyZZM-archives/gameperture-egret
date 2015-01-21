@@ -36,7 +36,7 @@ module gamep{
         public addTargetFeedbackListener(command:Function,type: string, callback: Function,thisObject: egret.DisplayObject = this){
             var proxy = GameFacade.instance['getProxy'](SimpleFeedbackProxy);
             type = getClassName(command)+type;
-            console.log('addTargetFeedbackListener:'+type);
+            //console.log('addTargetFeedbackListener:'+type);
             proxy.addProxyEventListener(type,callback,thisObject);
         }
 
