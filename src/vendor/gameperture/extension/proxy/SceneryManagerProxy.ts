@@ -5,9 +5,9 @@ module gamep {
      */
 
     export class SceneryManagerProxy extends gamep.GameProxyer{
-        public enterScenery(command:any,scenery:string,data?:any){
+        public enterScenery(scenery:string,data?:any){
             console.log('SceneryManagerProxy');
-            this.dispatchEvent(new Event.SceneryManagerEvent(Event.SceneryManagerEvent.ENTER_SCENE,command,scenery,data));
+            this.dispatchEvent(new Event.SceneryManagerEvent(Event.SceneryManagerEvent.ENTER_SCENE,scenery,data));
         }
     }
 
@@ -15,10 +15,9 @@ module gamep {
         export class SceneryManagerEvent extends gamep.Event.ProxyEvent{
             public static ENTER_SCENE:string = 'ENTER_SCENE';
 
-            public constructor(type:string,command:Function, scene:string, data?:any[]) {
+            public constructor(type:string, scene:string, data?:any[]) {
                 //TODO:your code here
-                super( type, command, {scene:scene,mail:data});
-                console.log(this.type);
+                super(type, {scene:scene,mail:data});
             }
         }
     }
