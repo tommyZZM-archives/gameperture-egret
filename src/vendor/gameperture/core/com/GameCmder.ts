@@ -10,12 +10,19 @@ module gamep {
         }
 
         //FIX:添加多个侦听有BUG...
-        public addNotifyListener(notify: string, callback: Function):void{//,thisObject: any
+        public addCmdHandler(notify: string, callback: Function):void{//,thisObject: any
             GameFacade.instance['_postals'].get(NotifyType.Cmd).set(notify+this.name,{thisobj:this, callback: callback})
         }
 
         public dispatchSimpleFeedback(type:string, courier?:any){
             GameFacade.instance['getProxy'](SimpleFeedbackProxy).dispatchCmdFeedback(type,courier);
+        }
+
+        public dispatchTargetFeedback(type:string, courier?:any){
+            if(getClassName(this)) {
+                type = getClassName(this) + type;
+                GameFacade.instance['getProxy'](SimpleFeedbackProxy).dispatchCmdFeedback(type,courier);
+            }
         }
 
         // @final

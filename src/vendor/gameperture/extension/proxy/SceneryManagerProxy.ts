@@ -10,7 +10,7 @@ module gamep {
             if(getClassName(command)){
                 type = getClassName(command)+type;
                 console.log('SceneryManagerProxy');
-                var feeback = {scene:scenery,mail:data};
+                var feeback = {scenery:scenery,mail:data};
                 this.dispatchSimpleFeedback(type,feeback);
             }
 
