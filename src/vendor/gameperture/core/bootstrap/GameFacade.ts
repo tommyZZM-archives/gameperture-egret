@@ -23,7 +23,7 @@ module gamep {
         }
 
         public init(){
-            root.addEventListener(Event.FacadeEvent.UNIQUE,this._postOffice,this);
+            root.addEventListener(Internal.FacadeEvent.UNIQUE,this._postOffice,this);
         }
 
         public startup(){
@@ -34,7 +34,7 @@ module gamep {
         }
 
         //邮局
-        private _postOffice(e:Event.FacadeEvent){
+        private _postOffice(e:Internal.FacadeEvent){
             var ant:any = this._postals.get(e.fatype).get(e.notify);
             if(ant){ant.callback.apply(ant.thisobj,e.courier);}
         }

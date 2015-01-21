@@ -1,4 +1,4 @@
-module gamep.Event {
+module gamep {
     export class ProxyEvent extends egret.Event{
 
         private _courier:any;

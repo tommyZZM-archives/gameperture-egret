@@ -1,4 +1,4 @@
-module gamep.Event{
+module gamep.Internal{
     export class FacadeEvent extends ProxyEvent{
 
         public static UNIQUE:string = 'facadeEvent0811';

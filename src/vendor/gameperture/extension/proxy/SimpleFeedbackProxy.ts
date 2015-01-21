@@ -7,10 +7,4 @@ module gamep
 
         public dispatchEvent(event: egret.Event): boolean{return null}
     }
-
-    export class SimpleFeedbackEvent extends Event.ProxyEvent{
-        public constructor(type:string, courier?:any) {
-            super(type,courier);
-        }
-    }
 }

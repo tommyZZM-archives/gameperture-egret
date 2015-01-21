@@ -12,14 +12,41 @@ module gamep{
         //@public @final
         public dispatchCmd(command:any,cmd:string, ...courier:any[]){
             if(command.name != GameFacade.instance['_game'].name)GameFacade.instance['getCommand'](command);
-            root.dispatchEvent(new Event.FacadeEvent(NotifyType.Cmd,cmd+command.name,courier));
+            root.dispatchEvent(new Internal.FacadeEvent(NotifyType.Cmd,cmd+command.name,courier));
         }
 
+        /**
+         * 简陋反馈侦听器
+         * @param type
+         * @param callback
+         * @param thisObject
+         */
         public addSimpleFeedbackListener(type: string, callback: Function,thisObject: egret.DisplayObject = this){
             var proxy = GameFacade.instance['getProxy'](SimpleFeedbackProxy);
             proxy.addProxyEventListener(type,callback,thisObject);
         }
-        //Done:添加多个侦听有BUG...
+
+        /**
+         * 目标反馈侦听器
+         * @param command
+         * @param type
+         * @param callback
+         * @param thisObject
+         */
+        public addTargetFeedbackListener(command:Function,type: string, callback: Function,thisObject: egret.DisplayObject = this){
+            var proxy = GameFacade.instance['getProxy'](SimpleFeedbackProxy);
+            type = getClassName(command)+type;
+            console.log('addTargetFeedbackListener:'+type);
+            proxy.addProxyEventListener(type,callback,thisObject);
+        }
+
+        /**
+         * 普通反馈侦听器
+         * @param proxy
+         * @param type
+         * @param callback
+         * @param thisObject
+         */
         public addFeedbackListener(proxy:any,type: string, callback: Function,thisObject: egret.DisplayObject = this):void{
             if(proxy.prototype['__class__']==SimpleFeedbackProxy.prototype['__class__']){console.warn('use addSimpleFeedbackListener() instead!');return;}
             proxy = GameFacade.instance['getProxy'](proxy);

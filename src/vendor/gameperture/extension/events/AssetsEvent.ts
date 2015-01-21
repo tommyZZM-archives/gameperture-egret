@@ -1,4 +1,4 @@
-module gamep.Event{
+module gamep{
     export class AssetsEvent extends ProxyEvent {
 
         public static PRELOAD_READY:string = "preReady";

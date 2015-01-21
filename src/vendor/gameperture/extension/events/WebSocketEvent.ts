@@ -1,4 +1,4 @@
-module gamep.Event {
+module gamep {
     export class WebSocketEvent extends ProxyEvent{
 
         public static ON_CONNECT:string = "gamep.Event.WebSocketEvent.ON_CONNECT";
