@@ -46,7 +46,7 @@ module gamep{
         private loadprogress(e:RES.ResourceEvent){
             if(e.groupName!='RES__CONFIG'){
                 var pct = e.itemsLoaded / e.itemsTotal;
-                trace('Loading '+e.resItem.url+' in '+e.groupName+' '+pct*100+'%');
+                trace('Loading '+e.resItem.url+' in '+e.groupName+' '+(pct*100).toFixed(0)+'%');
                 if(this._loadcount!=0){
                     var eve = new AssetsEvent(AssetsEvent.ASSET_PROGRESS);
                     eve.percent = pct;
