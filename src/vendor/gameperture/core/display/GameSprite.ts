@@ -65,7 +65,9 @@ module gamep{
         }
 
         public get tween():egret.Tween{
-            return egret.Tween.get(this);
+            var tween = egret.Tween.get(this);
+            tween.setPaused(false);
+            return tween;
         }
 
         public fadeIn(duration:number=200){
@@ -86,7 +88,7 @@ module gamep{
          * 显示列表
          */
 
-        public transParent(target:egret.DisplayObjectContainer):egret.Point{
+        public transParent(target:egret.DisplayObjectContainer):egret.DisplayObject{
             var gpos:egret.Point;
             var npos:egret.Point;
             if(this.parent){
@@ -94,12 +96,13 @@ module gamep{
                 this.parent.removeChild(this);
             }
             target.addChild(this);
+            //this.visible = false;
             if(gpos){
                 npos = target.globalToLocal(gpos.x,gpos.y);
                 this.x = npos.x;
                 this.y = npos.y;
             }
-            return npos;
+            return this;
         }
 
         public removeFromParent(){

@@ -12,11 +12,20 @@ module gamep {
                 var feeback = {scenery:scenery,mail:data};
                 this.dispatchSimpleFeedback(type,feeback);
             }
+        }
 
+        public leaveScenery(command:any,scenery:string,data?:any){
+            var type = SceneryManagerEvent.LEAVE_SCENE;
+            if(getClassName(command)){
+                type = getClassName(command)+type;
+                var feeback = {scenery:scenery,mail:data};
+                this.dispatchSimpleFeedback(type,feeback);
+            }
         }
     }
 
     export module SceneryManagerEvent{
         export var ENTER_SCENE:string = 'ENTER_SCENE';
+        export var LEAVE_SCENE:string = 'LEAVE_SCENE';
     }
 }

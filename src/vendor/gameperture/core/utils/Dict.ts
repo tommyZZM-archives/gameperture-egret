@@ -30,15 +30,13 @@ class Dict{
     }
 
     public clear(){
-        for(var i in this._keys){
-            this.delete(this._keys[i]);
-        }
+        this._map = {};
         this._keys = [];
     }
 
     /** @/deprecated */
     public forEach(callbackfn: (value, key?:string)=>void, thisArg: any): void{
-        for(var i in this._keys){
+        for(var i=0;i<this._keys.length;i++){
             var key = this._keys[i]
             var value = this._map[this._keys[i]];
             callbackfn.apply(thisArg,[value,key]);
@@ -47,7 +45,7 @@ class Dict{
 
     public get values(){
         var values = [];
-        for(var i in this._keys){
+        for(var i=0;i<this._keys.length;i++){
             var value = this._map[this._keys[i]];
             values.push(value);
         }
