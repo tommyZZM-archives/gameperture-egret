@@ -11,8 +11,9 @@ module gamep{
 
         //@public @final
         public dispatchCmd(command:any,cmd:string, ...courier:any[]){
-            if(command.name != GameFacade.instance['_game'].name)GameFacade.instance['getCommand'](command);
-            root.dispatchEvent(new Internal.FacadeEvent(NotifyType.Cmd,cmd+command.name,courier));
+            if(getClassName(command) != getClassName(GameFacade.instance['_game']))GameFacade.instance['getCommand'](command);
+            //console.log(cmd+command.name,cmd+getClassName(command));//TODO:这里不能用name.. 默认情况下name表示该实例的名字.. 如果压缩器改变了实例名,就会造成错误.
+            root.dispatchEvent(new Internal.FacadeEvent(NotifyType.Cmd,cmd+getClassName(command),courier));
         }
 
         /**

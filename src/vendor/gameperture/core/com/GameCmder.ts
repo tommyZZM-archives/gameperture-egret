@@ -11,7 +11,8 @@ module gamep {
 
         //FIX:添加多个侦听有BUG...
         public addCmdHandler(notify: string, callback: Function):void{//,thisObject: any
-            GameFacade.instance['_postals'].get(NotifyType.Cmd).set(notify+this.name,{thisobj:this, callback: callback})
+            //console.log("addCmdHandler..",notify+this.name,notify+getClassName(this))
+            GameFacade.instance['_postals'].get(NotifyType.Cmd).set(notify+getClassName(this),{thisobj:this, callback: callback})
         }
 
         public dispatchSimpleFeedback(type:string, courier?:any){
