@@ -9,7 +9,7 @@ module gamep{
             console.info("gitHub:",'https://github.com/tommyZZM/gameperture-egret')
             isdebug = debug;
             if(isdebug){
-                egret.Profiler.getInstance().run();
+                //egret.Profiler.getInstance().run();
             }
             GameProfiler.instance;
         }

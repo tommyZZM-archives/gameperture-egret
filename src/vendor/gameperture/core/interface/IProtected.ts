@@ -18,10 +18,14 @@ module gamep {
     }*/
 
     class GameLogicer{
-        protected getObject(scenery:string,obj:string):any{}
-        protected onEnter100MillSecond(e:Event.ProfilerEvent){}
-        protected onEnterSecond(e:Event.ProfilerEvent){}
+        public getObject(scenery:string,obj:string):any{}
+        public onEnter100MillSecond(e:Event.ProfilerEvent){}
+        public onEnterSecond(e:Event.ProfilerEvent){}
     }
+
+    /*class GameSprite extends egret.DisplayObjectContainer{
+        public display(...arg);
+    }*/
 
     class WebSocketProxy {
         public onConnect(...arg){}

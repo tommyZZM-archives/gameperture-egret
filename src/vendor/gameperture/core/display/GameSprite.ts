@@ -12,12 +12,12 @@ module gamep{
             //TODO:your code here
             this.pivotFix(pivotX,pivotY);
             this.x = x;this.y = y;
-            this._size = {scaleX:1,scaleY:1,height:this.height,width:this.width};
             this.display();
+            this._size = {scaleX:this.scaleX,scaleY:this.scaleY,height:this.height,width:this.width};
         }
 
         //@overwrite
-        protected display(){
+        protected display(...arg){
         }
 
         public pivotFix(pivotX:number,pivotY:number):void{
