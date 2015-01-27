@@ -6,13 +6,13 @@ module gamep{
         public constructor() {
             this._componentpool = new Dict();//new Map<string,egret.DisplayObject>();
             super();
-            //TODO:your code here
+            //:your code here
         }
 
         //@public @final
         public dispatchCmd(command:any,cmd:string, ...courier:any[]){
             if(getClassName(command) != getClassName(GameFacade.instance['_game']))GameFacade.instance['getCommand'](command);
-            //console.log(cmd+command.name,cmd+getClassName(command));//TODO:这里不能用name.. 默认情况下name表示该实例的名字.. 如果压缩器改变了实例名,就会造成错误.
+            //console.log(cmd+command.name,cmd+getClassName(command));//DONE:这里不能用name.. 默认情况下name表示该实例的名字.. 如果压缩器改变了实例名,就会造成错误.
             root.dispatchEvent(new Internal.FacadeEvent(NotifyType.Cmd,cmd+getClassName(command),courier));
         }
 

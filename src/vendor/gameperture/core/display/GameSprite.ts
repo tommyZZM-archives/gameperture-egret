@@ -9,7 +9,7 @@ module gamep{
             extendImplements(this,GameContainer,'addSimpleFeedbackListener');
             super();
             if(!this._key){this._key = undefined;/*console.warn('a GameSprite should define a key');*/}
-            //TODO:your code here
+            //:your code here
             this.pivotFix(pivotX,pivotY);
             this.x = x;this.y = y;
             this.display();

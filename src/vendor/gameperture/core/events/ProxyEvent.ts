@@ -4,7 +4,7 @@ module gamep {
         private _courier:any;
 
         public constructor(type:string, courier?:any) {
-            //TODO:your code here
+            //:your code here
             this._courier = courier;
             super(type, false, false);
         }

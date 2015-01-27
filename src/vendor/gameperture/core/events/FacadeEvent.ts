@@ -6,7 +6,7 @@ module gamep.Internal{
         private _fatype:NotifyType;
 
         public constructor(type:NotifyType,notify:string, courier?:any) {
-            //TODO:your code here
+            //:your code here
             this._fatype = type;
             this._notify = notify;
             super(FacadeEvent.UNIQUE, courier);

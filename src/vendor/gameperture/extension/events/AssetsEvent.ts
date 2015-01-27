@@ -8,7 +8,7 @@ module gamep{
         public percent:number = 0;
 
         public constructor(type:string) {
-            //TODO:your code here
+            //:your code here
             super(type);
         }
     }
