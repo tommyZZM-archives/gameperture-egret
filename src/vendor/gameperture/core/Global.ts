@@ -80,3 +80,18 @@ function getClassName(obj:any):string{
         return undefined;
     }
 }
+
+
+function injectProperty(target:any,packge:any,pos:string):any{
+    if(packge && !target[pos]){
+        var foreign = packge;
+        target[pos] = foreign;
+    }else{
+        console.warn('error formart! injectiong fail!',target,packge)
+    }
+    return target;
+}
+
+function getProperty(target:any,prop:string):any{
+    return target[prop];
+}
