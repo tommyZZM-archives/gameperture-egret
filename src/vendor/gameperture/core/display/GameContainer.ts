@@ -70,13 +70,13 @@ module gamep{
 
         //禁用方法
         /** @deprecated */
-        public addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number):void{
+        /*public addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number):void{
             console.warn('addEventListener('+type+') has been deprecated!');
             //super.addEventListener(type,listener,thisObject,useCapture,priority);
-        }
+        }*/
 
         /** @deprecated */
-        public dispatchEvent(event: egret.Event):boolean{
+        /*public dispatchEvent(event: egret.Event):boolean{
             if(event._type == egret.Event.ADDED_TO_STAGE
                 || event._type == egret.Event.ADDED
                 || event._type == egret.Event.REMOVED
@@ -87,7 +87,7 @@ module gamep{
             console.warn('dispatchEvent() has been deprecated!use dispatchCmd() instead~','type:'+event._type);
             return null;
             //return super.dispatchEvent(event);
-        }
+        }*/
 
         public addChild(child: egret.DisplayObject):egret.DisplayObject{
             if(child.name){
@@ -118,7 +118,7 @@ module gamep{
                 this._componentpool.delete(child.name);
                 return child;
             }else{
-                //super.removeChild(child);
+                if(child.parent)super.removeChild(child);
                 console.warn(getClassName(this),'remove a unname child!',getClassName(child));
                 return null;
             }

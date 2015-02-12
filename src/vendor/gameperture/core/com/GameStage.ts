@@ -63,5 +63,25 @@ module gamep{
         /** @deprecated */public removeChildAt(index: number): egret.DisplayObject{return null}
         /** @deprecated */public setChildIndex(child: egret.DisplayObject, index: number){}
         /** @deprecated */public removeChildren(){}
+
+        /** @deprecated */
+        public addEventListener(type:string, listener:Function, thisObject:any, useCapture?:boolean, priority?:number):void {
+            console.warn('addEventListener(' + type + ') has been deprecated!');
+            //super.addEventListener(type,listener,thisObject,useCapture,priority);
+        }
+
+        /** @deprecated */
+        public dispatchEvent(event:egret.Event):boolean {
+            if (event._type == egret.Event.ADDED_TO_STAGE
+                || event._type == egret.Event.ADDED
+                || event._type == egret.Event.REMOVED
+                || event._type == egret.Event.REMOVED_FROM_STAGE) {
+                super.dispatchEvent(event);
+                return !(!event);
+            }
+            console.warn('dispatchEvent() has been deprecated!use dispatchCmd() instead~', 'type:' + event._type);
+            return null;
+            //return super.dispatchEvent(event);
+        }
     }
 }
