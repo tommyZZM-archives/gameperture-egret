@@ -41,6 +41,12 @@ module game {
 
         public deDisposableTimeCallback(name:string){
             this._timecallbackdict.delete(name);
+            for(var i=0;i<this._timecallbacktask.length;i++){
+                var task:any = this._timecallbacktask[i];
+                if(task.name == name){
+                    this._timecallbacktask.splice(i,1);
+                }
+            }
         }
     }
 }
