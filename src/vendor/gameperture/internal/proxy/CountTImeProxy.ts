@@ -10,7 +10,7 @@ module game {
 
         private onEnterSecond(e:gamep.Event.ProfilerEvent){
             for(var i=0;i<this._timecallbacktask.length;i++){
-                var task:any = this._timecallbacktask.shift();
+                var task:any = this._timecallbacktask[i];
                 this._timecallbackdict.set(task.name,
                     {name:task.name,curr:e.count,dtime:0,count:task.count,callback:task.callback,thisArg:task.thisArg});
             }
