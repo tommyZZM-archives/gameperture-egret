@@ -17,10 +17,6 @@ module gamep {
 
         }
 
-        protected setBackground(){
-
-        }
-
 
         public clear(){this.removeChildren();}
 

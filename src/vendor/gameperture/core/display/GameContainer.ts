@@ -1,10 +1,10 @@
 module gamep{
     export class GameContainer extends egret.DisplayObjectContainer{
 
-        private _componentpool:Dict;//Map<string,egret.DisplayObject>;
+        //private _componentpool:Dict;//Map<string,egret.DisplayObject>;
 
         public constructor() {
-            this._componentpool = new Dict();//new Map<string,egret.DisplayObject>();
+            //this._componentpool = new Dict();//new Map<string,egret.DisplayObject>();
             super();
             //:your code here
         }
@@ -17,24 +17,24 @@ module gamep{
         }
 
         /**
-         * 简陋反馈侦听器
+         * 广播侦听器
          * @param type
          * @param callback
          * @param thisObject
          */
-        public addSimpleFeedbackListener(type: string, callback: Function,thisObject: egret.DisplayObject = this){
+        public addBroadcastListener(type: string, callback: Function,thisObject: egret.DisplayObject = this){
             var proxy = GameFacade.instance['getProxy'](SimpleFeedbackProxy);
             proxy.addProxyEventListener(type,callback,thisObject);
         }
 
         /**
-         * 目标反馈侦听器
+         * 点播侦听器
          * @param command
          * @param type
          * @param callback
          * @param thisObject
          */
-        public addTargetFeedbackListener(command:Function,type: string, callback: Function,thisObject: egret.DisplayObject = this){
+        public addDemandListener(command:Function,type: string, callback: Function,thisObject: egret.DisplayObject = this){
             var proxy = GameFacade.instance['getProxy'](SimpleFeedbackProxy);
             type = getClassName(command)+type;
             //console.log('addTargetFeedbackListener:'+type);
@@ -42,13 +42,13 @@ module gamep{
         }
 
         /**
-         * 普通反馈侦听器
+         * 反馈侦听器
          * @param proxy
          * @param type
          * @param callback
          * @param thisObject
          */
-        public addFeedbackListener(proxy:any,type: string, callback: Function,thisObject: egret.DisplayObject = this):void{
+        public addProxyListener(proxy:any,type: string, callback: Function,thisObject: egret.DisplayObject = this):void{
             if(proxy.prototype['__class__']==SimpleFeedbackProxy.prototype['__class__']){console.warn('use addSimpleFeedbackListener() instead!');return;}
             proxy = GameFacade.instance['getProxy'](proxy);
             if(proxy){
@@ -56,82 +56,20 @@ module gamep{
             }
         }
 
-        public removeSimpleFeedbackListener(type: string, callback: Function,thisObject: egret.DisplayObject = this){
+        public removeDemandListener(type: string, callback: Function,thisObject: egret.DisplayObject = this){
             var proxy = GameFacade.instance['getProxy'](SimpleFeedbackProxy);
             proxy.removeProxyEventListener(type,callback,thisObject);
         }
-        public removeFeedbackListener(proxy:any,type: string, callback: Function,thisObject: egret.DisplayObject = this):void{
+        public removeBroadcastListener(type: string, callback: Function,thisObject: egret.DisplayObject = this){
+            var proxy = GameFacade.instance['getProxy'](SimpleFeedbackProxy);
+            proxy.removeProxyEventListener(type,callback,thisObject);
+        }
+        public removeProxyListener(proxy:any,type: string, callback: Function,thisObject: egret.DisplayObject = this):void{
             if(proxy.prototype['__class__']==SimpleFeedbackProxy.prototype['__class__']){console.warn('use removeSimpleFeedbackListener() instead!');return;}
             proxy = GameFacade.instance['getProxy'](proxy);
             if(proxy){
                 proxy.removeProxyEventListener(type,callback,thisObject);
             }
-        }
-
-        //禁用方法
-        /** @deprecated */
-        /*public addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number):void{
-            console.warn('addEventListener('+type+') has been deprecated!');
-            //super.addEventListener(type,listener,thisObject,useCapture,priority);
-        }*/
-
-        /** @deprecated */
-        /*public dispatchEvent(event: egret.Event):boolean{
-            if(event._type == egret.Event.ADDED_TO_STAGE
-                || event._type == egret.Event.ADDED
-                || event._type == egret.Event.REMOVED
-                || event._type == egret.Event.REMOVED_FROM_STAGE){
-                super.dispatchEvent(event);
-                return !(!event);
-            }
-            console.warn('dispatchEvent() has been deprecated!use dispatchCmd() instead~','type:'+event._type);
-            return null;
-            //return super.dispatchEvent(event);
-        }*/
-
-        public addChild(child: egret.DisplayObject):egret.DisplayObject{
-            if(child.name){
-                super.addChild(child);
-                this._componentpool.set(child.name,child);
-                return child
-            }else{
-                console.warn('child must have a name!');
-                return null;
-            }
-        }
-
-        public addChildAt(child: egret.DisplayObject,index: number):egret.DisplayObject{
-            if(child.name){
-                super.addChildAt(child,index);
-                this._componentpool.set(child.name,child);
-                return child
-            }else{
-                console.warn('child must have a name!');
-                return null;
-            }
-        }
-
-
-        public removeChild(child: egret.DisplayObject):egret.DisplayObject{
-            if(this._componentpool.get(child.name)){
-                super.removeChild(child);
-                this._componentpool.delete(child.name);
-                return child;
-            }else{
-                if(child.parent)super.removeChild(child);
-                console.warn(getClassName(this),'remove a unname child!',getClassName(child));
-                return null;
-            }
-
-        }
-
-        public removeChildren():void{
-            super.removeChildren();
-            this._componentpool.clear();
-        }
-
-        public selectChild(name):any{
-            return this._componentpool.get(name);
         }
     }
 }
