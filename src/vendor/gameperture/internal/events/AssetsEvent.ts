@@ -1,4 +1,4 @@
-module gamep.Event{
+module gamep{
     export class AssetsEvent extends ProxyEvent {
 
         public static PRELOAD_READY:string = "preReady";
@@ -8,7 +8,7 @@ module gamep.Event{
         public percent:number = 0;
 
         public constructor(type:string) {
-            //TODO:your code here
+            //:your code here
             super(type);
         }
     }

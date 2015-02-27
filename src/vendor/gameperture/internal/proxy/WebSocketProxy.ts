@@ -16,20 +16,20 @@ module gamep {
 
         protected onConnect(data?:any):void {
             trace("onOpen ... "+this._socket["host"]+":"+this._socket["port"]);
-            this.dispatchEvent(new Event.WebSocketEvent(Event.WebSocketEvent.ON_CONNECT,data));
+            this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_CONNECT,data));
         }
 
         protected onData(data:any):void {
             //data = this._socket.readUTF();
-            if(data)this.dispatchEvent(new Event.WebSocketEvent(Event.WebSocketEvent.ON_DATA,data));
+            if(data)this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_DATA,data));
         }
 
         protected onClose(){
-            this.dispatchEvent(new Event.WebSocketEvent(Event.WebSocketEvent.ON_CLOSE));
+            this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_CLOSE));
         }
 
         protected onError(){
-            this.dispatchEvent(new Event.WebSocketEvent(Event.WebSocketEvent.ON_ERROR));
+            this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_ERROR));
         }
 
         public send(data:any):void {

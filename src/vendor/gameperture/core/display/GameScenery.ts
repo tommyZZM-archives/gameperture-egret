@@ -5,23 +5,23 @@ module gamep {
             super();
             this.name = name;
             this.display();
+
+            extendImplements(this,GameSprite,'tween');
+            extendImplements(this,GameSprite,'removeTween');
         }
 
-        public onAddToggle(...data){
-
-        }
+        public onShow(...courier){}
+        public onHide(...courier){}
 
         protected display(){
 
         }
 
-        protected setBackground(){
 
-        }
-        
         public clear(){this.removeChildren();}
-        public hide(...arg):void{this.visible = false;}
-        public show(...arg):void{this.visible = true;}
+
+        public get tween(){return null}
+        public removeTween(){}
 
         public removeFromParent(){
             if(this.parent){
