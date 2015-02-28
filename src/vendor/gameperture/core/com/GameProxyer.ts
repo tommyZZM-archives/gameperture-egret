@@ -38,9 +38,9 @@ module gamep {
         protected getProxy(proxy:any):any{}
         protected dispatchSimpleFeedback(type:string, courier?:any){}
 
-        public addTimeListener(type:Event.IProfilerEvent,callback:Function){
+        /*public addTimeListener(type:Event.IProfilerEvent,callback:Function){
             GameProfiler.instance.addEventListener(type+'ProfilerEvent',callback,this);
-        }
+        }*/
         /*public destory(){
          GameFacade.instance['logoffCom'](GameFacade.instance['_proxypool'],this);
          }*/

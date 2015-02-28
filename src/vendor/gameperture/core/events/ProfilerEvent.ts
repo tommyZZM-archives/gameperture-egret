@@ -1,4 +1,4 @@
-module gamep.Event{
+module gamep.Core{
     export class ProfilerEvent extends egret.Event {
 
         private _count:number;
@@ -14,8 +14,8 @@ module gamep.Event{
 
     }
 
-    export var ON_MILLSECOND100 = IProfilerEvent.ON_MILLSECOND100;
-    export var ON_SECOND = IProfilerEvent.ON_SECOND;
+    export var ON_MILLSECOND100 = 'ProfilerEvent'+IProfilerEvent.ON_MILLSECOND100;
+    export var ON_SECOND = 'ProfilerEvent'+IProfilerEvent.ON_SECOND;
 
     export enum IProfilerEvent{
         ON_MILLSECOND100 = 1,

@@ -32,7 +32,7 @@ module gamep{
 
             for(var i:number=0;i<(+(this._countmillisecond/100)^0);i++){
                 countmicrosecond++;
-                this.dispatchEvent(new gamep.Event.ProfilerEvent(Event.IProfilerEvent.ON_MILLSECOND100,countmicrosecond));
+                this.dispatchEvent(new gamep.Core.ProfilerEvent(Core.IProfilerEvent.ON_MILLSECOND100,countmicrosecond));
                 if(i>=(+(this._countmillisecond/100)^0)-1){
                     this._countmillisecond = 0;
                 }
@@ -40,7 +40,7 @@ module gamep{
 
             for(var i:number=0;i<(+(this._countsecond/1000)^0);i++){
                 countsecond++;
-                this.dispatchEvent(new gamep.Event.ProfilerEvent(Event.IProfilerEvent.ON_SECOND,countsecond));
+                this.dispatchEvent(new gamep.Core.ProfilerEvent(Core.IProfilerEvent.ON_SECOND,countsecond));
                 if(i>=(+(this._countsecond/1000)^0)-1){
                     this._countsecond = 0;
                 }

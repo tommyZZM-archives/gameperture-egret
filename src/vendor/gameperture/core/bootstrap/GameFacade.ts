@@ -8,6 +8,7 @@ module gamep {
 
         private _cmdpool:Dict;//Map<string,GameCmder>;//存放所有命令
         private _proxypool:Dict;//Map<string,GameProxyer>;//存放所有业务逻辑
+        private _memorypool:Dict;//存放数据;
 
         private _postals:Dict;//Map<NotifyType, Map<string,{thisobj:any; callback: Function}>>;
 
@@ -19,11 +20,11 @@ module gamep {
 
             this._cmdpool = new Dict();
             this._proxypool = new Dict();
-
+            this._memorypool = new Dict();
         }
 
         public init(){
-            root.addEventListener(Internal.FacadeEvent.UNIQUE,this._postOffice,this);
+            root.addEventListener(Core.FacadeEvent.UNIQUE,this._postOffice,this);
         }
 
         public startup(){
@@ -34,13 +35,17 @@ module gamep {
         }
 
         //邮局
-        private _postOffice(e:Internal.FacadeEvent){
+        private _postOffice(e:Core.FacadeEvent){
             var ant:any = this._postals.get(e.fatype).get(e.notify);
             if(ant){ant.callback.apply(ant.thisobj,e.courier);}
         }
 
         private getProxy(proxy:any):any{
             return this.getCom(this._proxypool,proxy);
+        }
+
+        private getMemory(memory:any):any{
+            return this.getCom(this._memorypool,memory);
         }
 
         private getCommand(command:any):any{
