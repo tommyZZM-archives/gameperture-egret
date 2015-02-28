@@ -1,8 +1,8 @@
 module gamep {
     export interface IGameContainer {
-        dispatchCmd(command:any,cmd:string, ...courier:any[])
-        addSimpleFeedbackListener(type: string, callback: Function,thisObject: egret.DisplayObject)
-        addFeedbackListener(proxy:any,type: string, callback: Function,thisObject: egret.DisplayObject)
-        addTargetFeedbackListener(command:Function,type: string, callback: Function,thisObject: egret.DisplayObject)
+        dispatchCmd(command:any, cmd:string, ...courier:any[])
+        addBroadcastListener(type:string, callback:Function, thisObject:egret.DisplayObject)
+        addProxyListener(proxy:any, type:string, callback:Function, thisObject:egret.DisplayObject)
+        addDemandListener(command:Function, type:string, callback:Function, thisObject:egret.DisplayObject)
     }
 }

@@ -21,7 +21,9 @@ class Dict{
 
     public delete(key){
         var index = this._keys.indexOf(key, 0);
-        this._keys.splice(index, 1);
+        if(index>=0){
+            this._keys.splice(index, 1);
+        }
         if(this.has(key))delete this._map[key];
     }
 
