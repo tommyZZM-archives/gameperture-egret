@@ -28,7 +28,7 @@ module gamep {
             this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_CLOSE));
         }
 
-        protected onError(){
+        protected onError(e?){
             this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_ERROR));
         }
 

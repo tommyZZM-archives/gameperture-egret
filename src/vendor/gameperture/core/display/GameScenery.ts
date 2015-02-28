@@ -5,8 +5,6 @@ module gamep {
             super();
             this.name = name;
             this.display();
-
-            extendImplements(this,GameSprite,'tween');
             extendImplements(this,GameSprite,'removeTween');
         }
 
@@ -20,7 +18,11 @@ module gamep {
 
         public clear(){this.removeChildren();}
 
-        public get tween(){return null}
+        public get tween():egret.Tween{
+            var tween = egret.Tween.get(this);
+            tween.setPaused(false);
+            return tween;
+        }
         public removeTween(){}
 
         public removeFromParent(){
