@@ -1,14 +1,14 @@
-module game {
+module gamep {
     export class CountTimeProxy extends gamep.GameProxyer{
         //计时器
         public constructor() {
             super();
             this._timecallbackdict = new Dict();
             this._timecallbacktask = [];
-            this.addTimeListener(gamep.Event.ON_SECOND,this.onEnterSecond);
+            this.addProxyEventListener(gamep.Core.ON_SECOND,this.onEnterSecond,this);
         }
 
-        private onEnterSecond(e:gamep.Event.ProfilerEvent){
+        private onEnterSecond(e:gamep.Core.ProfilerEvent){
             for(var i=0;i<this._timecallbacktask.length;i++){
                 var task:any = this._timecallbacktask[i];
                 this._timecallbackdict.set(task.name,
@@ -22,7 +22,7 @@ module game {
                 var task = tasks[i];
                 task.dtime = e.count-task.curr;
                 if(task.dtime>=task.count){
-                    task.callback.apply(task.thisArg);
+                    task.callback.apply(task.thisArg,task.para);
                     this._timecallbackdict.delete(task.name);
                 }
             }
@@ -30,12 +30,13 @@ module game {
 
         private _timecallbackdict:Dict;
         private _timecallbacktask:any;
-        public addDisposableTimeCallback(name:string,second:number,callback:Function,thisArg:any){
+        public addDisposableTimeCallback(name:string,second:number,callback:Function,thisArg:any,...para){
             this._timecallbacktask.push({
                 name:name,
                 count:second,
                 callback:callback,
-                thisArg:thisArg
+                thisArg:thisArg,
+                para:para
             })
         }
 
