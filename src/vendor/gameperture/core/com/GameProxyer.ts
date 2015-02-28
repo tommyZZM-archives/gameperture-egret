@@ -10,7 +10,7 @@ module gamep {
             this._name = /\.?(\w+)$/.exec(this.name)[1];
             //super();
             extendImplements(this,GameCmder,'getProxy',true);
-            extendImplements(this,GameCmder,'dispatchSimpleFeedback',true);
+            extendImplements(this,GameCmder,'dispatchBroadcast',true);
             extendImplements(this,GameContainer,'dispatchCmd',true);
         }
 
@@ -36,7 +36,7 @@ module gamep {
         /** @mixExtendMethod **/
         protected dispatchCmd(command:any,cmd:string, ...courier:any[]){}
         protected getProxy(proxy:any):any{}
-        protected dispatchSimpleFeedback(type:string, courier?:any){}
+        protected dispatchBroadcast(type:string, courier?:any){}
 
         /*public addTimeListener(type:Event.IProfilerEvent,callback:Function){
             GameProfiler.instance.addEventListener(type+'ProfilerEvent',callback,this);

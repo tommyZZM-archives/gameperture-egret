@@ -15,11 +15,11 @@ module gamep {
             GameFacade.instance['_postals'].get(NotifyType.Cmd).set(notify+getClassName(this),{thisobj:this, callback: callback})
         }
 
-        public dispatchSimpleFeedback(type:string, courier?:any){
+        public dispatchBroadcast(type:string, courier?:any){
             GameFacade.instance['getProxy'](SimpleFeedbackProxy).dispatchCmdFeedback(type,courier);
         }
 
-        public dispatchTargetFeedback(type:string, courier?:any){
+        public dispatchDemand(type:string, courier?:any){
             if(getClassName(this)) {
                 type = getClassName(this) + type;
                 GameFacade.instance['getProxy'](SimpleFeedbackProxy).dispatchCmdFeedback(type,courier);
