@@ -49,7 +49,7 @@ module gamep{
          * @param thisObject
          */
         public addProxyListener(proxy:any,type: string, callback: Function,thisObject: egret.DisplayObject = this):void{
-            if(proxy.prototype['__class__']==SimpleFeedbackProxy.prototype['__class__']){console.warn('use addSimpleFeedbackListener() instead!');return;}
+            if(proxy.prototype['__class__']==SimpleFeedbackProxy.prototype['__class__']){console.warn('use addProxyListener() instead!');return;}
             proxy = GameFacade.instance['getProxy'](proxy);
             if(proxy){
                 proxy.addProxyEventListener(type,callback,thisObject);

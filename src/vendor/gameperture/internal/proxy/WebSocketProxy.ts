@@ -47,6 +47,14 @@ module gamep {
         protected get socket():egret.HTML5WebSocket{
             return this._socket;
         }
+
+        protected get host():any{
+            return this._socket["host"];
+        }
+
+        protected get port():any{
+            return this._socket["port"];
+        }
     }
 }
 

@@ -3,21 +3,19 @@ module gamep.Core{
 
         private _count:number;
 
-        public constructor(type:IProfilerEvent,count:number) {
-            super(type+'ProfilerEvent', false , false);
+        public constructor(type:TimeEvent,count:number) {
+            super(type+getClassName(this), false , false);
             this._count = count;
         }
 
         public get count():number{
             return this._count
         }
-
     }
+}
 
-    export var ON_MILLSECOND100 = 'ProfilerEvent'+IProfilerEvent.ON_MILLSECOND100;
-    export var ON_SECOND = 'ProfilerEvent'+IProfilerEvent.ON_SECOND;
-
-    export enum IProfilerEvent{
+module gamep{
+    export enum TimeEvent{
         ON_MILLSECOND100 = 1,
         ON_SECOND      = 2
     }

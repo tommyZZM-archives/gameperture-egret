@@ -5,7 +5,7 @@ module gamep {
             super();
             this._timecallbackdict = new Dict();
             this._timecallbacktask = [];
-            this.addProxyEventListener(gamep.Core.ON_SECOND,this.onEnterSecond,this);
+            this.addTimeListener(TimeEvent.ON_SECOND,this.onEnterSecond);
         }
 
         private onEnterSecond(e:gamep.Core.ProfilerEvent){

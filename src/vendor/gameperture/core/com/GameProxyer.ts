@@ -12,6 +12,7 @@ module gamep {
             extendImplements(this,GameCmder,'getProxy',true);
             extendImplements(this,GameCmder,'dispatchBroadcast',true);
             extendImplements(this,GameContainer,'dispatchCmd',true);
+            extendImplements(this,GameContainer,'addProxyListener',true);
         }
 
         public init(...arg){
@@ -22,11 +23,11 @@ module gamep {
             return this._name;
         }
 
-        protected addProxyEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number){
+        public addProxyEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number){
             super.addEventListener(type,listener,thisObject,useCapture,priority);
         }
 
-        protected removeProxyEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean){
+        public removeProxyEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean){
             super.removeEventListener(type,listener,thisObject,useCapture);
         }
 
@@ -37,7 +38,14 @@ module gamep {
         protected dispatchCmd(command:any,cmd:string, ...courier:any[]){}
         protected getProxy(proxy:any):any{}
         protected dispatchBroadcast(type:string, courier?:any){}
+        public addProxyListener(proxy:any,type: string, callback: Function,thisObject=this):void{}
 
+        public addTimeListener(type:TimeEvent,callback:Function){
+            GameProfiler.instance.addEventListener(type+getClassName(Core.ProfilerEvent),callback,this);
+        }
+        public removeTimeListener(type:TimeEvent,callback:Function){
+            GameProfiler.instance.removeEventListener(type+getClassName(Core.ProfilerEvent),callback,this);
+        }
         /*public addTimeListener(type:Event.IProfilerEvent,callback:Function){
             GameProfiler.instance.addEventListener(type+'ProfilerEvent',callback,this);
         }*/
