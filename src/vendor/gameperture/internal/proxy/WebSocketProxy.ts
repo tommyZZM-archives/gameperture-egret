@@ -33,6 +33,11 @@ module gamep {
         }
 
         public send(data:any):void {
+            if (this.state == WebsocketState.CLOSED||this.state == WebsocketState.CLOSING) {
+                var e = {state: this.state};
+                this.onError(e);
+                return;
+            }
             this._socket.send(data);
         }
 
@@ -55,6 +60,10 @@ module gamep {
         protected get port():any{
             return this._socket["port"];
         }
+
+        protected get state():WebsocketState{
+            return this.socket["socket"].readyState
+        }
     }
 }
 
@@ -62,3 +71,11 @@ var BinaryType = {
     Blob:"blob",
     ArrayBuffer:"arraybuffer"
 };
+
+enum WebsocketState{
+    CLOSED = 3,
+    CLOSING = 2,
+    CONNECTING = 0,
+    OPEN = 1,
+    ERROR = -123
+}

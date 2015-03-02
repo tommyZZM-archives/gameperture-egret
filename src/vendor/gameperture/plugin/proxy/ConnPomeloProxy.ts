@@ -5,7 +5,6 @@ module gamep.Pomelo {
         public static ON_DISCONNECT:string = "PomeloEvent.ON_DISCONNECT";
         public static ON_ERROE:string = "PomeloEvent.ON_ERROE";
         public static ON_DATA:string = "PomeloEvent.ON_DATA";
-        public static ON_CLOSE:string = "PomeloEvent.ON_CLOSE";
 
     }
 
@@ -23,6 +22,16 @@ module gamep.Pomelo {
             data = Protocol.Package.decode(data);
             data = this.handelData(data);
             //super.onData(data);
+        }
+
+        protected onClose(){
+            //console.log(this.host,this.port);
+            this.emit(PomeloEvent.ON_DISCONNECT);
+        }
+
+        protected onError(e){
+            //console.log(e);
+            this.emit(PomeloEvent.ON_ERROE);
         }
 
         public send(data:any){
@@ -84,6 +93,7 @@ module gamep.Pomelo {
                 }
                 //心跳包
                 case Protocol.PackageType.HEARTBEAT:{
+                    console.log("%c[heartbeat<]..","color:#2ecc71;font-weight:bold;");
                     if(this._heartbeat){
                         this.getProxy(CountTimeProxy).addDisposableTimeCallback("pomeloheartbeat",this._heartbeat,this.heartbeat,this);
                     }
@@ -94,7 +104,7 @@ module gamep.Pomelo {
         }
 
         private heartbeat() {
-            //console.log("[heartbeat>]..")
+            console.log("%c[heartbeat>]..","color:#27ae60;font-weight:bold;");
             var obj = Protocol.Package.encode(Protocol.PackageType.HEARTBEAT);
             super.send(obj.buffer);
         }
