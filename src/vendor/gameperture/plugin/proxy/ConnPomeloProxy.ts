@@ -83,6 +83,7 @@ module gamep.Pomelo {
                             if(gamep.isdebug)console.log("%c[noheartbeat]..","color:#95a5a6;font-weight:bold;");
                         }
                     }
+                    if(gamep.isdebug)console.log("reseive hello ←",data);
                     this.emit(PomeloEvent.ON_CONNECT,{host:this.host,port:this.port});
                     break;
                 }
