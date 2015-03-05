@@ -8,7 +8,7 @@ module gamep {
 
         private _cmdpool:Dict;//Map<string,GameCmder>;//存放所有命令
         private _proxypool:Dict;//Map<string,GameProxyer>;//存放所有业务逻辑
-        private _memorypool:Dict;//存放数据;
+        //private _memorypool:Dict;//存放数据;
 
         private _postals:Dict;//Map<NotifyType, Map<string,{thisobj:any; callback: Function}>>;
 
@@ -20,7 +20,6 @@ module gamep {
 
             this._cmdpool = new Dict();
             this._proxypool = new Dict();
-            this._memorypool = new Dict();
         }
 
         public init(){
@@ -44,11 +43,7 @@ module gamep {
             return this.getCom(this._proxypool,proxy);
         }
 
-        private getMemory(memory:any):any{
-            return this.getCom(this._memorypool,memory);
-        }
-
-        private getCommand(command:any):any{
+        public command(command:any):any{
             return this.getCom(this._cmdpool,command);
         }
 
@@ -59,15 +54,6 @@ module gamep {
             }
             return pool.get(key);
         }
-
-        /*private logoffCom(pool:Map<string,any>,proxy:any):boolean{
-            if(pool.get(proxy.name)){
-                pool.delete(proxy.name);
-                console.log(pool);
-                return true;
-            }
-            return false;
-        }*/
 
         //instance mode
         private static _instance:GameFacade;
