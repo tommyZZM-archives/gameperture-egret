@@ -11,8 +11,6 @@ module gamep {
             //super();
             extendImplements(this,GameCmder,'getProxy',true);
             extendImplements(this,GameCmder,'dispatchBroadcast',true);
-            extendImplements(this,GameContainer,'dispatchCmd',true);
-            extendImplements(this,GameContainer,'addProxyListener',true);
         }
 
         public init(...arg){
@@ -35,10 +33,8 @@ module gamep {
         public addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number): void{}
 
         /** @mixExtendMethod **/
-        protected dispatchCmd(command:any,cmd:string, ...courier:any[]){}
         protected getProxy(proxy:any):any{}
         protected dispatchBroadcast(type:string, courier?:any){}
-        public addProxyListener(proxy:any,type: string, callback: Function,thisObject=this):void{}
 
         public addTimeListener(type:TimeEvent,callback:Function){
             GameProfiler.instance.addEventListener(type+getClassName(Core.ProfilerEvent),callback,this);

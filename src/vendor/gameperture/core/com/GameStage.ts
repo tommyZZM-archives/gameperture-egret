@@ -2,7 +2,7 @@ module gamep{
     /**
      * 游戏舞台
      */
-    export class GameStage extends GameContainer{
+    export class GameStage extends egret.DisplayObjectContainer{// extends GameContainer
 
         private _scenerypool:Dict;
         private _currscenery:GameScenery;
@@ -33,7 +33,7 @@ module gamep{
             this._scenerypool = new Dict();
         }
 
-        private startup(){this.onStartup();this.dispatchCmd(GameFacade.instance['_game'],Notify.Cmd.GameReady)}
+        //private startup(){this.onStartup();this.dispatchCmd(GameFacade.instance['_game'],Notify.Cmd.GameReady)}
 
         protected onStartup(){
 
@@ -48,7 +48,7 @@ module gamep{
             if(this._currscenery){
                 //TODO:换场动画
                 this._currscenery.onHide(courier);
-                this._currscenery.removeFromParent();
+                display.removeFromParent(this._currscenery);
             }
             this._currscenery = this._scenerypool.get(name);
             this._currscenery.onShow(courier);

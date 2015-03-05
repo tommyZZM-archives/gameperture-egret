@@ -39,7 +39,7 @@ module gamep {
             if(ant){ant.callback.apply(ant.thisobj,e.courier);}
         }
 
-        private getProxy(proxy:any):any{
+        private proxy(proxy:any):any{
             return this.getCom(this._proxypool,proxy);
         }
 
@@ -54,6 +54,8 @@ module gamep {
             }
             return pool.get(key);
         }
+
+
 
         //instance mode
         private static _instance:GameFacade;
