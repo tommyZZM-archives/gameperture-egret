@@ -4,7 +4,7 @@ module gamep{
         protected onStartup(data){
             trace('2.MyGame...onReady()..with',data);
             this.proxy(AssetsLoaderProxy).loadAssets('preload');
-            //console.log(a$.memory(GameMemory));
+            this.proxy(AssetsLoaderProxy).debug = true;
         }
 
     }

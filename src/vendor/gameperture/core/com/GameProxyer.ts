@@ -3,6 +3,7 @@ module gamep {
     export class GameProxyer extends egret.EventDispatcher{
 
         private _name:string;
+        protected _debug:boolean;
 
         public constructor() {
             super();
@@ -32,6 +33,10 @@ module gamep {
 
         public get name(){
             return this._name;
+        }
+
+        public set debug(need:boolean){
+            this._debug = need;
         }
     }
 }
