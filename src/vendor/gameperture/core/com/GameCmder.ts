@@ -1,5 +1,5 @@
 module gamep {
-    //commander
+    //@abstract
     export class GameCmder extends egret.EventDispatcher implements IGameCom{
 
         private _name:string;

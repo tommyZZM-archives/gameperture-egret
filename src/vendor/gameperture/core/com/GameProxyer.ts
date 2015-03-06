@@ -1,4 +1,5 @@
 module gamep {
+    //@abstract
     export class GameProxyer extends egret.EventDispatcher implements IGameCom{
 
         private _name:string;

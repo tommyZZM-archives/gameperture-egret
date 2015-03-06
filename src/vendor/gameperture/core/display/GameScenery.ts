@@ -1,4 +1,5 @@
 module gamep {
+    //@abstract
     export class GameScenery extends egret.DisplayObjectContainer{// implements ISceneryComponent
 
         public constructor(name:string){
