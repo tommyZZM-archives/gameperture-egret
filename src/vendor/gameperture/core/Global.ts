@@ -75,7 +75,7 @@ function getClassName(obj:any):string{
     }
 }
 
-function isOfClass(target,test){
+function isOfClass(target,test):boolean{
     if(!target.prototype['__class__'] || !test.prototype['__class__']){
         console.warn("not typescript class");
     }
