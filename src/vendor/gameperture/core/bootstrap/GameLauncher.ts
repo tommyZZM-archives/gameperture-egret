@@ -5,15 +5,14 @@ module gamep{
 
         //private _facade:GameFacade = GameFacade.instance;
 
-        public constructor(debug:boolean) {
-            if(debug){
-                console.info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
-                    "Quick Game Devlope Template base on Egret Engine!");
-                console.info("gitHub:",'https://github.com/tommyZZM/gameperture-egret');
-            }
+        public constructor(debug:boolean,banchmark:boolean=true) {
             isdebug = debug;
-            if(isdebug){
-                //egret.Profiler.getInstance().run();
+            init();
+            info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
+                "Quick Game Devlope Template base on Egret Engine!");
+            info("gitHub:",'https://github.com/tommyZZM/gameperture-egret');
+            if(isdebug&&banchmark){
+                egret.Profiler.getInstance().run();
             }
             GameProfiler.instance;
             a$ =  GameFacade.instance;

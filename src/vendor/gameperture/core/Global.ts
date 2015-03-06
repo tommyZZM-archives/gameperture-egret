@@ -1,6 +1,5 @@
 module gamep{
     export var version = '0.5 Swirl';
-    export var isdebug = false;
     export var root:egret.DisplayObjectContainer = null;
     export var rootscene:egret.DisplayObjectContainer = null;
 
@@ -19,13 +18,16 @@ module gamep{
     }
 }
 
-function trace(...optionalParams: any[]){
-    if(gamep.isdebug){
-        //TODO:需要改进...
-        for(var i:number=0;i<optionalParams.length;i++){
-            console.log(optionalParams[i]);
-        }
-        //var out = optionalParams.join(',');
+var isdebug = false;
+function trace(...msg){}
+function warn(...msg){}
+function info(...msg){}
+
+function init(){
+    if(isdebug){
+        window["trace"] = console.log.bind(console);
+        window["warn"] = console.warn.bind(console);
+        window["info"] = console.info.bind(console);
     }
 }
 
