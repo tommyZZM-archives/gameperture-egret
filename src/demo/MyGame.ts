@@ -3,7 +3,8 @@ module gamep{
 
         protected onStartup(data){
             console.log('2.MyGame...onReady()..with',data);
-            a$.proxy(AssetsLoaderProxy).loadAssets('preload');
+            this.proxy(AssetsLoaderProxy).loadAssets('preload');
+            //console.log(a$.memory(GameMemory));
         }
 
     }

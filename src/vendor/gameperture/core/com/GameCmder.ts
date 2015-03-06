@@ -20,13 +20,13 @@ module gamep {
         protected dispatchDemand(type:string, courier?:any){
             super.dispatchEvent(new gamep.BroadcastEvent(type,courier));
         }
-        public addDemandListener(type: string, callback: Function,thisObject: egret.DisplayObject){
-            type = getClassName(this)+type;
-            super.addEventListener(type,callback,thisObject);
-        }
 
         public dispatchCmd(cmd:string, ...courier:any[]){
             root.dispatchEvent(new Core.FacadeEvent(NotifyType.Cmd,cmd+getClassName(this),courier));
+        }
+
+        protected proxy(proxy:any):any{
+            return a$["proxy"](proxy);
         }
 
         public get name(){

@@ -59,12 +59,6 @@ function extendImplements(thisArg:any,Class:any,method:string,forceOverride:bool
     }
 }
 
-function extendImplementsAll(thisArg:any,Class:any,forceOverride:boolean=true){
-    for(var i in Class['prototype']){
-        extendImplements(thisArg,Class,i,forceOverride);
-    }
-}
-
 function getClassName(obj:any):string{
     //class?
     if (obj.prototype) {
@@ -81,15 +75,47 @@ function getClassName(obj:any):string{
     }
 }
 
+function isOfClass(target,test){
+    if(!target.prototype['__class__'] || !test.prototype['__class__']){
+        console.warn("not typescript class");
+    }
+
+    if(target.prototype['__class__']==test.prototype['__class__']){
+        return true;
+    }else{
+        var flag:number = 0;
+        var protoTest = (target,test)=>{
+            //console.log(target.__class__,test.prototype['__class__'])
+            if(target){
+                if(target.__class__){
+                    if(target.__class__ == test.prototype['__class__']){
+                        return 1;
+                    }else{
+                        return 0;
+                    }
+                }
+                return -1
+            }
+            return -1
+        };
+
+        target = target.prototype.__proto__;
+        while(flag==0){
+            flag = protoTest(target,test);
+            target = target.__proto__;
+        }
+        return flag == 1;
+    }
+}
 
 function injectProperty(target:any,packge:any,pos:string):any{
-    if(packge && !target[pos]){
+    /*if(packge && !target[pos]){
         var foreign = packge;
         target[pos] = foreign;
     }else{
         console.warn('error formart! injectiong fail!',target,packge)
     }
-    return target;
+    return target;*/
 }
 
 function getProperty(target:any,prop:string):any{
