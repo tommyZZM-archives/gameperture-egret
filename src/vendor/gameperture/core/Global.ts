@@ -26,7 +26,8 @@ function info(...msg){}
 function init(){
     if(isdebug){
         window["log"] = console.log.bind(console);
-        window["trace"] = console.debug.bind(console);
+        window["trace"] = console.log.bind(console);
+        window["debug"] = console.debug.bind(console);
         window["warn"] = console.warn.bind(console);
         window["info"] = console.info.bind(console);
         window["error"] = console.error.bind(console);
