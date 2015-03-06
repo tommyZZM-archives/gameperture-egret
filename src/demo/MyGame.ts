@@ -1,8 +1,8 @@
 module gamep{
     export class MyGame extends GameCycler {
 
-        protected onStartup(){
-            console.log('1.MyGame...onReady()');
+        protected onStartup(data){
+            console.log('2.MyGame...onReady()..with',data);
             $.proxy(AssetsLoaderProxy).loadAssets('preload');
         }
 

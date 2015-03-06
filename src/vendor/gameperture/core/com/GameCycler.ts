@@ -11,7 +11,7 @@ module gamep{
             this.addCmdHandler(Notify.Cmd.GameReady,this.onStartup);
         }
 
-        protected onStartup(){
+        protected onStartup(...courier){
         }
 
         protected get stage():any{

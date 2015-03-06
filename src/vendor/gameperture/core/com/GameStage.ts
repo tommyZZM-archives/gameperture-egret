@@ -33,7 +33,7 @@ module gamep{
             this._scenerypool = new Dict();
         }
 
-        private startup(){this.onStartup();GameFacade.instance['_game'].dispatchCmd(Notify.Cmd.GameReady)}
+        private startup(){var courier = this.onStartup();GameFacade.instance['_game'].dispatchCmd(Notify.Cmd.GameReady,courier)}
 
         protected onStartup(){
 
