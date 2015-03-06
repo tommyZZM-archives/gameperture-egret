@@ -1,5 +1,5 @@
 module gamep{
-    export var $:GameFacade;
+    export var a$:GameFacade;
 
     export class GameLauncher{//implements GamePertureInterface
 
@@ -16,12 +16,12 @@ module gamep{
                 //egret.Profiler.getInstance().run();
             }
             GameProfiler.instance;
-            $ =  GameFacade.instance;
+            a$ =  GameFacade.instance;
         }
 
         public launch(){
-            root.addEventListener(Core.FacadeEvent.UNIQUE,(<any>$)._postOffice,$);
-            (<any>$)._display['startup']();
+            root.addEventListener(Core.FacadeEvent.UNIQUE,(<any>a$)._postOffice,a$);
+            (<any>a$)._display['startup']();
         }
     }
 }
