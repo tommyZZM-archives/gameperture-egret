@@ -1,7 +1,7 @@
 module gamep{
     export class MyDisplay extends GameStage{
         protected onStartup(){
-            this.addProxyListener(AssetsLoaderProxy,AssetsEvent.ASSET_READY,this.onAssetLoaded,this)
+            $.proxy(AssetsLoaderProxy).addDemandListener(AssetsEvent.ASSET_READY,this.onAssetLoaded,this);
         }
 
         protected onAssetLoaded(e:AssetsEvent){

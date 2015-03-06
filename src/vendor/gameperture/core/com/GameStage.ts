@@ -10,7 +10,7 @@ module gamep{
         private _sceneryroot;
         /** 舞台 **/
 
-        private _uinterface;
+        //private _uinterface;
         /** 界面 **/
 
         public static SCENERY_ROOT:string = 'sceneryroot0112';
@@ -22,9 +22,9 @@ module gamep{
             gamep.rootscene = this;
             root.addChild(this);
             this._sceneryroot   = new GameScenery(GameStage.SCENERY_ROOT);
-            this._uinterface= new GameScenery(GameStage.UI_INTERFACE);
+            //this._uinterface= new GameScenery(GameStage.UI_INTERFACE);
             super.addChild(this._sceneryroot);
-            super.addChild(this._uinterface);
+            //super.addChild(this._uinterface);
             GameFacade.instance['_display']=this;
 
             this.name = this['__proto__']['__class__'];
@@ -33,7 +33,7 @@ module gamep{
             this._scenerypool = new Dict();
         }
 
-        //private startup(){this.onStartup();this.dispatchCmd(GameFacade.instance['_game'],Notify.Cmd.GameReady)}
+        private startup(){this.onStartup();GameFacade.instance['_game'].dispatchCmd(Notify.Cmd.GameReady)}
 
         protected onStartup(){
 

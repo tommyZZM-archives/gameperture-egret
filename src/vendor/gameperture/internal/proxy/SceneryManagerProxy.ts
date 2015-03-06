@@ -21,7 +21,7 @@ module gamep {
             if(getClassName(command)){
                 type = getClassName(command)+type;
                 var feeback = {scenery:scenery,mail:data};
-                this.dispatchBroadcast(type,feeback);
+                gamep.GameFacade.instance.dispatchBroadcast(type,feeback);
             }
         }
     }

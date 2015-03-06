@@ -99,7 +99,7 @@ module gamep.Pomelo {
                 case Protocol.PackageType.HEARTBEAT:{
                     if(gamep.isdebug)console.log("%c[heartbeat<]..","color:#2ecc71;font-weight:bold;");
                     if(this._heartbeat){
-                        this.getProxy(CountTimeProxy).addDisposableTimeCallback("pomeloheartbeat",this._heartbeat,this.heartbeat,this);
+                        gamep.GameFacade.instance.proxy(CountTimeProxy).addDisposableTimeCallback("pomeloheartbeat",this._heartbeat,this.heartbeat,this);
                     }
                 }
             }

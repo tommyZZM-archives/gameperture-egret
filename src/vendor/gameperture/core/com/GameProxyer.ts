@@ -1,52 +1,37 @@
 module gamep {
-    //model
-    export class GameProxyer extends egret.EventDispatcher{
+    export class GameProxyer extends egret.EventDispatcher implements IGameCom{
 
         private _name:string;
 
         public constructor() {
             super();
-            this._name = this['__proto__']['__class__'];
+            this._name = getClassName(this);
             this._name = /\.?(\w+)$/.exec(this.name)[1];
             //super();
-            extendImplements(this,GameCmder,'getProxy',true);
-            extendImplements(this,GameCmder,'dispatchBroadcast',true);
         }
 
         public init(...arg){
 
         }
 
-        public get name(){
-            return this._name;
+        protected dispatchDemand(type:string, courier?:any){
+            super.dispatchEvent(new gamep.BroadcastEvent(type,courier));
         }
 
-        public addProxyEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number){
-            super.addEventListener(type,listener,thisObject,useCapture,priority);
+        public addDemandListener(type: string, callback: Function,thisObject: egret.DisplayObject){
+            type = getClassName(this)+type;
+            super.addEventListener(type,callback,thisObject);
         }
-
-        public removeProxyEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean){
-            super.removeEventListener(type,listener,thisObject,useCapture);
-        }
-
-        /** @deprecated */
-        public addEventListener(type: string, listener: Function, thisObject: any, useCapture?: boolean, priority?: number): void{}
-
-        /** @mixExtendMethod **/
-        protected getProxy(proxy:any):any{}
-        protected dispatchBroadcast(type:string, courier?:any){}
 
         public addTimeListener(type:TimeEvent,callback:Function){
             GameProfiler.instance.addEventListener(type+getClassName(Core.ProfilerEvent),callback,this);
         }
-        public removeTimeListener(type:TimeEvent,callback:Function){
-            GameProfiler.instance.removeEventListener(type+getClassName(Core.ProfilerEvent),callback,this);
+        public removeTimeListener(type:TimeEvent,callback:Function) {
+            GameProfiler.instance.removeEventListener(type + getClassName(Core.ProfilerEvent), callback, this);
         }
-        /*public addTimeListener(type:Event.IProfilerEvent,callback:Function){
-            GameProfiler.instance.addEventListener(type+'ProfilerEvent',callback,this);
-        }*/
-        /*public destory(){
-         GameFacade.instance['logoffCom'](GameFacade.instance['_proxypool'],this);
-         }*/
+
+        public get name(){
+            return this._name;
+        }
     }
 }

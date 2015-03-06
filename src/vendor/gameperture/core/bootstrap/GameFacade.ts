@@ -16,21 +16,10 @@ module gamep {
             this._postals = new Dict();
 
             this._postals.set(NotifyType.Cmd,new Dict());///V->C
-            this._postals.set(NotifyType.Feedback,new Dict());//C->V
+            //this._postals.set(NotifyType.Feedback,new Dict());//C->V
 
             this._cmdpool = new Dict();
             this._proxypool = new Dict();
-        }
-
-        public init(){
-            root.addEventListener(Core.FacadeEvent.UNIQUE,this._postOffice,this);
-        }
-
-        public startup(){
-            if(!this._isStart){
-                this._display['startup']();
-                this._isStart=true;
-            }
         }
 
         //邮局
@@ -39,23 +28,35 @@ module gamep {
             if(ant){ant.callback.apply(ant.thisobj,e.courier);}
         }
 
-        private proxy(proxy:any):any{
-            return this.getCom(this._proxypool,proxy);
+        public proxy(proxy:any):any{
+            return this.getCom(this._proxypool,proxy,GameProxyer);
         }
 
         public command(command:any):any{
-            return this.getCom(this._cmdpool,command);
+            return this.getCom(this._cmdpool,command,GameCmder);
         }
 
-        private getCom(pool:Dict,com:any):any{
+        private getCom(pool:Dict,com:any,instance:any):any{
             var key = com.prototype['__class__'];
             if(!pool.get(key)){
-                pool.set(key,new com());
+                var c = new com();
+                if(c instanceof instance){
+                    pool.set(key,c);
+                }else{
+                    console.log(getClassName(com),"is not of",getClassName(instance))
+                }
             }
             return pool.get(key);
         }
 
+        public addBroadcastListener(type: string, callback: Function,thisObject: egret.DisplayObject){
+            var proxy = this.proxy(BroadcastProxy);
+            proxy.addEventListener(type,callback,thisObject);
+        }
 
+        public dispatchBroadcast(type:string, courier?:any){
+            (<any>this.proxy(BroadcastProxy)).dispatchCmdFeedback(type,courier);
+        }
 
         //instance mode
         private static _instance:GameFacade;
