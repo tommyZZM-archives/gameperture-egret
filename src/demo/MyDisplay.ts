@@ -4,7 +4,6 @@ module gamep{
             trace('1.'+this.name+'...onStartup()');
             a$.addDemandListener(AssetsLoaderProxy,AssetsEvent.ASSET_READY,this.onAssetLoaded,this);
 
-            //m$.active(new MTemp());
             //m$.memory(MTemp).set("test",233);
         }
 

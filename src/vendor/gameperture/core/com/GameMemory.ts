@@ -9,10 +9,10 @@ module gamep {
 
         public constructor(){
             this._memorypool = new Dict();
-            //this.active(new MError());
+            this.active(new MTemp());
         }
 
-        public active(memory:IMemory){
+        public active(memory:MBase){
             if(!this._memorypool.has(getClassName(memory))){
                 this._memorypool.set(getClassName(memory),memory)
             }else{
@@ -43,20 +43,21 @@ module gamep {
         }
     }
 
-    export interface IMemory{
+    interface IMemory{
         init(...arg);
         reset();
     }
 
-    //export class MError implements IMemory{
-    //    init(...arg){}
-    //    reset(){}
-    //}
+    export class MBase implements IMemory{
+        init(...arg){}
+        reset(){}
+    }
 
-    export class MTemp implements IMemory,IDict{
+    export class MTemp extends MBase implements IMemory,IDict{
         private _temppool:Dict;
 
         public constructor(){
+            super();
             this._temppool = new Dict();
         }
 
