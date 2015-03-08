@@ -1,5 +1,6 @@
 module gamep{
     export var a$:GameFacade;
+    export var m$:GameMemory;
 
     export class GameLauncher{//implements GamePertureInterface
 
@@ -16,6 +17,7 @@ module gamep{
             }
             GameProfiler.instance;
             a$ =  GameFacade.instance;
+            m$ =  GameMemory.instance;
         }
 
         public launch(){

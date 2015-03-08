@@ -61,5 +61,10 @@ class Dict{
     public get size():number{
         return this._keys.length;
     }
+}
 
+interface IDict{
+    set(key:any,value);
+    get(key);
+    delete(key);
 }

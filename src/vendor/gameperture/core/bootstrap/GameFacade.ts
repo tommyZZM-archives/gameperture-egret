@@ -8,7 +8,7 @@ module gamep {
 
         private _cmdpool:Dict;//Map<string,GameCmder>;//存放所有命令
         private _proxypool:Dict;//Map<string,GameProxyer>;//存放所有业务逻辑
-        private _memorypool:Dict;//存放数据;
+        //private _memorypool:Dict;//存放数据;
 
         private _postals:Dict;//Map<NotifyType, Map<string,{thisobj:any; callback: Function}>>;
 
@@ -20,7 +20,6 @@ module gamep {
 
             this._cmdpool = new Dict();
             this._proxypool = new Dict();
-            this._memorypool = new Dict();
         }
 
         //邮局
@@ -37,11 +36,6 @@ module gamep {
         public command(command:any):any{
             if(getClassName(command)==getClassName(GameCmder)){return;}
             return this.getCom(this._cmdpool,command,GameCmder);
-        }
-
-        public memory(memory:any):any{
-            if(getClassName(memory)==getClassName(GameMemory)){return;}
-            return this.getCom(this._memorypool,memory,GameMemory);
         }
 
         private getCom(pool:Dict,com:any,instance:any):any{
