@@ -9,6 +9,7 @@ module gamep {
 
         public constructor(){
             this._memorypool = new Dict();
+            //this.active(new MError());
         }
 
         public active(memory:IMemory){
@@ -20,7 +21,11 @@ module gamep {
         }
 
         public memory(memory:any):any{
-            return this._memorypool.get(getClassName(memory));
+            var m = this._memorypool.get(getClassName(memory));
+            if(!m){
+                warn("Memory NOT FOUND!");
+            }
+            return m;
         }
 
         public reset(memory:any):any{
@@ -42,6 +47,11 @@ module gamep {
         init(...arg);
         reset();
     }
+
+    //export class MError implements IMemory{
+    //    init(...arg){}
+    //    reset(){}
+    //}
 
     export class MTemp implements IMemory,IDict{
         private _temppool:Dict;

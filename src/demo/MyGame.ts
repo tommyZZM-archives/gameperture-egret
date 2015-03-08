@@ -5,7 +5,7 @@ module gamep{
             trace('2.MyGame...onReady()..with',data);
             this.proxy(AssetsLoaderProxy).loadAssets('preload');
             this.proxy(AssetsLoaderProxy).debug = true;
-            console.log(m$.memory(MTemp).get("test"));
+            //console.log(m$.memory(MTemp).get("test"));
         }
 
     }
