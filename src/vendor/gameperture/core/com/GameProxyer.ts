@@ -8,7 +8,7 @@ module gamep {
         public constructor() {
             super();
             this._name = getClassName(this);
-            this._name = /\.?(\w+)$/.exec(this.name)[1];
+            //this._name = /\.?(\w+)$/.exec(this.name)[1];
             //super();
         }
 

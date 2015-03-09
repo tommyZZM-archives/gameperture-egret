@@ -21,9 +21,9 @@ module gamep {
             super.dispatchEvent(new gamep.BroadcastEvent(type,courier));
         }
 
-        public dispatchCmd(cmd:string, ...courier:any[]){
+        /*private dispatchCmd(cmd:string, ...courier:any[]){
             root.dispatchEvent(new Core.FacadeEvent(NotifyType.Cmd,cmd+getClassName(this),courier));
-        }
+        }*/
 
         protected proxy(proxy:any):any{
             return a$["proxy"](proxy);

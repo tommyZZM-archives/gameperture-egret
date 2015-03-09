@@ -1,7 +1,7 @@
-module gamep
-{
+module gamep {
     export class BroadcastProxy extends GameProxyer{
-        public dispatchCmdFeedback(type:string, courier?:any){
+
+        public dispatchBroadcast(type:string, courier?:any){
             super.dispatchEvent(new BroadcastEvent(type,courier))
         }
 

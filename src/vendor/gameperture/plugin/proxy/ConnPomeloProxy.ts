@@ -53,7 +53,7 @@ module gamep.Pomelo {
                 rid = Protocol.reqId;
                 //console.log("sendpomelo REQUEST...",data)
             }
-            //if(gamep.isdebug)console.log('%c↓↓↓ send pomelo message ↓↓↓',"color:#1abc9c;font-weight:bold;",route,data);
+            //trace('%c↓↓↓ send pomelo message ↓↓↓',"color:#1abc9c;font-weight:bold;",route,data);
             var data:any = Protocol.strencode(JSON.stringify(data));
             var msg = Protocol.Message.encode(rid, type, 0, route, data);
             msg = Protocol.Package.encode(Protocol.PackageType.DATA, msg);
@@ -61,7 +61,7 @@ module gamep.Pomelo {
         }
 
         private handshake(){
-            if(gamep.isdebug)console.log("say hello to →",this.host,this.port)
+            trace("say hello to →",this.host,this.port)
             var hello = Protocol.Package.encode(Protocol.PackageType.HANDSHAKE, Protocol.strencode(JSON.stringify(Protocol.handshakeBuffer)));
             super.send(hello.buffer);
         }
@@ -78,12 +78,12 @@ module gamep.Pomelo {
                         if(data.sys.heartbeat){
                             this._heartbeat = <number>data.sys.heartbeat;
                             this._heartbeatTimeOut = this._heartbeat*2;
-                            if(gamep.isdebug)console.log("%c[initheartbeat]..","color:#2c3e50;font-weight:bold;",this._heartbeat,this._heartbeatTimeOut);
+                            trace("%c[initheartbeat]..","color:#2c3e50;font-weight:bold;",this._heartbeat,this._heartbeatTimeOut);
                         }else{
-                            if(gamep.isdebug)console.log("%c[noheartbeat]..","color:#95a5a6;font-weight:bold;");
+                            trace("%c[noheartbeat]..","color:#95a5a6;font-weight:bold;");
                         }
                     }
-                    if(gamep.isdebug)console.log("reseive hello ←",data);
+                    trace("reseive hello ←",data);
                     this.emit(PomeloEvent.ON_CONNECT,{host:this.host,port:this.port});
                     break;
                 }
@@ -97,18 +97,18 @@ module gamep.Pomelo {
                 }
                 //心跳包
                 case Protocol.PackageType.HEARTBEAT:{
-                    if(gamep.isdebug)console.log("%c[heartbeat<]..","color:#2ecc71;font-weight:bold;");
+                    trace("%c[heartbeat<]..","color:#2ecc71;font-weight:bold;");
                     if(this._heartbeat){
-                        gamep.GameFacade.instance.proxy(CountTimeProxy).addDisposableTimeCallback("pomeloheartbeat",this._heartbeat,this.heartbeat,this);
+                        this.proxy(CountTimeProxy).addDisposableTimeCallback("pomeloheartbeat",this._heartbeat,this.heartbeat,this);
                     }
                 }
             }
-            //if(gamep.isdebug)console.log('%c↓↓↓ handel pomelo message ↓↓↓',"color:#f39c12;font-weight:bold;",data);
+            //trace('%c↓↓↓ handel pomelo message ↓↓↓',"color:#f39c12;font-weight:bold;",data);
             return data;
         }
 
         private heartbeat() {
-            if(gamep.isdebug)console.log("%c[heartbeat>]..","color:#27ae60;font-weight:bold;");
+            trace("%c[heartbeat>]..","color:#27ae60;font-weight:bold;");
             var obj = Protocol.Package.encode(Protocol.PackageType.HEARTBEAT);
             super.send(obj.buffer);
         }

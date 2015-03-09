@@ -33,19 +33,27 @@ module gamep {
             return this.getCom(this._proxypool,proxy,GameProxyer);
         }
 
-        public command(command:any):any{
+        private command(command:any):any{
             if(getClassName(command)==getClassName(GameCmder)){return;}
+            //var m = this.getCom(this._cmdpool,command,GameCmder);
             return this.getCom(this._cmdpool,command,GameCmder);
+        }
+
+        public dispatchCmd(command:any,cmd:string, ...courier:any[]){
+            if(getClassName(command)==getClassName(GameCmder)){return;}
+            this.command(command);
+            root.dispatchEvent(new Core.FacadeEvent(NotifyType.Cmd,cmd+getClassName(command),courier));
         }
 
         private getCom(pool:Dict,com:any,instance:any):any{
             var key = com.prototype['__class__'];
             if(!pool.get(key)){
-                var c = new com();
-                if(c instanceof instance){
+                //var c = new com();
+                if(isOfClass(com,instance)){//c instanceof instance
+                    var c = new com();
                     pool.set(key,c);
                 }else{
-                    console.log(getClassName(com),"is not of",getClassName(instance))
+                    console.error(getClassName(com),"is not of",getClassName(instance))
                 }
             }
             return pool.get(key);
@@ -56,22 +64,23 @@ module gamep {
             proxy.addEventListener(type,callback,thisObject);
         }
         public dispatchBroadcast(type:string, courier?:any){
-            (<any>this.proxy(BroadcastProxy)).dispatchCmdFeedback(type,courier);
+            (<any>this.proxy(BroadcastProxy)).dispatchBroadcast(type,courier);
         }
 
         public addDemandListener(com:any,type: string, callback: Function,thisObject: egret.DisplayObject):boolean{
-            var p = this.proxy(com);
-            if(p){
-                type = p.name+type;
+            if(isOfClass(com,GameProxyer)){
+                var p = this.proxy(com);
                 p.addEventListener(type,callback,thisObject);
                 return true;
-            }else{
-                var c:GameCmder = this.command(com);
-                if(c){
-                    c.addEventListener(type,callback,thisObject);
-                    return true;
-                }
             }
+
+            if(isOfClass(com,GameCmder)){
+                var c:GameCmder = this.command(com);
+                c.addEventListener(type,callback,thisObject);
+                return true;
+            }
+
+            return false;
         }
 
         //instance mode
