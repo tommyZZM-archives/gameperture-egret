@@ -48,12 +48,12 @@ module gamep {
         reset();
     }
 
-    export class MBase implements IMemory{
+    export class MBase {
         init(...arg){}
         reset(){}
     }
 
-    export class MTemp extends MBase implements IMemory,IDict{
+    export class MTemp extends MBase implements IDict{
         private _temppool:Dict;
 
         public constructor(){

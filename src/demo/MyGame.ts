@@ -7,13 +7,8 @@ module gamep{
             trace('2.MyGame...onReady()..with',data);
             this.proxy(AssetsLoaderProxy).loadAssets('preload');
             this.proxy(AssetsLoaderProxy).debug = true;
-            //a$.dispatchBroadcast("testbroadcast");
-            //console.log(m$.memory(MTemp).get("test"));
-            this.addCmdHandler(MyGame.TESTCOMMAND,this.cmdTest);
-        }
 
-        private cmdTest(){
-            console.log("cmdTest");
+            (<CameraProxy>this.proxy(CameraProxy)).lookat(new egret.Point(stageWidth(0.5),stageHeight(0.5)),1)
         }
 
     }

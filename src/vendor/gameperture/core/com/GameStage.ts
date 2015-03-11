@@ -59,6 +59,14 @@ module gamep{
         }
 
         //TO/DO:实现场景切换的功能~
+        public forceAddChild(child: egret.DisplayObject): egret.DisplayObject{
+            return super.addChild(child);
+        }
+
+        public forceRemoveChild(child: egret.DisplayObject): egret.DisplayObject{
+            if(child==this._sceneryroot){return null;}
+            return super.removeChild(child);
+        }
 
         /** @deprecated */public addChild(child: egret.DisplayObject): egret.DisplayObject{return null}
         /** @deprecated */public addChildAt(child: egret.DisplayObject, index: number): egret.DisplayObject{return null}
