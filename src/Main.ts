@@ -1,3 +1,5 @@
+
+var demo:string;
 class Main extends egret.DisplayObjectContainer{
 
     public constructor() {
@@ -8,10 +10,24 @@ class Main extends egret.DisplayObjectContainer{
     private start(){
         this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.start,this);
 
-        new gamep.MyGame();
-        new gamep.MyDisplay(this);
+        if(!demo)demo = "HelloWorld";
+        console.log(demo);
+
+        new this.demolist[demo].Cyc();
+        new this.demolist[demo].Display(this);
         (new gamep.GameLauncher(true)).launch();
     }
+
+    private demolist = {
+        HelloWorld:{
+           Cyc:game.HelloWorld.MyGame,
+           Display:game.HelloWorld.MyDisplay
+        },
+        Camera:{
+            Cyc:game.Camera.MyGame,
+            Display:game.Camera.MyDisplay
+        }
+    };
 
     //Devlog:
     //20141230 done:用Map()和Set()代替字典
