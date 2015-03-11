@@ -1,12 +1,15 @@
 module gamep {
+    //镜头功能
     export class CameraProxy extends GameProxyer {
 
         private _viewport:egret.Rectangle;
         private _bufferport:egret.Rectangle;
         private _buffer:number;
 
+        private _target:egret.Point;
         private _lens:egret.Tween;
-        private _distance:number;
+        private _focal:number;
+        private _aperture:egret.Shape;
 
         public constructor(){
             super();
@@ -18,19 +21,30 @@ module gamep {
             this._viewport = new egret.Rectangle(0,0,stageWidth(),stageHeight());
             this._bufferport = new egret.Rectangle(0,0,stageWidth(),stageHeight());
             this._buffer = buffer;
-            this._lens = display.tween(root);
+
+            //this._aperture = new egret.Shape();
+            //this._aperture.graphics.beginFill()
         }
 
-        public lookat(target:egret.Point,distance:number=0.2){
-            distance<0?distance=1:distance++;
+        public lookat(target:egret.Point,focal:number=0.2,duration?:number,callback?:Function,thisArg?,...param):void{
+            focal<=0?focal=1:focal++;
             //distance++;
-            this._distance = distance;
-            this.steady.anchorOffsetX = target.x;
-            this.steady.anchorOffsetY = target.y;
-            this.steady.x = this.steady.anchorOffsetX;
-            this.steady.y = this.steady.anchorOffsetY;
+            this._focal = focal;
+            this.camera.anchorOffsetX = target.x;
+            this.camera.anchorOffsetY = target.y;
+            this.camera.x = this.camera.anchorOffsetX;
+            this.camera.y = this.camera.anchorOffsetY;
 
-            this.camera.to({scaleX:distance,scaleY:distance},1000).call(()=>{this.update_bufferport()});
+            this._target = target;
+
+            this.lens.to({scaleX:focal,scaleY:focal},duration).call(()=>{
+                this.update_bufferport();
+                if(callback&&thisArg)callback.apply(thisArg,param)
+            });
+        }
+
+        public reset(){
+            this.lookat(stageCenter(),0);
         }
 
         private update_viewport(x:number,y:number,width:number,height:number){
@@ -56,13 +70,18 @@ module gamep {
             return  b;
         }
 
-        private get steady():egret.DisplayObjectContainer{
+        private get camera():egret.DisplayObjectContainer{
             return root;
         }
 
-        private get camera():egret.Tween{
+        private get lens():egret.Tween{
+            if(!this._lens)this._lens = display.tween(root);
             this._lens.setPaused(false);
             return this._lens;
+        }
+
+        private get FilterP(){
+            this.proxy(FilterProxy);
         }
     }
 }

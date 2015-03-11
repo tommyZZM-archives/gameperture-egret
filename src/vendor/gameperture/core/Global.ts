@@ -48,6 +48,18 @@ function stageHeight(multiple:number=1):number
     return egret.MainContext.instance.stage.stageHeight*multiple;
 }
 
+function stageCenter():egret.Point{
+    var center:any = window["_stageCenter"];
+    if(!center){
+        center = window["_stageCenter"] = new egret.Point(stageWidth(0.5),stageHeight(0.5));
+    }
+    return center;
+}
+
+function egret_canvas():HTMLCanvasElement{
+    var canvas = document.getElementById(egret.StageDelegate.canvas_div_name).getElementsByTagName("canvas")[0];
+    return canvas;
+}
 
 //Multiplexing OO expand
 
