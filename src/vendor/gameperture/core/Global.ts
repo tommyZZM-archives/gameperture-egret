@@ -12,9 +12,25 @@ module gamep{
         //export var GamePre:string = 'gamepre0112';
         export var GameReady:string = 'gameready0112';
     }
+}
 
-    export module Notify.Call{
+module gamep.client{
+    export function width():any{
+        if (document.documentElement.clientWidth)
+        {
+            return document.documentElement.clientWidth;
+        }else{
+            return window.innerWidth;
+        }
+    }
 
+    export function height():any{
+        if (document.documentElement.clientHeight)
+        {
+            return document.documentElement.clientHeight;
+        }else{
+            return window.innerHeight;
+        }
     }
 }
 
@@ -56,8 +72,13 @@ function stageCenter():egret.Point{
     return center;
 }
 
+function egret_canvas_container():HTMLElement{
+    var container = document.getElementById(egret.StageDelegate.canvas_div_name);
+    return container;
+}
+
 function egret_canvas():HTMLCanvasElement{
-    var canvas = document.getElementById(egret.StageDelegate.canvas_div_name).getElementsByTagName("canvas")[0];
+    var canvas = egret_canvas_container().getElementsByTagName("canvas")[0];
     return canvas;
 }
 

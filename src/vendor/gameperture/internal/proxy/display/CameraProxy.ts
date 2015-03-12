@@ -81,7 +81,7 @@ module gamep {
         }
 
         private get FilterP(){
-            this.proxy(FilterProxy);
+            return this.proxy(FilterProxy);
         }
     }
 }

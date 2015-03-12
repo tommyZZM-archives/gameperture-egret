@@ -21,7 +21,9 @@ module gamep{
         }
 
         private run(){
-            root.addEventListener(egret.Event.ENTER_FRAME,this.calculateFPS,this)
+            root.addEventListener(egret.Event.ENTER_FRAME,this.calculateFPS,this);
+            this.onResize();
+            stage().addEventListener(egret.Event.RESIZE,this.onResize,this);
         }
 
         private calculateFPS(){
@@ -50,6 +52,27 @@ module gamep{
             this._lastTime = nowTime;
 
             FPS = this._fps;
+        }
+
+        private onResize(e?:any){
+            egret_canvas_container().style.top = "0px";
+            egret_canvas_container().style.width = client.width()+"px";
+            egret_canvas_container().style.height = client.height()+"px";
+
+            egret_canvas().style.width = client.width()+"px";
+            egret_canvas().style.height = client.height()+"px";
+            console.log("onResize",client.width(),client.height(),egret_canvas_container());
+
+            var GameWin = {w:480,h:800};
+            var Gper = GameWin.h/GameWin.w;
+            var per = client.height()/client.width();
+            if(per<Gper){
+                GameWin.w = GameWin.h/per;
+            }else{
+                GameWin.h = GameWin.w*per;
+            }
+            egret_canvas().width = GameWin.w;
+            egret_canvas().height = GameWin.h;
         }
 
         //instance mode

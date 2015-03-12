@@ -31,27 +31,7 @@ egret_h5.startGame = function () {
     context.deviceContext = new egret.HTML5DeviceContext(60);
     context.netContext = new egret.HTML5NetContext();
 
-    var winHeight;
-    var winWidth;
-    if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth)
-    {
-        winHeight = document.documentElement.clientHeight;
-        winWidth = document.documentElement.clientWidth;
-    }else{
-        winHeight = window.innerHeight;
-        winWidth = window.innerWidth;
-    }
-
-    var GameWin = {w:480,h:800};
-    var Gper = GameWin.h/GameWin.w;
-    var per = winHeight/winWidth;
-    if(per<Gper){
-        GameWin.w = GameWin.h/per;
-    }else{
-        GameWin.h = GameWin.w*per;
-    }
-
-    egret.StageDelegate.getInstance().setDesignSize(GameWin.w, GameWin.h);
+    egret.StageDelegate.getInstance().setDesignSize(480, 800);
 
     context.stage = new egret.Stage();
     var scaleMode =  egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.SHOW_ALL : egret.StageScaleMode.NO_SCALE;

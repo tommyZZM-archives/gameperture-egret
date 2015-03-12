@@ -32,5 +32,6 @@ class Main extends egret.DisplayObjectContainer{
     //Devlog:
     //20141230 done:用Map()和Set()代替字典
     //201511   TODO:场景切换
+    //201503   CameraProxy;FliterProxy;FuildDeviceApply
 
 }
