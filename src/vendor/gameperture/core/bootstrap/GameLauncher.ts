@@ -24,7 +24,7 @@ module gamep{
 
         public launch(){
             root.addEventListener(Core.FacadeEvent.UNIQUE,(<any>a$)._postOffice,a$);
-            Dom.ready((<any>a$)._display['startup'],(<any>a$)._display)
+            d$.ready((<any>a$)._display['startup'],(<any>a$)._display)
         }
     }
 }

@@ -12,7 +12,7 @@ module game.Camera{
             bg.graphics.drawRect(0,0,stageWidth(),stageHeight());
             bg.graphics.endFill();
             this.forceAddChild(bg);
-            gamep.Dom.resize(()=>{
+            gamep.d$.resize(()=>{
                 /*bg.graphics.beginFill(0x2980b9);
                 bg.graphics.drawRect(0,0,stageWidth(),stageHeight());
                 bg.graphics.endFill();*/

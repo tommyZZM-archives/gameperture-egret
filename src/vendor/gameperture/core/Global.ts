@@ -19,6 +19,14 @@ module gamep.client{
     export var renderWidth:number = 480;
     export var renderHeight:number = 800;
 
+    export var orient:Orient = Orient.Vertical;
+
+    export enum Orient{
+        Horizontal=1,
+        Vertical=2,
+        Free=0
+    }
+
     export function width():number{
         if (document.documentElement.clientWidth)
         {

@@ -1,0 +1,16 @@
+.test{
+    transition: 2s;
+    -webkit-transition: 2ms;
+
+    transform:translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+
+    transform: rotate(1deg);
+    -webkit-transform: rotate(1deg);
+
+    transform: scale3d(0,0,0);
+    -webkit-transform: scale3d(0,0,0);
+
+    transform-origin:0 0;
+    -webkit-transform-origin: 0 0;
+}

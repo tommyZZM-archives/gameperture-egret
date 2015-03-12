@@ -22,10 +22,10 @@ module gamep{
 
         private run(){
             root.addEventListener(egret.Event.ENTER_FRAME,this.calculateFPS,this);
-            gamep.Dom.ready(()=>{
+            gamep.d$.ready(()=>{
                 this.onResize();
                 stage().changeSize();
-                gamep.Dom.resize(this.onResize,this);
+                gamep.d$.resize(this.onResize,this);
                 root.width = stageWidth();
                 root.height = stageHeight();
                 root.anchorX = root.anchorY = 0.5;
@@ -63,16 +63,20 @@ module gamep{
 
         //TODO:优化
         private onResize(){
-            egret_canvas_container().style.top = "0px";
-            egret_canvas_container().style.width = client.width()+"px";
-            egret_canvas_container().style.height = client.height()+"px";
-
-            egret_canvas().style.width = client.width()+"px";
-            egret_canvas().style.height = client.height()+"px";
-
-            //console.log("onResize", client.width()+"px",egret_canvas().style.width );
-
+            var c_temp:number;
             var GameWin = {w:client.renderWidth,h:client.renderHeight};
+
+            switch (client.orient){
+                case client.Orient.Vertical:{
+                    if(client.width()>client.height()){
+                        //c_temp = GameWin.w;
+                        //GameWin.w = GameWin.h;
+                        //GameWin.h = c_temp;
+                    }
+                    //d$.select(egret_canvas_container()).transition({rotate: 0})
+                }
+            }
+
             var Gper = GameWin.h/GameWin.w;
             var per = client.height()/client.width();
             if(per<Gper){
@@ -80,6 +84,14 @@ module gamep{
             }else{
                 GameWin.h = GameWin.w*per;
             }
+
+            egret_canvas_container().style.top = "0px";
+            egret_canvas_container().style.width = client.width()+"px";
+            egret_canvas_container().style.height = client.height()+"px";
+            //egret_canvas_container().style.margin = "0 0";
+
+            egret_canvas().style.width = client.width()+"px";
+            egret_canvas().style.height = client.height()+"px";
             egret_canvas().width = GameWin.w;
             egret_canvas().height = GameWin.h;
 

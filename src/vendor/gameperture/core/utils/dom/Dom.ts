@@ -1,6 +1,38 @@
 module gamep{
-    //$
-    class O_O_${
+
+    class DomElement{
+        private _node:HTMLElement;
+        private _rotation:number;
+
+        public constructor(ele:HTMLElement){
+            this._node = ele;
+            this._rotation = 0;
+        }
+
+        public css(){
+
+        }
+
+        public transition(animate:any={},transition:number=1000){
+            this._node.style.transition = transition+"ms";
+            this._node.style["-webkit-transition"] = transition+"ms";
+
+            if(animate.rotate==0||animate.rotate){
+                var rotate = animate.rotate-this._rotation;
+                //console.log(rotate);
+                this._node.style.transform = "rotate("+rotate+"deg)";
+                this._node.style["-webkit-transform"] = "rotate("+rotate+"deg)";
+                this._rotation = rotate;
+            }
+
+        }
+
+        public get node():HTMLElement{
+            return this._node;
+        }
+    }
+
+    class Dom{
         private init(){
             //root.anchorX = root.anchorY = 0.5;
             window.onresize = this.resized.bind(this);
@@ -60,14 +92,18 @@ module gamep{
             return task;
         }
 
+        public select(ele:HTMLElement):DomElement{
+            return new DomElement(ele);
+        }
+
         //instance mode
-        private static _instance:O_O_$;
-        public static get instance():O_O_${
-            if (O_O_$._instance == null) {
-                O_O_$._instance = new O_O_$();
+        private static _instance:Dom;
+        public static get instance():Dom{
+            if (Dom._instance == null) {
+                Dom._instance = new Dom();
             }
-            return O_O_$._instance;
+            return Dom._instance;
         }
     }
-    export var Dom:O_O_$ = O_O_$.instance;
+    export var d$:Dom = Dom.instance;
 }
