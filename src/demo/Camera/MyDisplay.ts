@@ -6,7 +6,19 @@ module game.Camera{
             new gamep.BroadcastProxy();
             gamep.a$.addDemandListener(gamep.AssetsLoaderProxy,gamep.AssetsEvent.ASSET_READY,this.onAssetLoaded,this);
 
-            var a = new egret.Sprite();
+            console.log("MyDisplay onStartup",stageWidth(),stageHeight());
+            var bg = new egret.Shape();
+            bg.graphics.beginFill(0x2980b9);
+            bg.graphics.drawRect(0,0,stageWidth(),stageHeight());
+            bg.graphics.endFill();
+            this.forceAddChild(bg);
+            gamep.Dom.resize(()=>{
+                /*bg.graphics.beginFill(0x2980b9);
+                bg.graphics.drawRect(0,0,stageWidth(),stageHeight());
+                bg.graphics.endFill();*/
+            });
+
+            var a = new egret.Shape();
             a.width = a.height = 200;
             a.graphics.beginFill(0xffffff);
             a.graphics.drawCircle(a.width/2,a.height/2,100);

@@ -1,0 +1,8 @@
+{
+  "name":"test",
+  "resizable":true,
+  "horizontal":false,
+  "autoorients":true,
+  "fullscreen":false,
+  "language":false
+}

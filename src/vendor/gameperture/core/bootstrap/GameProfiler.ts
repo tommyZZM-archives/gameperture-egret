@@ -22,8 +22,15 @@ module gamep{
 
         private run(){
             root.addEventListener(egret.Event.ENTER_FRAME,this.calculateFPS,this);
-            this.onResize();
-            stage().addEventListener(egret.Event.RESIZE,this.onResize,this);
+            gamep.Dom.ready(()=>{
+                this.onResize();
+                stage().changeSize();
+                gamep.Dom.resize(this.onResize,this);
+                root.width = stageWidth();
+                root.height = stageHeight();
+                root.anchorX = root.anchorY = 0.5;
+            });
+
         }
 
         private calculateFPS(){
@@ -54,16 +61,18 @@ module gamep{
             FPS = this._fps;
         }
 
-        private onResize(e?:any){
+        //TODO:优化
+        private onResize(){
             egret_canvas_container().style.top = "0px";
             egret_canvas_container().style.width = client.width()+"px";
             egret_canvas_container().style.height = client.height()+"px";
 
             egret_canvas().style.width = client.width()+"px";
             egret_canvas().style.height = client.height()+"px";
-            console.log("onResize",client.width(),client.height(),egret_canvas_container());
 
-            var GameWin = {w:480,h:800};
+            //console.log("onResize", client.width()+"px",egret_canvas().style.width );
+
+            var GameWin = {w:client.renderWidth,h:client.renderHeight};
             var Gper = GameWin.h/GameWin.w;
             var per = client.height()/client.width();
             if(per<Gper){
@@ -73,6 +82,19 @@ module gamep{
             }
             egret_canvas().width = GameWin.w;
             egret_canvas().height = GameWin.h;
+
+            stage()["_stageWidth"] = egret_canvas().width;
+            stage()["_stageHeight"] = egret_canvas().height;
+
+            //root.width = stageWidth();
+            //root.height = stageHeight();
+            root.x = stageWidth(0.5);
+            root.y = stageHeight(0.5);
+
+            //console.log("onResize",stageWidth(),stageHeight());
+            egret.StageDelegate.getInstance().setDesignSize(GameWin.w, GameWin.h);
+            stage().changeSize();
+
         }
 
         //instance mode

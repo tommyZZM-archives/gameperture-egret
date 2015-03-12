@@ -6,8 +6,10 @@ module gamep{
 
         //private _facade:GameFacade = GameFacade.instance;
 
-        public constructor(debug:boolean,banchmark:boolean=true) {
+        public constructor(renderWidth:number,renderHeight:number,debug:boolean=true,banchmark:boolean=true) {
             isdebug = debug;
+            client.renderWidth = renderWidth;
+            client.renderHeight = renderHeight;
             init();
             info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
                 "Quick Game Devlope Template base on Egret Engine!");
@@ -22,7 +24,7 @@ module gamep{
 
         public launch(){
             root.addEventListener(Core.FacadeEvent.UNIQUE,(<any>a$)._postOffice,a$);
-            (<any>a$)._display['startup']();
+            Dom.ready((<any>a$)._display['startup'],(<any>a$)._display)
         }
     }
 }

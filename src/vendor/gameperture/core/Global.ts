@@ -15,7 +15,11 @@ module gamep{
 }
 
 module gamep.client{
-    export function width():any{
+
+    export var renderWidth:number = 480;
+    export var renderHeight:number = 800;
+
+    export function width():number{
         if (document.documentElement.clientWidth)
         {
             return document.documentElement.clientWidth;
@@ -24,7 +28,7 @@ module gamep.client{
         }
     }
 
-    export function height():any{
+    export function height():number{
         if (document.documentElement.clientHeight)
         {
             return document.documentElement.clientHeight;
@@ -80,82 +84,4 @@ function egret_canvas_container():HTMLElement{
 function egret_canvas():HTMLCanvasElement{
     var canvas = egret_canvas_container().getElementsByTagName("canvas")[0];
     return canvas;
-}
-
-//Multiplexing OO expand
-
-function extendImplements(thisArg:any,Class:any,method:string,forceOverride:boolean=true){
-    var f = Class['prototype'][method];
-    if(f && method!='__class__'){
-        if(!forceOverride){
-            if(thisArg[method]){
-                console.warn(method+"() already exist in "+thisArg._name+" use forceOverride and try?");
-                return;
-            }
-        }
-        thisArg['__proto__'][method] = f;
-    }
-}
-
-function getClassName(obj:any):string{
-    //class?
-    if (obj.prototype) {
-        if (obj.prototype.__class__ && obj.prototype.constructor){
-            return obj.prototype.__class__;
-        }
-    }else if(obj.__proto__){
-        if (obj.__proto__.__class__ && obj.__proto__.constructor){
-            return obj.__proto__.__class__;
-        }
-    }else{
-        console.warn(obj,'is not a class!');
-        return undefined;
-    }
-}
-
-function isOfClass(target,test):boolean{
-    if(!target.prototype['__class__'] || !test.prototype['__class__']){
-        console.warn("not typescript class");
-    }
-
-    if(target.prototype['__class__']==test.prototype['__class__']){
-        return true;
-    }else{
-        var flag:number = 0;
-        var protoTest = (target,test)=>{
-            //console.log(target.__class__,test.prototype['__class__'])
-            if(target){
-                if(target.__class__){
-                    if(target.__class__ == test.prototype['__class__']){
-                        return 1;
-                    }else{
-                        return 0;
-                    }
-                }
-                return -1
-            }
-            return -1
-        };
-
-        target = target.prototype.__proto__;
-        while(flag==0){
-            flag = protoTest(target,test);
-            target = target.__proto__;
-        }
-        return flag == 1;
-    }
-}
-
-function injectProperty(target:any,packge:any,pos:string):any{
-    /*if(packge && !target[pos]){
-        var foreign = packge;
-        target[pos] = foreign;
-    }else{
-        console.warn('error formart! injectiong fail!',target,packge)
-    }
-    return target;*/
-}
-
-function getProperty(target:any,prop:string):any{
-    return target[prop];
 }

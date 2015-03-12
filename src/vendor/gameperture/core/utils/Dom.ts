@@ -1,0 +1,73 @@
+module gamep{
+    //$
+    class O_O_${
+        private init(){
+            //root.anchorX = root.anchorY = 0.5;
+            window.onresize = this.resized.bind(this);
+        }
+
+        /**
+         * ready
+         */
+        public checkready(){
+            //console.log(this._readytask,document.readyState);
+            if ( document.readyState === "complete" ) {
+                this.readyed();
+
+            } else {
+                // Use the handy event callback
+                document.addEventListener( "DOMContentLoaded", this.readyed.bind(this), false );
+                // A fallback to window.onload, that will always work
+                window.addEventListener( "load", this.readyed.bind(this), false );
+            }
+        }
+
+        private readyed(){
+            document.removeEventListener( "DOMContentLoaded", this.readyed, false );
+            window.removeEventListener( "load", this.readyed, false );
+
+            this.init();
+            this._readytask = this.runtask(this._readytask);
+        }
+
+
+        private _readytask:any;
+        public ready(callback:Function,thisArg?:any,...param){
+            if(!this._readytask){this._readytask = [];}
+            this._readytask.push({callback:callback,thisArg:thisArg,paramArr:param});
+            this.checkready();
+        }
+
+        /**
+         * resized
+         */
+        private resized(){
+            this.runtask(this._resizetask);
+        }
+        private _resizetask:any;
+        public resize(callback:Function,thisArg?:any,...param){
+            if(!this._resizetask){this._resizetask = [];}
+            this._resizetask.push({callback:callback,thisArg:thisArg,paramArr:param});
+        }
+
+        private runtask(task){
+            if(task){
+                for(var i=0;i<task.length;i++){
+                    task[i].callback.apply(task[i].thisArg,task[i].paramArr);
+                }
+            }
+            task = []
+            return task;
+        }
+
+        //instance mode
+        private static _instance:O_O_$;
+        public static get instance():O_O_${
+            if (O_O_$._instance == null) {
+                O_O_$._instance = new O_O_$();
+            }
+            return O_O_$._instance;
+        }
+    }
+    export var Dom:O_O_$ = O_O_$.instance;
+}

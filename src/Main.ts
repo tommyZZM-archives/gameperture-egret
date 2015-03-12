@@ -11,11 +11,11 @@ class Main extends egret.DisplayObjectContainer{
         this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.start,this);
 
         if(!demo)demo = "HelloWorld";
-        console.log(demo);
+        //console.log(demo);
 
         new this.demolist[demo].Cyc();
         new this.demolist[demo].Display(this);
-        (new gamep.GameLauncher(true)).launch();
+        (new gamep.GameLauncher(320,480,true)).launch();
     }
 
     private demolist = {
