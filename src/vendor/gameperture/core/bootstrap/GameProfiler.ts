@@ -93,7 +93,7 @@ module gamep{
                         _client_height = client.width();
                         _client_width  = client.height();
                         orient_callback=()=>{
-                            d$.select(egret_canvas_container()).transition({rotate: -90});
+                            d$.select(egret_canvas_container()).transition({rotate: 90});
                         }
                     }
                     break;

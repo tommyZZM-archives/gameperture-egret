@@ -1,5 +1,5 @@
 
-var demo:string;
+var demo:any;
 class Main extends egret.DisplayObjectContainer{
 
     public constructor() {
@@ -10,14 +10,26 @@ class Main extends egret.DisplayObjectContainer{
     private start(){
         this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.start,this);
 
-        if(!demo)demo = "HelloWorld";
+        if(!demo)demo = {
+            name: "HelloWorld"
+        };
         //console.log(demo);
 
-        new this.demolist[demo].Cyc();
-        new this.demolist[demo].Display(this);
-        (new gamep.GameLauncher(480,320,true)).launch();
-    }
+        var width = 320;
+        var height = 480;
+        if(demo.width&&demo.height){
+            width = demo.width;
+            height = demo.height
+        }
 
+        new this.demolist[demo.name].Cyc();
+        new this.demolist[demo.name].Display(this);
+        (new gamep.GameLauncher(width,height,true)).launch();
+    }
+    private demosize = {
+        width:320,
+        height:480
+    };
     private demolist = {
         HelloWorld:{
            Cyc:game.HelloWorld.MyGame,
