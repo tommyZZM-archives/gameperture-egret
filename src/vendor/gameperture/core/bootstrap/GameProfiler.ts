@@ -75,13 +75,13 @@ module gamep{
                 d$.select(egret_canvas_container()).transition({rotate: 0});
             };
 
+            var _orient_flag:boolean;
             switch (client.orient){
                 case client.Orient.Vertical:{
-                    if(client.width()>client.height()){
+                    _orient_flag = client.width()>client.height()
+                    if(_orient_flag){
                         _client_height = client.width();
                         _client_width  = client.height();
-                        //GameWin.w = client.renderHeight;
-                        //GameWin.h = client.renderWidth;
                         orient_callback=()=>{
                             d$.select(egret_canvas_container()).transition({rotate: -90});
                         }
@@ -89,7 +89,8 @@ module gamep{
                     break;
                 }
                 case client.Orient.Horizontal:{
-                    if(client.height()>client.width()){
+                    _orient_flag = client.height()>client.width();
+                    if(_orient_flag){
                         _client_height = client.width();
                         _client_width  = client.height();
                         orient_callback=()=>{
@@ -108,6 +109,7 @@ module gamep{
             egret_canvas_container().style.top = "0px";
             egret_canvas_container().style.left = "0px";
 
+            //console.log(per,client.perfectSize());
             switch (client.orient) {
                 case client.Orient.Vertical:{
                     if(per>=client.perfectSize()){
@@ -116,6 +118,7 @@ module gamep{
                     }else{
                         game_height = game_width*per;
                     }
+                    console.log(game_width,game_height,client.renderWidth(),client.renderHeight());
                     egret_canvas_container().style.top = (client.height()-_client_height)/2+"px";
                     break;
                 }
@@ -126,7 +129,7 @@ module gamep{
                         _client_width = _client_height/client.perfectSize();
                         game_height = game_width*client.perfectSize();
                     }
-                    if(client.height()>client.width()){
+                    if(_orient_flag){
                         egret_canvas_container().style.left = (client.width()-_client_width)/2+"px";
                     }
                     egret_canvas_container().style.top = (client.height()-_client_height)/2+"px";

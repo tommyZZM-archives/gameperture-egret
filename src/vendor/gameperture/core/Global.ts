@@ -18,11 +18,21 @@ module gamep.client{
 
     var _renderWidth:number = 480;
     var _renderHeight:number = 800;
-    export function setRender(width:number,height:number,free?){
+    export function setRender(width:number,height:number,offset:number = 1.26,free?){
         _renderWidth = width;
         _renderHeight = height;
         if(!free){
             orient = width>height?Orient.Horizontal:Orient.Vertical;
+            switch (orient){
+                case Orient.Horizontal:{
+                    _renderWidth = width*offset;
+                    break;
+                }
+                case Orient.Vertical:{
+                    _renderHeight = height*offset;
+                    break;
+                }
+            }
         }
     }
 
@@ -74,6 +84,21 @@ module gamep.client{
     export function perfectSize(){
         return _renderHeight/_renderWidth;
     }
+
+    /*export function perfetSizeOrient(){
+        var _orient_flag:boolean;
+        switch (client.orient){
+            case client.Orient.Vertical:{
+                _orient_flag = (client.width() > client.height());
+                break;
+            }
+            case client.Orient.Horizontal:{
+                _orient_flag = (client.height() > client.width());
+                break;
+            }
+        }
+        return perfectSize()-(_orient_flag?0.2:0)
+    }*/
 }
 
 var isdebug = false;
