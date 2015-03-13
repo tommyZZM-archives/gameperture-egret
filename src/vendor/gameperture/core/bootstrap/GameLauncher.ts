@@ -8,8 +8,7 @@ module gamep{
 
         public constructor(renderWidth:number,renderHeight:number,debug:boolean=true,banchmark:boolean=true) {
             isdebug = debug;
-            client.renderWidth = renderWidth;
-            client.renderHeight = renderHeight;
+            client.setRender(renderWidth,renderHeight);
             init();
             info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
                 "Quick Game Devlope Template base on Egret Engine!");

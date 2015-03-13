@@ -65,46 +65,90 @@ module gamep{
 
         //TODO:优化
         private onResize(){
-            var client_height = client.height();
-            var client_width  = client.width();
-            var c_temp:number;
+            var _client_height = client.height();
+            var _client_width  = client.width();
+
+            var game_height = client.renderHeight();
+            var game_width = client.renderWidth();
+
             var orient_callback=()=>{
                 d$.select(egret_canvas_container()).transition({rotate: 0});
             };
-            var GameWin = {w:client.renderWidth,h:client.renderHeight};
 
             switch (client.orient){
                 case client.Orient.Vertical:{
                     if(client.width()>client.height()){
-                        client_height = client.width();
-                        client_width  = client.height();
-                        GameWin.w = client.renderHeight;
-                        GameWin.h = client.renderWidth;
+                        _client_height = client.width();
+                        _client_width  = client.height();
+                        //GameWin.w = client.renderHeight;
+                        //GameWin.h = client.renderWidth;
                         orient_callback=()=>{
-                            d$.select(egret_canvas_container()).transition({rotate: 90});
+                            d$.select(egret_canvas_container()).transition({rotate: -90});
                         }
                     }
-                    //d$.select(egret_canvas_container()).transition({rotate: 0})
+                    break;
+                }
+                case client.Orient.Horizontal:{
+                    if(client.height()>client.width()){
+                        _client_height = client.width();
+                        _client_width  = client.height();
+                        orient_callback=()=>{
+                            d$.select(egret_canvas_container()).transition({rotate: -90});
+                        }
+                    }
+                    break;
+                }
+                default :{
+                    break;
                 }
             }
 
-            var Gper = GameWin.h/GameWin.w;
-            var per = client_height/client_width;
-            if(per<Gper){
-                GameWin.w = GameWin.h/per;
-            }else{
-                GameWin.h = GameWin.w*per;
+            var per = _client_height/_client_width;
+            //console.log(per,client.renderSize());
+            egret_canvas_container().style.top = "0px";
+            egret_canvas_container().style.left = "0px";
+
+            switch (client.orient) {
+                case client.Orient.Vertical:{
+                    if(per>=client.perfectSize()){
+                        _client_height = _client_width*client.perfectSize();
+                        game_width = game_height/client.perfectSize();
+                    }else{
+                        game_height = game_width*per;
+                    }
+                    egret_canvas_container().style.top = (client.height()-_client_height)/2+"px";
+                    break;
+                }
+                case client.Orient.Horizontal:{
+                    if(per>=client.perfectSize()){
+                        game_width = game_height/per;
+                    }else{
+                        _client_width = _client_height/client.perfectSize();
+                        game_height = game_width*client.perfectSize();
+                    }
+                    if(client.height()>client.width()){
+                        egret_canvas_container().style.left = (client.width()-_client_width)/2+"px";
+                    }
+                    egret_canvas_container().style.top = (client.height()-_client_height)/2+"px";
+                    //egret_canvas_container().style.left = (client.width()-_client_width)/2+"px";
+                    break;
+                }
+                default :{
+                    if(per<client.renderSize()){
+                        game_width = game_height/per;
+                    }else{
+                        game_height = game_width*per;
+                    }
+                    break;
+                }
             }
+            egret_canvas_container().style.width = _client_width+"px";
+            egret_canvas_container().style.height = _client_height+"px";
 
-            egret_canvas_container().style.width = client_width+"px";
-            egret_canvas_container().style.height = client_height+"px";
-            egret_canvas_container().style.top = (client.height()-client_height)/2+"px";
-            //egret_canvas_container().style.margin = "0 0";
-
-            egret_canvas().style.width = client_width+"px";
-            egret_canvas().style.height = client_height+"px";
-            egret_canvas().width = GameWin.w;
-            egret_canvas().height = GameWin.h;
+            egret_canvas().style.width = _client_width+"px";
+            egret_canvas().style.height = _client_height+"px";
+            egret_canvas().width = game_width;
+            egret_canvas().height = game_height;
 
             stage()["_stageWidth"] = egret_canvas().width;
             stage()["_stageHeight"] = egret_canvas().height;
@@ -115,7 +159,7 @@ module gamep{
             root.y = stageHeight(0.5);
 
             //console.log("onResize",stageWidth(),stageHeight());
-            egret.StageDelegate.getInstance().setDesignSize(GameWin.w, GameWin.h);
+            egret.StageDelegate.getInstance().setDesignSize(game_width, game_height);
             stage().dispatchEventWith(egret.Event.RESIZE);
 
             orient_callback();

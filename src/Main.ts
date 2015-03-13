@@ -15,7 +15,7 @@ class Main extends egret.DisplayObjectContainer{
 
         new this.demolist[demo].Cyc();
         new this.demolist[demo].Display(this);
-        (new gamep.GameLauncher(320,480,true)).launch();
+        (new gamep.GameLauncher(480,320,true)).launch();
     }
 
     private demolist = {

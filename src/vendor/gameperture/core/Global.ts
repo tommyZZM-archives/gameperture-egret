@@ -16,10 +16,27 @@ module gamep{
 
 module gamep.client{
 
-    export var renderWidth:number = 480;
-    export var renderHeight:number = 800;
+    var _renderWidth:number = 480;
+    var _renderHeight:number = 800;
+    export function setRender(width:number,height:number,free?){
+        _renderWidth = width;
+        _renderHeight = height;
+        if(!free){
+            orient = width>height?Orient.Horizontal:Orient.Vertical;
+        }
+    }
 
-    export var orient:Orient = Orient.Vertical;
+    export function renderWidth():number{
+        return _renderWidth
+    }
+    export function renderHeight():number{
+        return _renderHeight
+    }
+    export function renderSize(){
+        return renderWidth()/renderHeight()
+    }
+
+    export var orient:Orient = Orient.Free;
 
     export enum Orient{
         Horizontal=1,
@@ -28,21 +45,34 @@ module gamep.client{
     }
 
     export function width():number{
+        var result;
         if (document.documentElement.clientWidth)
         {
-            return document.documentElement.clientWidth;
+            result= document.documentElement.clientWidth;
         }else{
-            return window.innerWidth;
+            result= window.innerWidth;
         }
+
+        return result;
     }
 
     export function height():number{
-        if (document.documentElement.clientHeight)
-        {
-            return document.documentElement.clientHeight;
+        var result;
+        if (document.documentElement.clientHeight) {
+            result= document.documentElement.clientHeight;
         }else{
-            return window.innerHeight;
+            result= window.innerHeight;
         }
+
+        return result;
+    }
+
+    export function size(){
+        return client.width()/client.height()
+    }
+
+    export function perfectSize(){
+        return _renderHeight/_renderWidth;
     }
 }
 
