@@ -24,8 +24,10 @@ module gamep{
             root.addEventListener(egret.Event.ENTER_FRAME,this.calculateFPS,this);
             gamep.d$.ready(()=>{
                 this.onResize();
-                stage().changeSize();
-                gamep.d$.resize(this.onResize,this);
+                gamep.d$.resize(()=>{
+                    this.onResize();
+                    //stage().changeSize();
+                });
                 root.width = stageWidth();
                 root.height = stageHeight();
                 root.anchorX = root.anchorY = 0.5;
@@ -63,35 +65,44 @@ module gamep{
 
         //TODO:优化
         private onResize(){
+            var client_height = client.height();
+            var client_width  = client.width();
             var c_temp:number;
+            var orient_callback=()=>{
+                d$.select(egret_canvas_container()).transition({rotate: 0});
+            };
             var GameWin = {w:client.renderWidth,h:client.renderHeight};
 
             switch (client.orient){
                 case client.Orient.Vertical:{
                     if(client.width()>client.height()){
-                        //c_temp = GameWin.w;
-                        //GameWin.w = GameWin.h;
-                        //GameWin.h = c_temp;
+                        client_height = client.width();
+                        client_width  = client.height();
+                        GameWin.w = client.renderHeight;
+                        GameWin.h = client.renderWidth;
+                        orient_callback=()=>{
+                            d$.select(egret_canvas_container()).transition({rotate: 90});
+                        }
                     }
                     //d$.select(egret_canvas_container()).transition({rotate: 0})
                 }
             }
 
             var Gper = GameWin.h/GameWin.w;
-            var per = client.height()/client.width();
+            var per = client_height/client_width;
             if(per<Gper){
                 GameWin.w = GameWin.h/per;
             }else{
                 GameWin.h = GameWin.w*per;
             }
 
-            egret_canvas_container().style.top = "0px";
-            egret_canvas_container().style.width = client.width()+"px";
-            egret_canvas_container().style.height = client.height()+"px";
+            egret_canvas_container().style.width = client_width+"px";
+            egret_canvas_container().style.height = client_height+"px";
+            egret_canvas_container().style.top = (client.height()-client_height)/2+"px";
             //egret_canvas_container().style.margin = "0 0";
 
-            egret_canvas().style.width = client.width()+"px";
-            egret_canvas().style.height = client.height()+"px";
+            egret_canvas().style.width = client_width+"px";
+            egret_canvas().style.height = client_height+"px";
             egret_canvas().width = GameWin.w;
             egret_canvas().height = GameWin.h;
 
@@ -105,8 +116,9 @@ module gamep{
 
             //console.log("onResize",stageWidth(),stageHeight());
             egret.StageDelegate.getInstance().setDesignSize(GameWin.w, GameWin.h);
-            stage().changeSize();
+            stage().dispatchEventWith(egret.Event.RESIZE);
 
+            orient_callback();
         }
 
         //instance mode
