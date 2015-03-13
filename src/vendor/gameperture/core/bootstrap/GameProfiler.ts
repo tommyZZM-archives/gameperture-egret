@@ -118,7 +118,7 @@ module gamep{
                     }else{
                         game_height = game_width*per;
                     }
-                    console.log(game_width,game_height,client.renderWidth(),client.renderHeight());
+                    //console.log(game_width,game_height,client.renderWidth(),client.renderHeight());
                     egret_canvas_container().style.top = (client.height()-_client_height)/2+"px";
                     break;
                 }
