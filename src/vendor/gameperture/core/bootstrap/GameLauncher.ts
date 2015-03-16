@@ -1,24 +1,31 @@
 module gamep{
+    export var a$:GameFacade;
+    export var m$:GameMemory;
+    export var p$:canvasele.GamePosition;
+
     export class GameLauncher{//implements GamePertureInterface
 
-        private _facade:GameFacade = GameFacade.instance;
+        //private _facade:GameFacade = GameFacade.instance;
 
-        public constructor(debug:boolean) {
-            if(debug){
-                console.info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
-                    "Quick Game Devlope Template base on Egret Engine!");
-                console.info("gitHub:",'https://github.com/tommyZZM/gameperture-egret');
-            }
+        public constructor(renderWidth:number,renderHeight:number,debug:boolean=true,banchmark:boolean=true) {
             isdebug = debug;
-            if(isdebug){
-                //egret.Profiler.getInstance().run();
+            client.setRender(renderWidth,renderHeight);
+            init();
+            info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
+                "Quick Game Devlope Template base on Egret Engine!");
+            info("gitHub:",'https://github.com/tommyZZM/gameperture-egret');
+            if(isdebug&&banchmark){
+                egret.Profiler.getInstance().run();
             }
             GameProfiler.instance;
+            a$ =  GameFacade.instance;
+            m$ =  GameMemory.instance;
+            p$ = canvasele.GamePosition.instance;
         }
 
         public launch(){
-            this._facade.init();
-            this._facade.startup();
+            root.addEventListener(Core.FacadeEvent.UNIQUE,(<any>a$)._postOffice,a$);
+            d$.ready((<any>a$)._display['startup'],(<any>a$)._display)
         }
     }
 }

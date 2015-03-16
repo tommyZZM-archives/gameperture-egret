@@ -17,3 +17,6 @@ web.Debug.config
 web.Release.config
 web.config
 doc/*.~vsdx
+tsc_config_temp.txt
+node_modules
+libven

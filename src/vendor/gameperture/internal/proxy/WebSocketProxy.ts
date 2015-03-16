@@ -16,23 +16,28 @@ module gamep {
 
         protected onConnect(data?:any):void {
             trace("onOpen ... "+this._socket["host"]+":"+this._socket["port"]);
-            this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_CONNECT,data));
+            //this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_CONNECT,data));
         }
 
         protected onData(data:any):void {
             //data = this._socket.readUTF();
-            if(data)this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_DATA,data));
+            //if(data)this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_DATA,data));
         }
 
         protected onClose(){
-            this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_CLOSE));
+            //this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_CLOSE));
         }
 
-        protected onError(){
-            this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_ERROR));
+        protected onError(e?){
+            //this.dispatchEvent(new WebSocketEvent(WebSocketEvent.ON_ERROR));
         }
 
         public send(data:any):void {
+            if (this.state == WebsocketState.CLOSED||this.state == WebsocketState.CLOSING) {
+                var e = {state: this.state};
+                this.onError(e);
+                return;
+            }
             this._socket.send(data);
         }
 
@@ -47,6 +52,18 @@ module gamep {
         protected get socket():egret.HTML5WebSocket{
             return this._socket;
         }
+
+        protected get host():any{
+            return this._socket["host"];
+        }
+
+        protected get port():any{
+            return this._socket["port"];
+        }
+
+        protected get state():WebsocketState{
+            return this.socket["socket"].readyState
+        }
     }
 }
 
@@ -54,3 +71,11 @@ var BinaryType = {
     Blob:"blob",
     ArrayBuffer:"arraybuffer"
 };
+
+enum WebsocketState{
+    CLOSED = 3,
+    CLOSING = 2,
+    CONNECTING = 0,
+    OPEN = 1,
+    ERROR = -123
+}

@@ -23,10 +23,10 @@ module gamep{
         }
 
         private loadcomplete(e:RES.ResourceEvent){
-            trace(e.groupName + ' Load Complete!');
+            if(this._debug)trace(e.groupName + ' Load Complete!');
             this._loadcount++;
             if(this._loadcount==0){
-                trace('Pre Load Complete!');
+                if(this._debug)trace('Pre Load Complete!');
                 delete this._assets_groups[-1];
                 RES.loadGroup(this._assets_groups[this._loadcount]);
                 this.dispatchEvent(new gamep.AssetsEvent(AssetsEvent.PRELOAD_READY));
@@ -34,7 +34,7 @@ module gamep{
                 if(this._loadcount < this._assets_groups.length){
                     RES.loadGroup(this._assets_groups[this._loadcount]);
                 }else{
-                    trace('All Load Complete!');
+                    if(this._debug)trace('All Load Complete!');
                     RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.loadcomplete,this);
                     RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.loadprogress,this);
                     this.dispatchEvent(new gamep.AssetsEvent(AssetsEvent.ASSET_READY));
@@ -46,7 +46,7 @@ module gamep{
         private loadprogress(e:RES.ResourceEvent){
             if(e.groupName!='RES__CONFIG'){
                 var pct = e.itemsLoaded / e.itemsTotal;
-                trace('Loading '+e.resItem.url+' in '+e.groupName+' '+(pct*100).toFixed(0)+'%');
+                if(this._debug)trace('Loading '+e.resItem.url+' in '+e.groupName+' '+(pct*100).toFixed(0)+'%');
                 if(this._loadcount!=0){
                     var eve = new AssetsEvent(AssetsEvent.ASSET_PROGRESS);
                     eve.percent = pct;

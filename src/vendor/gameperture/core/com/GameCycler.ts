@@ -8,10 +8,10 @@ module gamep{
             super();
             GameFacade.instance['_game']=this;
             //GameFacade.instance['_cmdPostals'].setRoute(notify.CMD.GameReady,this,this.onReady);
-            this.addCmdHandler(Notify.Cmd.GameReady,this.onStartup);
+            this.addCmdHandler(Notify.Cmd.GameReady,this.cmdStartup);
         }
 
-        protected onStartup(){
+        protected cmdStartup(...courier){
         }
 
         protected get stage():any{

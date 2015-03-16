@@ -1,6 +1,5 @@
 module gamep{
-    export var gpversion = '0.16 deving';
-    export var isdebug = false;
+    export var version = '0.5 Swirl';
     export var root:egret.DisplayObjectContainer = null;
     export var rootscene:egret.DisplayObjectContainer = null;
 
@@ -13,19 +12,94 @@ module gamep{
         //export var GamePre:string = 'gamepre0112';
         export var GameReady:string = 'gameready0112';
     }
+}
 
-    export module Notify.Call{
+module gamep.client{
 
+    var _renderWidth:number = 480;
+    var _renderHeight:number = 800;
+    export function setRender(width:number,height:number,offset:number = 1.26,free?){
+        _renderWidth = width;
+        _renderHeight = height;
+        if(!free){
+            orient = width>height?Orient.Horizontal:Orient.Vertical;
+            switch (orient){
+                case Orient.Horizontal:{
+                    _renderWidth = width*offset;
+                    break;
+                }
+                case Orient.Vertical:{
+                    _renderHeight = height*offset;
+                    break;
+                }
+            }
+            //orient = Orient.Free;
+        }
+    }
+
+    export function renderWidth():number{
+        return _renderWidth
+    }
+    export function renderHeight():number{
+        return _renderHeight
+    }
+    export function renderSize(){
+        return renderWidth()/renderHeight()
+    }
+
+    export var orient:Orient = Orient.Free;
+
+    export enum Orient{
+        Horizontal=1,
+        Vertical=2,
+        Free=0
+    }
+
+    export function width():number{
+        var result;
+        if (document.documentElement.clientWidth)
+        {
+            result= document.documentElement.clientWidth;
+        }else{
+            result= window.innerWidth;
+        }
+
+        return result;
+    }
+
+    export function height():number{
+        var result;
+        if (document.documentElement.clientHeight) {
+            result= document.documentElement.clientHeight;
+        }else{
+            result= window.innerHeight;
+        }
+
+        return result;
+    }
+
+    export function size(){
+        return client.width()/client.height()
+    }
+
+    export function perfectSize(){
+        return _renderHeight/_renderWidth;
     }
 }
 
-function trace(...optionalParams: any[]){
-    if(gamep.isdebug){
-        //TODO:需要改进...
-        for(var i:number=0;i<optionalParams.length;i++){
-            console.log(optionalParams[i]);
-        }
-        //var out = optionalParams.join(',');
+var isdebug = false;
+function trace(...msg){}
+function warn(...msg){}
+function info(...msg){}
+
+function init(){
+    if(isdebug){
+        window["log"] = console.log.bind(console);
+        window["trace"] = console.log.bind(console);
+        window["debug"] = console.debug.bind(console);
+        window["warn"] = console.warn.bind(console);
+        window["info"] = console.info.bind(console);
+        window["error"] = console.error.bind(console);
     }
 }
 
@@ -43,55 +117,20 @@ function stageHeight(multiple:number=1):number
     return egret.MainContext.instance.stage.stageHeight*multiple;
 }
 
-
-//Multiplexing OO expand
-
-function extendImplements(thisArg:any,Class:any,method:string,forceOverride:boolean=true){
-    var f = Class['prototype'][method];
-    if(f && method!='__class__'){
-        if(!forceOverride){
-            if(thisArg[method]){
-                console.warn(method+"() already exist in "+thisArg._name+" use forceOverride and try?");
-                return;
-            }
-        }
-        thisArg['__proto__'][method] = f;
+function stageCenter():egret.Point{
+    var center:any = window["_stageCenter"];
+    if(!center){
+        center = window["_stageCenter"] = new egret.Point(stageWidth(0.5),stageHeight(0.5));
     }
+    return center;
 }
 
-function extendImplementsAll(thisArg:any,Class:any,forceOverride:boolean=true){
-    for(var i in Class['prototype']){
-        extendImplements(thisArg,Class,i,forceOverride);
-    }
+function egret_canvas_container():HTMLElement{
+    var container = document.getElementById(egret.StageDelegate.canvas_div_name);
+    return container;
 }
 
-function getClassName(obj:any):string{
-    //class?
-    if (obj.prototype) {
-        if (obj.prototype.__class__ && obj.prototype.constructor){
-            return obj.prototype.__class__;
-        }
-    }else if(obj.__proto__){
-        if (obj.__proto__.__class__ && obj.__proto__.constructor){
-            return obj.__proto__.__class__;
-        }
-    }else{
-        console.warn(obj,'is not a class!');
-        return undefined;
-    }
-}
-
-
-function injectProperty(target:any,packge:any,pos:string):any{
-    if(packge && !target[pos]){
-        var foreign = packge;
-        target[pos] = foreign;
-    }else{
-        console.warn('error formart! injectiong fail!',target,packge)
-    }
-    return target;
-}
-
-function getProperty(target:any,prop:string):any{
-    return target[prop];
+function egret_canvas():HTMLCanvasElement{
+    var canvas = egret_canvas_container().getElementsByTagName("canvas")[0];
+    return canvas;
 }

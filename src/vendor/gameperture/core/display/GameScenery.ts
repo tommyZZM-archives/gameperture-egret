@@ -1,13 +1,11 @@
 module gamep {
-    export class GameScenery extends GameContainer{// implements ISceneryComponent
+    //@abstract
+    export class GameScenery extends egret.DisplayObjectContainer{// implements ISceneryComponent
 
         public constructor(name:string){
             super();
             this.name = name;
             this.display();
-
-            extendImplements(this,GameSprite,'tween');
-            extendImplements(this,GameSprite,'removeTween');
         }
 
         public onShow(...courier){}
@@ -16,18 +14,5 @@ module gamep {
         protected display(){
 
         }
-
-
-        public clear(){this.removeChildren();}
-
-        public get tween(){return null}
-        public removeTween(){}
-
-        public removeFromParent(){
-            if(this.parent){
-                this.parent.removeChild(this);
-            }
-        }
-
     }
 }

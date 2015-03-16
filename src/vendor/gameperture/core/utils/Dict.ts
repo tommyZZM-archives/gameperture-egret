@@ -21,7 +21,9 @@ class Dict{
 
     public delete(key){
         var index = this._keys.indexOf(key, 0);
-        this._keys.splice(index, 1);
+        if(index>=0){
+            this._keys.splice(index, 1);
+        }
         if(this.has(key))delete this._map[key];
     }
 
@@ -35,7 +37,7 @@ class Dict{
     }
 
     /** @/deprecated */
-    public forEach(callbackfn: (value, key?:string)=>void, thisArg: any): void{
+    public forEach(callbackfn: (value, key?:string)=>void, thisArg?: any): void{
         for(var i=0;i<this._keys.length;i++){
             var key = this._keys[i]
             var value = this._map[this._keys[i]];
@@ -59,5 +61,10 @@ class Dict{
     public get size():number{
         return this._keys.length;
     }
+}
 
+interface IDict{
+    set(key:any,value);
+    get(key);
+    delete(key);
 }
