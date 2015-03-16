@@ -4,9 +4,6 @@ module gamep{
      */
     export class GameStage extends egret.DisplayObjectContainer{// extends GameContainer
 
-        private _scenerypool:Dict;
-        private _currscenery:GameScenery;
-
         private _sceneryroot;
         /** 舞台 **/
 
@@ -30,7 +27,7 @@ module gamep{
             this.name = this['__proto__']['__class__'];
             this.name = /\.?(\w+)$/.exec(this.name)[1];
 
-            this._scenerypool = new Dict();
+            //this._scenerypool = new Dict();
         }
 
         private startup(){
