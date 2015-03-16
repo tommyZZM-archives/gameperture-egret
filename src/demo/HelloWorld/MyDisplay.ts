@@ -12,7 +12,7 @@ module game.HelloWorld{
             a.graphics.drawRect(0,0,100,100);
             a.graphics.endFill();
             a.anchorX = a.anchorY = 0.5;
-            a.x = stageWidth(0.5);a.y=stageHeight(0.5);
+            gamep.p$.lockPosition(a,0.5,0.5);
             this.forceAddChild(a);
         }
 

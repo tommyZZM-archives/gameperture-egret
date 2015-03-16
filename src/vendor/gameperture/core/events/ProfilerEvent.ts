@@ -1,15 +1,17 @@
-module gamep.Core{
-    export class ProfilerEvent extends egret.Event {
+module gamep {
+    export module Core {
+        export class ProfilerEvent extends egret.Event {
 
-        private _count:number;
+            private _count:number;
 
-        public constructor(type:TimeEvent,count:number) {
-            super(type+getClassName(this), false , false);
-            this._count = count;
-        }
+            public constructor(type:TimeEvent, count:number) {
+                super(type + getClassName(this), false, false);
+                this._count = count;
+            }
 
-        public get count():number{
-            return this._count
+            public get count():number {
+                return this._count
+            }
         }
     }
 }

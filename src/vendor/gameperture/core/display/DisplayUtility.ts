@@ -1,5 +1,5 @@
 module gamep{
-    export module display {
+    export module canvasele {
         export function removeFromParent(child:egret.DisplayObject) {
             if (child.parent) {
                 child.parent.removeChild(child);

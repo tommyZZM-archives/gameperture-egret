@@ -75,7 +75,7 @@ module gamep {
         }
 
         private get lens():egret.Tween{
-            if(!this._lens)this._lens = display.tween(root);
+            if(!this._lens)this._lens = canvasele.tween(root);
             this._lens.setPaused(false);
             return this._lens;
         }

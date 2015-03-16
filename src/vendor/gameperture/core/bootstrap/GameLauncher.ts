@@ -1,6 +1,7 @@
 module gamep{
     export var a$:GameFacade;
     export var m$:GameMemory;
+    export var p$:canvasele.GamePosition;
 
     export class GameLauncher{//implements GamePertureInterface
 
@@ -19,6 +20,7 @@ module gamep{
             GameProfiler.instance;
             a$ =  GameFacade.instance;
             m$ =  GameMemory.instance;
+            p$ = canvasele.GamePosition.instance;
         }
 
         public launch(){

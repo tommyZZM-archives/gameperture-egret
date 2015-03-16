@@ -42,22 +42,6 @@ module gamep{
 
         }
 
-        protected addScenery(scene:GameScenery){
-            this._scenerypool.set(scene.name,scene);
-        }
-
-        protected toggleToScenery(name:string,courier:any,transitions?){
-            if(!this._scenerypool.get(name)){return;}
-            if(this._currscenery){
-                //TODO:换场动画
-                this._currscenery.onHide(courier);
-                display.removeFromParent(this._currscenery);
-            }
-            this._currscenery = this._scenerypool.get(name);
-            this._currscenery.onShow(courier);
-            this._sceneryroot.addChild(this._currscenery);
-        }
-
         //TO/DO:实现场景切换的功能~
         public forceAddChild(child: egret.DisplayObject): egret.DisplayObject{
             return super.addChild(child);

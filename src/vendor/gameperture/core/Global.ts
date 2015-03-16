@@ -33,6 +33,7 @@ module gamep.client{
                     break;
                 }
             }
+            //orient = Orient.Free;
         }
     }
 
@@ -84,21 +85,6 @@ module gamep.client{
     export function perfectSize(){
         return _renderHeight/_renderWidth;
     }
-
-    /*export function perfetSizeOrient(){
-        var _orient_flag:boolean;
-        switch (client.orient){
-            case client.Orient.Vertical:{
-                _orient_flag = (client.width() > client.height());
-                break;
-            }
-            case client.Orient.Horizontal:{
-                _orient_flag = (client.height() > client.width());
-                break;
-            }
-        }
-        return perfectSize()-(_orient_flag?0.2:0)
-    }*/
 }
 
 var isdebug = false;
