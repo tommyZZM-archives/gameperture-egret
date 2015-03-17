@@ -34,7 +34,7 @@ module gamep{
                             game_height = game_width*per;
                         }
                         //console.log(game_width,game_height,client.renderWidth(),client.renderHeight());
-                        egret_canvas_container().style.top = (client.height()-_client_height)/2+"px";
+                        //egret_canvas_container().style.top = (client.height()-_client_height)/2+"px";
                     };
                     break;
                 }
@@ -54,6 +54,8 @@ module gamep{
                         }
                         if(this._orient_flag){
                             egret_canvas_container().style.left = (client.width()-_client_width)/2+"px";
+                        }else{
+                            egret_canvas_container().style.left = 0+"px";
                         }
                     };
                     break;
