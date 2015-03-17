@@ -20,7 +20,7 @@ module gamep{
             GameProfiler.instance;
             a$ =  GameFacade.instance;
             m$ =  GameMemory.instance;
-            p$ = canvasele.GamePosition.instance;
+            p$ =  canvasele.GamePosition.instance;
         }
 
         public launch(){

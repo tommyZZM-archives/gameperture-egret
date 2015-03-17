@@ -103,6 +103,10 @@ function init(){
     }
 }
 
+function context():egret.MainContext{
+    return egret.MainContext.instance
+}
+
 function stage():egret.Stage{
     return egret.MainContext.instance.stage;
 }
