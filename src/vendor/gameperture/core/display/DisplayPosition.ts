@@ -13,7 +13,7 @@ module gamep {
                     value.obj.x = stageWidth(value.posx);
                     value.obj.y = stageHeight(value.posy);
                 });
-                console.log(this._displayobjpool);
+                //console.log(this._displayobjpool);
             }
 
             public lockPosition(target:egret.DisplayObject,posx:number,posy:number){

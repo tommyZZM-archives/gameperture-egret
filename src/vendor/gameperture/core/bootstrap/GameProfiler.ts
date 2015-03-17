@@ -155,7 +155,9 @@ module gamep{
             root.width = stageWidth();
             root.height = stageHeight();
 
-            stage().dispatchEventWith(egret.Event.RESIZE);
+            stage().changeSize();
+            //stage()["setResolutionPolicy"]();
+            //stage().dispatchEventWith(egret.Event.RESIZE);
         }
 
         //instance mode

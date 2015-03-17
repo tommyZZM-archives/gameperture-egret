@@ -1,6 +1,6 @@
 module gamep{
 
-    class DomElement{
+    export class DomElement{
         private _node:HTMLElement;
         private _rotation:number;
 
@@ -32,7 +32,7 @@ module gamep{
         }
     }
 
-    class Dom{
+    export class Dom{
         private init(){
             //root.anchorX = root.anchorY = 0.5;
             window.onresize = this.resized.bind(this);
