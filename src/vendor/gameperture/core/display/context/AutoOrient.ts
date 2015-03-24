@@ -34,7 +34,7 @@ module gamep{
                             game_height = game_width*per;
                         }
                         //console.log(game_width,game_height,client.renderWidth(),client.renderHeight());
-                        //egret_canvas_container().style.top = (client.height()-_client_height)/2+"px";
+                        //client.canvas_container().style.top = (client.height()-_client_height)/2+"px";
                     };
                     break;
                 }
@@ -53,23 +53,43 @@ module gamep{
                             game_height = game_width*client.perfectSize();
                         }
                         if(this._orient_flag){
-                            egret_canvas_container().style.left = (client.width()-_client_width)/2+"px";
+                            client.canvas_container().style.left = (client.width()-_client_width)/2+"px";
                         }else{
-                            egret_canvas_container().style.left = 0+"px";
+                            client.canvas_container().style.left = 0+"px";
                         }
                     };
                     break;
                 }
                 default :{
                     _domcsspos = ()=>{
-                        var _renderper = client.renderSize()<1?1/client.renderSize():client.renderSize();
-                        if(per<_renderper){
+                        var _renderper = client.renderSize()<1?(1/client.renderSize()/client.renderOffset()):client.renderSize()*client.renderOffset();
+                        /*if(per<_renderper){
                             //console.log(per,"per<<client.renderSize()",client.renderSize());
                             game_width = game_height/per;
                         }else{
                             //console.log(per,"per>>client.renderSize()",client.renderSize());
                             game_height = game_width*per;
+                        }*/
+
+                        if(client.renderSize()<1){
+                            if(per>_renderper){//Gper
+                                //GameWin.w = GameWin.h/per;
+                                if(per>client.perfectSize())per=client.perfectSize()//TODO:here
+                                game_height =  game_width*per;
+                            }else{
+                                game_height =  game_width*_renderper;
+                                _client_width = client.height()/_renderper;
+                                _client_height = client.height();
+                            }
+                        }else{
+                            if(per>_renderper){//Gper
+                                //GameWin.w = GameWin.h/per;
+                                game_width =  game_height/per;
+                            }else{
+                                game_width =  game_height/_renderper;
+                            }
                         }
+
                     };
                     break;
                 }
@@ -77,26 +97,26 @@ module gamep{
 
             var per = _client_height/_client_width;
             _domcsspos();
-            egret_canvas_container().style.top = (client.height()-_client_height)/2+"px";
-            egret_canvas_container().style.width = _client_width+"px";
-            egret_canvas_container().style.height = _client_height+"px";
+            client.canvas_container().style.top = (client.height()-_client_height)/2+"px";
+            client.canvas_container().style.width = _client_width+"px";
+            client.canvas_container().style.height = _client_height+"px";
 
-            egret_canvas().style.width = _client_width+"px";
-            egret_canvas().style.height = _client_height+"px";
-            egret_canvas().width = game_width;
-            egret_canvas().height = game_height;
+            client.canvas().style.width = _client_width+"px";
+            client.canvas().style.height = _client_height+"px";
+            client.canvas().width = game_width;
+            client.canvas().height = game_height;
 
-            d$.select(egret_canvas_container()).transition({rotate: this._orient_angel});
+            d$.query(client.canvas_container()).rotate(this._orient_angel);
 
             var scale:number = (per>=client.perfectSize())
-                ? _client_width / egret_canvas().width : _client_height / egret_canvas().height;
+                ? _client_width / client.canvas().width : _client_height / client.canvas().height;
 
-            this.setEgretSize(egret_canvas().width, egret_canvas().height);
+            this.setEgretSize(client.canvas().width, client.canvas().height);
 
             delegate._scaleX = scale;
             delegate._scaleY = scale;
 
-            //console.log("AutoOrient _apply",egret_canvas().width, egret_canvas().height)
+            //console.log("AutoOrient _apply",client.canvas().width, client.canvas().height)
 
         }
 

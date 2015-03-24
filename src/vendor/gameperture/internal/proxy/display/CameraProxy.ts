@@ -44,7 +44,7 @@ module gamep {
         }
 
         public reset(){
-            this.lookat(stageCenter(),0);
+            this.lookat(new egret.Point(stageWidth(0.5),stageHeight(0.5)),0);
         }
 
         private update_viewport(x:number,y:number,width:number,height:number){
@@ -75,7 +75,7 @@ module gamep {
         }
 
         private get lens():egret.Tween{
-            if(!this._lens)this._lens = canvasele.tween(root);
+            if(!this._lens)this._lens = c$.tween(root);
             this._lens.setPaused(false);
             return this._lens;
         }

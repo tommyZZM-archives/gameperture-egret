@@ -103,28 +103,28 @@ module gamep{
                 }
                 return {x:x,y:y}
             };
-            implementMethod(context().touchContext, "onTouchBegan",
+            implementMethod(client.context().touchContext, "onTouchBegan",
                 (x:number, y:number, identifier:number)=>{
                     var result = relocationtouch(x,y);
                     x = result.x;
                     y = result.y;
-                    context().touchContext["__origin__"]["onTouchBegan"](x,y,identifier)
+                    client.context().touchContext["__origin__"]["onTouchBegan"](x,y,identifier)
                 }
             );
-            implementMethod(context().touchContext, "onTouchMove",
+            implementMethod(client.context().touchContext, "onTouchMove",
                 (x:number, y:number, identifier:number)=>{
                     var result = relocationtouch(x,y);
                     x = result.x;
                     y = result.y;
-                    context().touchContext["__origin__"]["onTouchMove"](x,y,identifier)
+                    client.context().touchContext["__origin__"]["onTouchMove"](x,y,identifier)
                 }
             );
-            implementMethod(context().touchContext, "onTouchEnd",
+            implementMethod(client.context().touchContext, "onTouchEnd",
                 (x:number, y:number, identifier:number)=>{
                     var result = relocationtouch(x,y);
                     x = result.x;
                     y = result.y;
-                    context().touchContext["__origin__"]["onTouchEnd"](x,y,identifier)
+                    client.context().touchContext["__origin__"]["onTouchEnd"](x,y,identifier)
                 }
             );
         }

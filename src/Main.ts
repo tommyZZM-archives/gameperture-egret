@@ -17,14 +17,16 @@ class Main extends egret.DisplayObjectContainer{
 
         var width = 320;
         var height = 480;
+        var free = false;
         if(demo.width&&demo.height){
             width = demo.width;
-            height = demo.height
+            height = demo.height;
+            free   = demo.free;
         }
 
         new this.demolist[demo.name].Cyc();
         new this.demolist[demo.name].Display(this);
-        (new gamep.GameLauncher(width,height,true)).launch();
+        (new gamep.GameLauncher({width:width,height:height,free:free},true)).launch();
     }
     private demosize = {
         width:320,
@@ -38,6 +40,10 @@ class Main extends egret.DisplayObjectContainer{
         Camera:{
             Cyc:game.Camera.MyGame,
             Display:game.Camera.MyDisplay
+        },
+        Domm:{
+            Cyc:game.Domm.MyGame,
+            Display:game.Domm.MyDisplay
         }
     };
 
