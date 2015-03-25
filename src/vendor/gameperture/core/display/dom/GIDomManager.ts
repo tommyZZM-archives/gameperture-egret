@@ -4,6 +4,7 @@ module gamep{
             private init(){
                 //root.anchorX = root.anchorY = 0.5;
                 window.onresize = this.resized.bind(this);
+                this.$ = this.query.bind(this);
             }
 
             /**
@@ -61,12 +62,15 @@ module gamep{
             /**
              * ele queryer
              */
-            public $(ele:any):domele.GIDomElement{return this.query(ele)}
-            public query(ele:any):domele.GIDomElement{
-                return new domele.GIDomElement(ele);
+            public $(ele:any,disabletouch?:boolean):domele.GIDomElement{return null}
+            public query(ele:any,disabletouch?:boolean):domele.GIDomElement{
+                return new domele.GIDomElement(ele,disabletouch);
             }
-            public create(tag:string){
 
+            public compare(node1:Node,node2:Node):boolean{
+                var boo = (node1===node2);
+                if(node1.isSameNode)boo = node1.isSameNode(node2);
+                return boo;
             }
 
             //instance mode

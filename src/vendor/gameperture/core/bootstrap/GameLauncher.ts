@@ -15,7 +15,7 @@ module gamep{
             info("%cGameperture","color:#1ac2ff;font-weight:bold;",
                 "A Quick Game Devlope Template for Egret Engine!");
             info("gitHub:",'https://github.com/tommyZZM/gameperture-egret');
-            info("curr egret version","1.6.0")
+            info("curr egret version","1.6.0");
             if(isdebug&&banchmark){
                 egret.Profiler.getInstance().run();
             }

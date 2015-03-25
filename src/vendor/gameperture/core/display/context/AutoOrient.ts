@@ -74,7 +74,7 @@ module gamep{
                         if(client.renderSize()<1){
                             if(per>_renderper){//Gper
                                 //GameWin.w = GameWin.h/per;
-                                if(per>client.perfectSize())per=client.perfectSize()//TODO:here
+                                if(per>client.perfectSize())per=client.perfectSize();//TODO:here
                                 game_height =  game_width*per;
                             }else{
                                 game_height =  game_width*_renderper;

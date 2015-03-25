@@ -99,6 +99,7 @@ var isdebug = false;
 function trace(...msg){}
 function warn(...msg){}
 function info(...msg){}
+function error(...msg){}
 
 module quickdebug{
     export function init(){
@@ -143,8 +144,42 @@ module gamep{
         }
 
         export function canvas():HTMLCanvasElement{
-            var canvas = canvas_container().getElementsByTagName("canvas")[0];
+            if(!client.canvas["_canvas"]){
+                var canvass = canvas_container().getElementsByTagName("canvas");
+                for(var i=0;i<canvass.length;i++){
+                    if(canvass[i].id == egret.StageDelegate.canvas_name){
+                        client.canvas["_canvas"] = canvass[i]
+                    }
+                }
+            }
+            var canvas = client.canvas["_canvas"];
+            if(!canvas)warn("egret canvas not found")
             return canvas;
+        }
+
+        export var ua = navigator.userAgent.toLowerCase();
+        export function devicetype():DeviceType{
+            if(/iphone|ipad|ipod/i.test(ua)){
+                return DeviceType.IOS;
+            }
+
+            if(/android/i.test(ua)){
+                return DeviceType.Android;
+            }
+
+            if(/windows/i.test(ua)&&/phone/i.test(ua)){
+                return DeviceType.WinPhone;
+            }
+
+            return DeviceType.PC
+        }
+
+        export enum DeviceType{
+            Android = 1,
+            IOS = 2,
+            WinPhone = 3,
+            PC = 0,
+            Other = -1
         }
     }
 

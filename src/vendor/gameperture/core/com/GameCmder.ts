@@ -25,7 +25,7 @@ module gamep {
             root.dispatchEvent(new Core.FacadeEvent(NotifyType.Cmd,cmd+getClassName(this),courier));
         }*/
 
-        protected proxy(proxy:any):any{
+        protected proxy(proxy:any):GameProxyer|any{
             return a$["proxy"](proxy);
         }
 
