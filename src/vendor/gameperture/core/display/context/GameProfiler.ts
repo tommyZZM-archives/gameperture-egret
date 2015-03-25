@@ -63,11 +63,20 @@ module gamep{
         }
 
         //TODO:优化
+        private _hastransitionendlisten:boolean;
         private onResize(){
             var container = new egret.EqualToFrame();
             this._contentstrategy = new gamep.AutoOrient();
             var policy = new egret.ResolutionPolicy(container, this._contentstrategy);
             egret.StageDelegate.getInstance()._setResolutionPolicy(policy);
+            if(!this._hastransitionendlisten) {
+                this._hastransitionendlisten = true;
+                client.canvas_container().addEventListener('webkitTransitionEnd', ()=> {
+                    client.canvas_container().removeEventListener('webkitTransitionEnd', <any>arguments.callee, false);
+                    this._hastransitionendlisten = false;
+                    stage().dispatchEventWith(egret.Event.RESIZE);
+                }, false)
+            }
             stage().dispatchEventWith(egret.Event.RESIZE);
             root.width = stageWidth();
             root.height = stageHeight();

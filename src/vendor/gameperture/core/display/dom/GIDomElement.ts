@@ -1,103 +1,20 @@
 module gamep {
-    var _rquickExpr:RegExp = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/;
-    var _rsingleTag:RegExp = (/^<(\w+)\s*\/?>(?:<\/\1>|)$/);
-    var _rhtml:RegExp = /<|&#?\w+;/;
-    var _rtagName:RegExp = /<([\w:]+)/;
-    var _rxhtmlTag:RegExp = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/gi;
-    var _rallLetter:RegExp = /^[A-Za-z]+$/;
-
     export module domele {
+        export var _rcssprop:RegExp = /^(\d+)(\w+)$/i;
+
         export class GIDomElement extends egret.EventDispatcher{
             private _node:HTMLElement;
             private _rotation:number;
-            private _nodesuccess:boolean;
+            //private _nodesuccess:boolean;
 
-            public constructor(selector:any,disabletouch:any) {
+            public constructor(node:HTMLElement) {
                 super();
-
-                this._node = this.init(selector);
-
+                this._node = node//this.init(selector);
                 if(this.success){
                     this.initTouchEvent();
                 }
 
-                //
                 this._rotation = 0;
-            }
-
-            /**
-             *
-             * @param selector [create <tag></tag> | #id | htmlElemet]
-             * @returns {*}
-             */
-            private init(selector):HTMLElement{
-                var match, elem, tag;
-                var result;
-
-                // HANDLE: $(""), $(null), $(undefined), $(false)
-                if ( !selector ) {
-                    return undefined;
-                }
-
-                // Handle HTML strings
-                if ( typeof selector === "string" ) {
-                    if ( selector[0] === "<" && selector[ selector.length - 1 ] === ">" && selector.length >= 3 ) {
-                        // Assume that strings that start and end with <> are HTML and skip the regex check
-                        match = [ null, selector, null ];
-                    } else {
-                        match = _rquickExpr.exec( selector );
-                    }
-
-                    // Match html or make sure no context is specified for #id
-                    if ( match ) {
-                        // HANDLE: $(html) -> $(array)
-                        if ( match[1] ) {
-                            var parsed:any = _rsingleTag.exec(match[1]);
-                            if(parsed){
-                                elem = document.createElement( parsed[1] );
-                            }else{
-                                parsed = _rhtml.test(match[1]);
-                                if(parsed){
-                                    elem = match[1];
-                                    var fragment:any = document.createDocumentFragment();
-                                    var fragment:any =fragment.appendChild( document.createElement("div") );
-                                    tag = ( _rtagName.exec( elem ) || [ "", "" ] )[ 1 ].toLowerCase();
-                                    fragment.innerHTML =  elem.replace( _rxhtmlTag, "<$1></$2>" );
-                                    var tmp = fragment.firstChild;
-                                    elem = tmp;
-                                    fragment.textContent = "";
-                                }
-                            }
-                            result = elem;
-                        } else {
-                            elem = document.getElementById( match[2] );
-                            if(!elem){
-                                warn(match[2] ,"not found");
-                                //elem = document.createElement("div");
-                                //elem.id = match[2];
-                            }
-                            //console.log(" if ( !match[1] )",elem);
-                        }
-                    } else {
-                        if(_rallLetter.test(selector)){
-                            elem = document.createElement(selector);
-                        }
-                    }
-                    result = elem;
-
-                    // HANDLE: $(DOMElement)
-                } else if ( selector.nodeType ) {
-                    result = selector;
-                }
-
-                if(!result){
-                    //warn("query param useage: param[create <tag></tag> | #id | htmlElemet]");
-                }
-                this._nodesuccess = !!result;
-
-                //console.log(selector,match,result);
-
-                return result;
             }
 
             private initTouchEvent():void{
@@ -132,33 +49,10 @@ module gamep {
                 }
             }
 
-            public css(cssprops?:any):any {
-                if(cssprops){
-                    for(var prop in cssprops){
-                        this._node.style[prop] = cssprops[prop]
-                    }
-                    return this._node;
-                }else{
-                    return this._node.style;
-                }
 
-            }
-
-            public rotate(angle:number, transition:number = 1000){
-                this.transition = transition;
-
-                if (angle == 0 || angle) {
-                    var rotate = angle - this._rotation;
-                    this._node.style.transform = "rotate(" + rotate + "deg)";
-                    this._node.style["-webkit-transform"] = "rotate(" + rotate + "deg)";
-                    this._rotation = rotate;
-                }
-            }
-
-            public set transition(ms:number){
-                this._node.style.transition = ms + "ms";
-                this._node.style["-webkit-transition"] = ms + "ms";
-            }
+            /**
+             * Document Object Model
+             */
 
             public data(key,value?:string):any{
                 if(value)this._node.setAttribute("data-"+key,value);
@@ -166,7 +60,7 @@ module gamep {
             }
 
             public prop(key,boo:boolean):any{
-                boo?this._node["data-"+key]=true:delete this._node["data-"+key];
+                boo?this._node.setAttribute("data-"+key):delete this._node.removeAttribute("data-"+key);
             }
 
             public appendChild(ele:GIDomElement):GIDomElement{
@@ -184,12 +78,96 @@ module gamep {
                 return ele;
             }
 
+            public children(fn?:(child)=>any,thisArg?:any){
+                var children = this._node.children;
+                for(var i=0;i<children.length;i++){
+                    var child = children[i]
+                    if(fn){
+                        thisArg?fn.call(thisArg,child):fn(child);
+                    }
+                }
+                return children;
+            }
+
             public get node():HTMLElement {
                 return this._node;
             }
 
             public get success():boolean{
-                return this._nodesuccess;
+                return !!this._node;
+            }
+
+            /**
+             * Css style
+             */
+            public set x(value:number){
+
+            }
+            public get x():number{
+                return this._node.offsetLeft;
+            }
+
+            public set y(value:number){
+
+            }
+            public get y():number{
+                return this._node.offsetTop;
+            }
+
+            public width():number{
+                return this.getcsspropsize("width")
+            }
+
+            public height():number{
+                return this.getcsspropsize("height")
+            }
+
+            private getcsspropsize(name:string,fn?:string):any{
+                var result:any = this.css()[name];
+                if(!result||result=="auto")result = this.abscss()[name];
+                if(result!="auto"&&_rcssprop.exec(result)){
+                    this[name]["unit"] = _rcssprop.exec(result)[2];
+                    //console.log(_rcssprop.exec(result))
+                    result = _rcssprop.exec(result)[1]
+                }
+                return result
+            }
+
+            public css(cssprops?:any):any {
+                if(cssprops){
+                    for(var prop in cssprops){
+                        this._node.style[prop] = cssprops[prop]
+                    }
+                    return this._node;
+                }else{
+                    return this._node.style;
+                }
+            }
+
+            public abscss():any{
+                var result = window.getComputedStyle?window.getComputedStyle(this._node):this._node.style;
+                return result;
+            }
+
+            public rotate(angle:number, transition:number = 1000){
+                this.transition = transition;
+
+                if (angle == 0 || angle ||angle!=this._rotation) {
+                    var rotate = angle;// - this._rotation;
+                    //trace(this._rotation);
+                    this._node.style.transform = "rotate(" + angle + "deg)";
+                    this._node.style["-webkit-transform"] = "rotate(" + angle + "deg)";
+                    this._rotation = rotate;
+                }
+            }
+
+            public set transition(ms:number){
+                this._node.style.transition = ms + "ms";
+                this._node.style["-webkit-transition"] = ms + "ms";
+            }
+
+            private ontransitionend(){
+                console.log("ontransitionend");
             }
 
             /**
@@ -303,6 +281,7 @@ module gamep {
             private onmousemove(e){}
             private onmouseover(e){}
             private onmouseout(e){}
+
 
         }
 
