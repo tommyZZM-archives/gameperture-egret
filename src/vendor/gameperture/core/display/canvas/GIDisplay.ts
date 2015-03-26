@@ -24,7 +24,7 @@ module gamep{
                 return child;
             }
 
-            public scaleTo(target:egret.DisplayObject, width:number, height:number) {
+            public scaleTo(target:egret.DisplayObject, width:number, height?:number) {
                 var scale = width ? width / target.width : height / target.height;
                 target.scaleX = target.scaleY = scale;
                 if (!target["_size"])target["_size"] = {};

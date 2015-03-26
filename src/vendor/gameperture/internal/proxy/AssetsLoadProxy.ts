@@ -4,6 +4,10 @@ module gamep{
         private _assets_groups:any;
         private _loadcount:number;
 
+        private _resourceConfig:string;
+
+        public set resourceConfig(path:string){this._resourceConfig = path}
+
         public loadAssets(preload:string = null,...groups){
             this._loadcount = 0;
             this._assets_groups = groups;
@@ -18,7 +22,7 @@ module gamep{
             RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.loadcomplete,this);
             RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.loadprogress,this);
 
-            RES.loadConfig('resource/resource.json','resource/');
+            RES.loadConfig(this._resourceConfig?this._resourceConfig:'resource/resource.json','resource/');
             RES.loadGroup(this._assets_groups[this._loadcount]);
         }
 

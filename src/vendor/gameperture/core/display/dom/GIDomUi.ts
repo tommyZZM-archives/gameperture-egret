@@ -59,7 +59,13 @@ module gamep{
         private onResize(){
             trace("domui resize");
             this._uiroot.children((child)=>{
-                console.log(d$.$(child).abscss().left,d$.$(child).x);
+                console.log(d$.$(child).hashCode,d$.$(child).hashCode);
+                console.log(d$.$(child).abscss()["margin-left"],d$.$(child).abscss()["margin-right"],d$.$(child).width(),
+                    d$.$(child).getcsspropvalue("margin-left")+ d$.$(child).getcsspropvalue("margin-right")+d$.$(child).width(),client.width());
+
+                if(d$.$(child).data("centeroffsetx")){
+                    //d$.$(child).css({"margin"});
+                }
                 //console.log(d$.$(child).data("centeroffsetx"))
                 //console.log(d$.$(child).data("centeroffsety"))
 

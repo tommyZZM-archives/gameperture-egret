@@ -59,8 +59,13 @@ module gamep {
                 return this._node.getAttribute("data-"+key);
             }
 
-            public prop(key,boo:boolean):any{
-                boo?this._node.setAttribute("data-"+key):delete this._node.removeAttribute("data-"+key);
+            public prop(key,boo:boolean):void{
+                if(boo){
+                    this._node.setAttribute("data-"+key)
+                }else{
+                    delete this._node.removeAttribute("data-"+key);
+                }
+                //return this;
             }
 
             public appendChild(ele:GIDomElement):GIDomElement{
@@ -100,29 +105,25 @@ module gamep {
             /**
              * Css style
              */
-            public set x(value:number){
-
-            }
+            //public set x(value:number){}
             public get x():number{
                 return this._node.offsetLeft;
             }
 
-            public set y(value:number){
-
-            }
+            //public set y(value:number){}
             public get y():number{
                 return this._node.offsetTop;
             }
 
             public width():number{
-                return this.getcsspropsize("width")
+                return this.getcsspropvalue("width")
             }
 
             public height():number{
-                return this.getcsspropsize("height")
+                return this.getcsspropvalue("height")
             }
 
-            private getcsspropsize(name:string,fn?:string):any{
+            public getcsspropvalue(name:string,fn?:string):any{
                 var result:any = this.css()[name];
                 if(!result||result=="auto")result = this.abscss()[name];
                 if(result!="auto"&&_rcssprop.exec(result)){

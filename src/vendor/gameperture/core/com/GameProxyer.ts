@@ -27,7 +27,7 @@ module gamep {
             GameProfiler.instance.removeEventListener(type + getClassName(Core.ProfilerEvent), callback, this);
         }
 
-        protected proxy(proxy:any):GameProxyer|any{
+        protected proxy(proxy:any):any{//GameProxyer|any
             return a$["proxy"](proxy);
         }
 

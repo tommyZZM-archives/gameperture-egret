@@ -106,6 +106,7 @@ module gamep{
             client.canvas().width = game_width;
             client.canvas().height = game_height;
 
+            //trace(client.width(),client.height(),this._orient_angel);
             d$.query(client.canvas_container()).rotate(this._orient_angel);
 
             var scale:number = (per>=client.perfectSize())
