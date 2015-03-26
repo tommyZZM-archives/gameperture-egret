@@ -106,12 +106,12 @@ module gamep {
              * Css style
              */
             //public set x(value:number){}
-            public get x():number{
+            public get offsetLeft():number{
                 return this._node.offsetLeft;
             }
 
             //public set y(value:number){}
-            public get y():number{
+            public get offsetTop():number{
                 return this._node.offsetTop;
             }
 
@@ -127,7 +127,7 @@ module gamep {
                 var result:any = this.css()[name];
                 if(!result||result=="auto")result = this.abscss()[name];
                 if(result!="auto"&&_rcssprop.exec(result)){
-                    this[name]["unit"] = _rcssprop.exec(result)[2];
+                    if(this[name])this[name]["unit"] = _rcssprop.exec(result)[2];
                     //console.log(_rcssprop.exec(result))
                     result = _rcssprop.exec(result)[1]
                 }

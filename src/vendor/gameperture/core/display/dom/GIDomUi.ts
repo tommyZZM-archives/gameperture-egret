@@ -63,6 +63,8 @@ module gamep{
                 console.log(d$.$(child).abscss()["margin-left"],d$.$(child).abscss()["margin-right"],d$.$(child).width(),
                     d$.$(child).getcsspropvalue("margin-left")+ d$.$(child).getcsspropvalue("margin-right")+d$.$(child).width(),client.width());
 
+                console.log(Math.add(1,1,1,1),Math.abs(-100))
+
                 if(d$.$(child).data("centeroffsetx")){
                     //d$.$(child).css({"margin"});
                 }

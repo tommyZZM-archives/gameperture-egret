@@ -16,7 +16,7 @@
 </head>
 <body>
 <style rel="stylesheet">
-    #testbtn{
+    .testbtn{
         display: block;
         background-color: lightcyan;
         position: relative;
@@ -26,7 +26,7 @@
         border-radius: 20%;
         -webkit-transition: 500ms;
     }
-    #testbtn p{
+    .testbtn p{
         display: inline-block;
         vertical-align: middle;
         font-family: "Helvetica";
@@ -40,7 +40,10 @@
     }
 </style>
 <div id="gameUi" style="display: none">
-    <div id="testbtn" data-centeroffsetx=0 data-centeroffsety=0><p></pan>Btn</p></div>
+    <div id="testbtn" class="testbtn" data-centeroffsetx=0 data-centeroffsety=0><p></pan>Btn</p></div>
+
+    <div class="testbtn" data-centeroffsetx=0 data-centeroffsety=0><p></pan>Btn</p></div>
+
     <!-- ui here -->
 </div>
 <div style="position:relative;" id="gameDiv"></div>
