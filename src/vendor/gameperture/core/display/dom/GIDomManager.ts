@@ -7,6 +7,14 @@ module gamep{
         var _rxhtmlTag:RegExp = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/gi;
         var _rallLetter:RegExp = /^[A-Za-z]+$/;
 
+        export enum NodeType{
+            ELEMENT=1,
+            ARRT = 2,
+            TEXT = 3,
+            COMMENTS = 8,
+            DOCUMENT = 9
+        }
+
         export class GIDomManager{
             private init(){
                 //error("init........................")
@@ -82,6 +90,7 @@ module gamep{
             private _elequerypool:Dict;
             public $(ele:any,disabletouch?:boolean):domele.GIDomElement{return null}
             public query(ele:any):domele.GIDomElement{
+                if(ele instanceof domele.GIDomElement){return ele};
                 var ele:any = this.prase(ele);
                 var result;
                 //console.log(ele,ele.getAttribute("data-gidomqueried"));
@@ -167,7 +176,7 @@ module gamep{
                     result = elem;
 
                     // HANDLE: $(DOMElement)
-                } else if ( selector.nodeType ) {
+                } else if ( selector.nodeType == NodeType.ELEMENT ) {
                     result = selector;
                 }
 

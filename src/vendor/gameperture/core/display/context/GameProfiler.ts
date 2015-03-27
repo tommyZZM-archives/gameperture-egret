@@ -77,7 +77,8 @@ module gamep{
                     stage().dispatchEventWith(egret.Event.RESIZE);
                 }, false)
             }
-            stage().dispatchEventWith(egret.Event.RESIZE);
+            client.context().rendererContext["onResize"]();
+            egret.RenderFilter.getInstance()["_defaultDrawAreaList"] = null;
             root.width = stageWidth();
             root.height = stageHeight();
         }

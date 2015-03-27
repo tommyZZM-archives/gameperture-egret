@@ -19,6 +19,6 @@ module Art {
                 return <any>('0x' + c) * 1;
             }(c);
         }
-        return c;
+        return prase;
     }
 }

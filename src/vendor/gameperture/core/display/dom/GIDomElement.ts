@@ -1,10 +1,9 @@
 module gamep {
     export module domele {
-        export var _rcssprop:RegExp = /^(\d+)(\w+)$/i;
+        export var _rcssprop:RegExp = /^(\d+\.?\d+)(\w+)$/i;
 
         export class GIDomElement extends egret.EventDispatcher{
             private _node:HTMLElement;
-            private _rotation:number;
             //private _nodesuccess:boolean;
 
             public constructor(node:HTMLElement) {
@@ -15,6 +14,7 @@ module gamep {
                 }
 
                 this._rotation = 0;
+                this._designedcss = this.abscss;
             }
 
             private initTouchEvent():void{
@@ -59,11 +59,15 @@ module gamep {
                 return this._node.getAttribute("data-"+key);
             }
 
-            public prop(key,boo:boolean):void{
-                if(boo){
+            public prop(key,boo?:boolean):any{
+                if(boo===true){
                     this._node.setAttribute("data-"+key)
+                    return this;
+                }else if(boo===false){
+                    this._node.removeAttribute("data-"+key);
+                    return this;
                 }else{
-                    delete this._node.removeAttribute("data-"+key);
+                    return this._node.hasAttribute("data-"+key)
                 }
                 //return this;
             }
@@ -83,6 +87,14 @@ module gamep {
                 return ele;
             }
 
+            public parent():GIDomElement{
+                var parent:GIDomElement;
+                if(this._node.parentElement){
+                    parent = d$.query(this._node.parentElement)
+                }
+                return parent
+            }
+
             public children(fn?:(child)=>any,thisArg?:any){
                 var children = this._node.children;
                 for(var i=0;i<children.length;i++){
@@ -92,6 +104,24 @@ module gamep {
                     }
                 }
                 return children;
+            }
+
+            private _descendantElements:any
+            public descendant(fn?:(descendant)=>any,thisArg?:any){
+                var children = this._node.childNodes;
+                if(!this._descendantElements){
+                    for(var i=0;i<children.length;i++){
+                        var child = children[i];
+                        //trace(child.nodeType,child)
+                        if(child.nodeType == NodeType.ELEMENT){
+                            this._descendantElements.push(child);
+                            if(fn){
+                                thisArg?fn.call(thisArg,child):fn(child);
+                            }
+                        }
+                    }
+                }
+                return this._descendantElements;
             }
 
             public get node():HTMLElement {
@@ -105,14 +135,22 @@ module gamep {
             /**
              * Css style
              */
-            //public set x(value:number){}
-            public get offsetLeft():number{
-                return this._node.offsetLeft;
+            private _display:string;
+            public show():GIDomElement{
+                //console.log("show",this._display);
+                if(this._display){
+                    this.css({display:this._display});
+                }else{
+                    this.css({display:"block"})
+                }
+                return this;
             }
 
-            //public set y(value:number){}
-            public get offsetTop():number{
-                return this._node.offsetTop;
+            public hide():GIDomElement{
+                this._display = this.abscss.display;
+                //console.log("hide",this._display);
+                this.css({display:"none"})
+                return this;
             }
 
             public width():number{
@@ -123,9 +161,26 @@ module gamep {
                 return this.getcsspropvalue("height")
             }
 
+            public top():number{
+                return this.getcsspropvalue("top")
+            }
+
+            public left():number{
+                return this.getcsspropvalue("left")
+            }
+
+            public right():number{
+                return this.getcsspropvalue("right")
+            }
+
+            public bottom():number{
+                return this.getcsspropvalue("bottom")
+            }
+
             public getcsspropvalue(name:string,fn?:string):any{
+                //var result:any = this.css()[name];
                 var result:any = this.css()[name];
-                if(!result||result=="auto")result = this.abscss()[name];
+                if(!result||result=="auto")result = this.abscss[name];
                 if(result!="auto"&&_rcssprop.exec(result)){
                     if(this[name])this[name]["unit"] = _rcssprop.exec(result)[2];
                     //console.log(_rcssprop.exec(result))
@@ -136,20 +191,27 @@ module gamep {
 
             public css(cssprops?:any):any {
                 if(cssprops){
+                    //console.log(cssprops)
                     for(var prop in cssprops){
                         this._node.style[prop] = cssprops[prop]
                     }
-                    return this._node;
+                    return this;
                 }else{
                     return this._node.style;
                 }
             }
 
-            public abscss():any{
+            public get abscss():any{
                 var result = window.getComputedStyle?window.getComputedStyle(this._node):this._node.style;
                 return result;
             }
 
+            private _designedcss:number;
+            public get designedCss(){
+                return this._designedcss;
+            }
+
+            private _rotation:number;
             public rotate(angle:number, transition:number = 1000){
                 this.transition = transition;
 
@@ -163,12 +225,63 @@ module gamep {
             }
 
             public set transition(ms:number){
-                this._node.style.transition = ms + "ms";
-                this._node.style["-webkit-transition"] = ms + "ms";
+                this._node.style["transition-duration"]= ms + "ms";
+                this._node.style["-webkit-transition-duration"] = ms + "ms";
+            }
+            //private ontransitionend(){
+            //    console.log("ontransitionend");
+            //}
+
+            /**
+             * Position
+             */
+            public get anchorX():number{
+                var result = this.data("anchorX");
+                return (!!result&&Number(result)||result==0)?result:0.5;
             }
 
-            private ontransitionend(){
-                console.log("ontransitionend");
+            public get anchorY():number{
+                var result = this.data("anchorY");
+                return (!!result&&Number(result)||result==0)?result:0.5;
+            }
+
+            public get uiobhorz():number{
+                var result = this.data("uiobhorz");
+                return (!!result&&Number(result)||result==0)?Number(result):0;
+            }
+
+            public get uiobvert():number{
+                var result = this.data("uiobvert");
+                return (!!result&&Number(result)||result==0)?Number(result):0;
+            }
+
+            public uiobPosUpdate():void{
+                if(this.prop("gameuiobserve")||this.prop("gameuiob")) {
+                    this.css({position: "absolute"});
+                    //console.log(Math.value(child.designedCss.top),child.uiobhorz,child.uiobvert);
+
+                    var grid9x = client.width() * this.uiobhorz;
+                    var grid9y = client.height() * this.uiobvert;
+
+                    var achrox = this.anchorX;
+                    var achroy = this.anchorY;
+
+                    this.css()["margin-left"] = -this.width() * achrox + "px";
+                    this.css()["margin-top"] = -this.height() * achroy + "px";
+
+                    this.css().left = grid9x + "px";
+                    this.css().top = grid9y + "px";
+                }
+            }
+
+            //public set x(value:number){}
+            public get offsetLeft():number{
+                return this._node.offsetLeft;
+            }
+
+            //public set y(value:number){}
+            public get offsetTop():number{
+                return this._node.offsetTop;
             }
 
             /**

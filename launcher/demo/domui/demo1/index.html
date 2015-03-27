@@ -20,11 +20,11 @@
         display: block;
         background-color: lightcyan;
         position: relative;
-        margin: 160px auto 0;
         width: 100px;
         height: 100px;
         border-radius: 20%;
         -webkit-transition: 500ms;
+        /*float: left;*/
     }
     .testbtn p{
         display: inline-block;
@@ -36,15 +36,16 @@
         height: 100%;
         line-height: 100px;
         margin: 0 0;
-
     }
 </style>
 <div id="gameUi" style="display: none">
-    <div id="testbtn" class="testbtn" data-centeroffsetx=0 data-centeroffsety=0><p></pan>Btn</p></div>
-
-    <div class="testbtn" data-centeroffsetx=0 data-centeroffsety=0><p></pan>Btn</p></div>
-
+    <div id="testbtn" class="testbtn" data-gameuiob data-uiobhorz=0.5 data-uiobvert=0.5 data-anchorx=0.5 data-anchory=0.5><p></pan>Btn</p></div>
+    <!--<div class="testbtn" data-gameuiob data-uiobhorz=0 data-uiobvert=0 data-anchorx=0 data-anchory=0><p></pan>Btn</p></div>-->
+    <!--<div class="testbtn" data-gameuiob data-uiobhorz=1 data-uiobvert=0 data-anchorx=1 data-anchory=0><p></pan>Btn</p></div>-->
+    <!--<div class="testbtn" data-gameuiob data-uiobhorz=0 data-uiobvert=1 data-anchorx=0 data-anchory=1><p></pan>Btn</p></div>-->
+    <!--<div class="testbtn" data-gameuiob data-uiobhorz=1 data-uiobvert=1 data-anchorx=1 data-anchory=1><p></pan>Btn</p></div>-->
     <!-- ui here -->
+
 </div>
 <div style="position:relative;" id="gameDiv"></div>
 <script>var document_class = "Main";</script><!--这部分内容在编译时会被替换，要修改文档类，请到工程目录下的egretProperties.json内编辑。-->

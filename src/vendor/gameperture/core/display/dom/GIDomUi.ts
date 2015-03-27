@@ -12,7 +12,13 @@ module gamep{
                 this._active = true;
                 this._uiroot = d$.$("#gameUi");
                 if(this._uiroot.success){
-                    this.init();
+                    this.uiElementRepose(true);
+                    stage().addEventListener(egret.Event.RESIZE,()=>{
+                        //trace("here");
+                        this._uiroot.css({width:"100%"}).show();
+                        stage().removeEventListener(egret.Event.RESIZE,<any>arguments.callee,this)
+                        this.init();
+                    },this);
                 }else{
                     error("domui init fail! check if has <div id='gameUi'></div> ?");
                 }
@@ -26,17 +32,13 @@ module gamep{
             trace("%cdomui init success!","color:#1ABC9C;font-weight:bold;");
             this._gameroot = d$.$(client.canvas());
             client.canvas_container().insertBefore(this._uiroot.node, this._gameroot.node);
-            //this._disableBubble2Canvas();
+
             this._gameroot.css()["z-index"] = 0;
             this._uiroot.css()["z-index"] = 1;
-            this._uiroot.css({width:"100%",display:"block"});
 
-            //this.onResize();
-            stage().addEventListener(egret.Event.RESIZE,this.onResize,this);
+            this.uiElementRepose();
+            stage().addEventListener(egret.Event.RESIZE,this.onResize,this)
 
-            //debug
-            //var test = d$.$('<div style=width:100px;height:100px;background-color:bisque;></div>',true);
-            //this._uiroot.appendChild(test);
             var test = d$.$("#testbtn");
             test.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.touchBegin,this);
             test.addEventListener(egret.TouchEvent.TOUCH_END,this.touchEnd,this);
@@ -52,25 +54,24 @@ module gamep{
         private touchEnd(e){
             e.target.css()["border-radius"]= "20%";
             e.target.css()["-webkit-transform"]= "scale(1,1)";
-
-            //trace(e.target.css()["border-radius"]);
         }
 
         private onResize(){
-            trace("domui resize");
-            this._uiroot.children((child)=>{
-                console.log(d$.$(child).hashCode,d$.$(child).hashCode);
-                console.log(d$.$(child).abscss()["margin-left"],d$.$(child).abscss()["margin-right"],d$.$(child).width(),
-                    d$.$(child).getcsspropvalue("margin-left")+ d$.$(child).getcsspropvalue("margin-right")+d$.$(child).width(),client.width());
+            this.uiElementRepose();
+        }
 
-                console.log(Math.add(1,1,1,1),Math.abs(-100))
+        private uiElementRepose(first?:boolean){
+            //console.log(this._uiroot.node.childNodes);
+            this._uiroot.descendant((child)=>{
+                child = d$.$(child);
 
-                if(d$.$(child).data("centeroffsetx")){
-                    //d$.$(child).css({"margin"});
+                child.uiobPosUpdate();
+
+                if(first===true) {
+                    child.hide();
+                }else{
+                    child.show();
                 }
-                //console.log(d$.$(child).data("centeroffsetx"))
-                //console.log(d$.$(child).data("centeroffsety"))
-
             })
         }
 

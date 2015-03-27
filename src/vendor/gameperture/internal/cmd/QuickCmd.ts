@@ -1,8 +1,8 @@
 module gamep {
     export class QuickCmd extends GameCmder {
 
-        public static SET_TIME_CALLBACK:string = "CountTimeCmd_SET_TIME_OUT";
-        public static REMOVE_TIME_CALLBACK:string = "CountTimeCmd_REMOVE_TIME_CALLBACK";
+        public static SET_TIME_CALLBACK:string = "QuickCmd_SET_TIME_OUT";
+        public static REMOVE_TIME_CALLBACK:string = "QuickCmd_REMOVE_TIME_CALLBACK";
 
         public constructor(){
             super();
