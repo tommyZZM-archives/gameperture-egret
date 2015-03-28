@@ -1,7 +1,7 @@
 module gamep {
     //游戏元素定位系统
     export module canvasele {
-        export class GamePosition {
+        export class GIPosition {
             private _displayobjpool:Dict;
             public constructor(){
                 this._displayobjpool = new Dict();
@@ -13,7 +13,7 @@ module gamep {
                     value.obj.x = stageWidth(value.posx);
                     value.obj.y = stageHeight(value.posy);
                 });
-                console.log(this._displayobjpool);
+                //console.log(this._displayobjpool);
             }
 
             public lockPosition(target:egret.DisplayObject,posx:number,posy:number){
@@ -26,12 +26,12 @@ module gamep {
                 this._displayobjpool.delete(target.hashCode)
             }
 
-            private static _instance:GamePosition;
-            public static get instance():GamePosition{
-                if (GamePosition._instance == null) {
-                    GamePosition._instance = new GamePosition();
+            private static _instance:GIPosition;
+            public static get instance():GIPosition{
+                if (GIPosition._instance == null) {
+                    GIPosition._instance = new GIPosition();
                 }
-                return GamePosition._instance;
+                return GIPosition._instance;
             }
         }
 

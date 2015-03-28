@@ -1,16 +1,22 @@
 //Ecmascript Multiplexing OO expand
 
-function extendImplements(thisArg:any,Class:any,method:string,forceOverride:boolean=true){
-    var f = Class['prototype'][method];
-    if(f && method!='__class__'){
-        if(!forceOverride){
-            if(thisArg[method]){
+function implementMethod(thisArg:any,method:string,fn:Function,forceOverride:boolean=true){
+    if(fn && method!='__class__'){
+        if(thisArg[method]){
+            if(!forceOverride){
                 console.warn(method+"() already exist in "+thisArg._name+" use forceOverride and try?");
                 return;
             }
+            if(!thisArg["__origin__"])thisArg["__origin__"]={};
+            thisArg["__origin__"][method] = thisArg[method].bind(thisArg);
         }
-        thisArg['__proto__'][method] = f;
+        thisArg['__proto__'][method] = fn;
     }
+}
+
+function extendImplements(thisArg:any,Class:any,method:string,forceOverride:boolean=true){
+    var f = Class['prototype'][method];
+    implementMethod(thisArg,method,f,forceOverride)
 }
 
 function getClassName(obj:any):string{

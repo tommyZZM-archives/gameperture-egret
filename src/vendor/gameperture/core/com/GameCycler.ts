@@ -18,6 +18,10 @@ module gamep{
             return GameFacade.instance['_display'];
         }
 
+        protected get assetsLoadP():AssetsLoaderProxy{
+            return <AssetsLoaderProxy>this.proxy(gamep.AssetsLoaderProxy)
+        }
+
         /** @deprecated */
         /*private getCommand(command:any):any{
             return GameFacade.instance['getCommand'](command);

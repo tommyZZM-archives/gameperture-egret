@@ -2,19 +2,19 @@ module gamep{
     /**
      * 游戏舞台
      */
-    export class GameStage extends egret.DisplayObjectContainer{// extends GameContainer
+    //export enum GameUIType{
+    //    Normal=0,
+    //    DomUI=23
+    //}
 
-        private _scenerypool:Dict;
-        private _currscenery:GameScenery;
+    export class GameStage extends egret.DisplayObjectContainer{// extends GameContainer
 
         private _sceneryroot;
         /** 舞台 **/
 
-        //private _uinterface;
+        private _uinterface:GIDomUi;
         /** 界面 **/
-
         public static SCENERY_ROOT:string = 'sceneryroot0112';
-        public static UI_INTERFACE:string = 'uinterface0112';
 
         public constructor(root:egret.DisplayObjectContainer) {
             super();
@@ -29,17 +29,23 @@ module gamep{
 
             this.name = this['__proto__']['__class__'];
             this.name = /\.?(\w+)$/.exec(this.name)[1];
+            this._uinterface = new GIDomUi();
 
-            this._scenerypool = new Dict();
+            //this._scenerypool = new Dict();
         }
 
         private startup(){
+            this._uinterface.active();
             var courier = this.onStartup();
             root.dispatchEvent(new Core.FacadeEvent(NotifyType.Cmd,Notify.Cmd.GameReady+getClassName(a$['_game']),courier));
         }
 
         protected onStartup(){
 
+        }
+
+        protected get uinterface():GIDomUi{
+            return this._uinterface;
         }
 
         //TO/DO:实现场景切换的功能~

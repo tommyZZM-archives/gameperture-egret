@@ -1,26 +1,32 @@
 module gamep{
     export var a$:GameFacade;
     export var m$:GameMemory;
-    export var p$:canvasele.GamePosition;
+    export var d$:domele.GIDomManager;
+    export var c$:canvasele.GIDisplay;
 
     export class GameLauncher{//implements GamePertureInterface
 
         //private _facade:GameFacade = GameFacade.instance;
 
-        public constructor(renderWidth:number,renderHeight:number,debug:boolean=true,banchmark:boolean=true) {
+        public constructor(renderparam:{width:number;height:number;free?:boolean;offset?:number},debug:boolean=true,banchmark:boolean=true) {
             isdebug = debug;
-            client.setRender(renderWidth,renderHeight);
-            init();
-            info("Welcome to %cGameperture","color:#1ac2ff;font-weight:bold;",
-                "Quick Game Devlope Template base on Egret Engine!");
+            client.setRender(renderparam.width,renderparam.height,renderparam.free,renderparam.offset);
+            quickdebug.init();
+            info("%cGameperture","color:#1ac2ff;font-weight:bold;",
+                "A Quick Game Devlope Template for Egret Engine!");
             info("gitHub:",'https://github.com/tommyZZM/gameperture-egret');
+            info("curr egret version","1.6.0");
             if(isdebug&&banchmark){
                 egret.Profiler.getInstance().run();
             }
+
+            c$ =  canvasele.GIDisplay.instance;
+            d$ =  domele.GIDomManager.instance;
             GameProfiler.instance;
             a$ =  GameFacade.instance;
             m$ =  GameMemory.instance;
-            p$ = canvasele.GamePosition.instance;
+
+            //p$ =  canvasele.GamePosition.instance;
         }
 
         public launch(){
