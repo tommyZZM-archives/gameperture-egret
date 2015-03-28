@@ -4,7 +4,7 @@ Math.add = function(...nums){
         if(Number(nums[i])){
             result+=Number(nums[i])
         }else{
-            warn("add param must be type of number!",nums[i])
+            //warn("add param must be type of number!",nums[i])
         }
     }
     return result;

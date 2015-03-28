@@ -88,7 +88,7 @@ module gamep{
              * ele queryer
              */
             private _elequerypool:Dict;
-            public $(ele:any,disabletouch?:boolean):domele.GIDomElement{return null}
+            public $(ele:any):domele.GIDomElement{return null}
             public query(ele:any):domele.GIDomElement{
                 if(ele instanceof domele.GIDomElement){return ele};
                 var ele:any = this.prase(ele);
@@ -108,6 +108,14 @@ module gamep{
                 //console.log(this._elequerypool,this._resizetask,ele.getAttribute("data-gidomqueried"));
                 return result;
             }
+            public queryex(ele:any):domele.GIDomElement{
+                var result = this.query(ele);
+                if(!result){
+                    var ele:any = this.prase(ele,true);
+                    result = this.query(ele);
+                }
+                return result
+            }
 
             public compare(node1:Node,node2:Node):boolean{
                 var boo = (node1===node2);
@@ -120,7 +128,7 @@ module gamep{
              * @param selector [create <tag></tag> | #id | htmlElemet]
              * @returns {*}
              */
-            private prase(selector):HTMLElement{
+            private prase(selector,create?):HTMLElement{
                 var match, elem, tag;
                 var result;
 
@@ -142,23 +150,24 @@ module gamep{
                     if ( match ) {
                         // HANDLE: $(html) -> $(array)
                         if ( match[1] ) {
-                            var parsed:any = _rsingleTag.exec(match[1]);
-                            if(parsed){
-                                elem = document.createElement( parsed[1] );
-                            }else{
-                                parsed = _rhtml.test(match[1]);
+                            if(create===true){//如果开启创建dom节点
+                                var parsed:any = _rsingleTag.exec(match[1]);
                                 if(parsed){
-                                    elem = match[1];
-                                    var fragment:any = document.createDocumentFragment();
-                                    var fragment:any =fragment.appendChild( document.createElement("div") );
-                                    tag = ( _rtagName.exec( elem ) || [ "", "" ] )[ 1 ].toLowerCase();
-                                    fragment.innerHTML =  elem.replace( _rxhtmlTag, "<$1></$2>" );
-                                    var tmp = fragment.firstChild;
-                                    elem = tmp;
-                                    fragment.textContent = "";
+                                    elem = document.createElement( parsed[1] );
+                                }else{
+                                    parsed = _rhtml.test(match[1]);
+                                    if(parsed){
+                                        elem = match[1];
+                                        var fragment:any = document.createDocumentFragment();
+                                        var fragment:any =fragment.appendChild( document.createElement("div") );
+                                        //tag = ( _rtagName.exec( elem ) || [ "", "" ] )[ 1 ].toLowerCase();
+                                        fragment.innerHTML =  elem.replace( _rxhtmlTag, "<$1></$2>" );
+                                        var tmp = fragment.firstChild;
+                                        elem = tmp;
+                                        fragment.textContent = "";
+                                    }
                                 }
                             }
-                            result = elem;
                         } else {
                             elem = document.getElementById( match[2] );
                             if(!elem){

@@ -8,36 +8,56 @@ module gamep {
 
             public constructor(node:HTMLElement) {
                 super();
-                this._node = node//this.init(selector);
+                this._node = node;//this.init(selector);
                 if(this.success){
-                    this.initTouchEvent();
+                    this.initEvent();
                 }
 
                 this._rotation = 0;
-                this._designedcss = this.abscss;
+                this._designedcss = this.abscss();
             }
 
-            private initTouchEvent():void{
+            private initEvent():void{
                 //console.log(d$.compare(this._node,client.canvas())||d$.compare(this._node,client.canvas_container()));
-                if(d$.compare(this._node,client.canvas())
-                    ||d$.compare(this._node,client.canvas_container())
-                    ||this._node.id=="gameUi"){
-                    return;//不对egretCanvas和CanvasDiv进行侦听
-                }
+                this._touchBubble = (d$.compare(this._node,client.canvas_container())
+                ||(d$.compare(this._node,client.canvas())
+                ||this._node.id=="gameUi"
+                ||this.node.nodeName.toLowerCase()=="html"
+                ||this.node.nodeName.toLowerCase()=="body"));
 
+                this._touchAble = !this._touchBubble||(d$.compare(this._node,client.canvas()));
+
+                this.bindTouch();
+
+                this._node.addEventListener("DOMSubtreeModified",this.onDomModified.bind(this));
+            }
+
+            private _touchAble:boolean;
+            private _touchBubble:boolean;
+            private bindTouch(){
+                var touchcallback = (e,fn)=>{
+                    //trace(this._touchBubble,this._touchAble,this.tagname)
+                    if(!this._touchBubble){
+                        e.stopPropagation();
+                        e.preventDefault();
+                    }
+                    if(this._touchAble){
+                        fn.call(this,e);
+                    }
+                };
                 //trace(client.devicetype());
                 if(client.devicetype()===client.DeviceType.PC){
-                    this._node.addEventListener("mousedown",this.onmousedown.bind(this));
-                    this._node.addEventListener("mouseup",this.onmouseup.bind(this));
-                    this._node.addEventListener("click",this.onmouseclick.bind(this));
-                    this._node.addEventListener("mouseenter",this.onmouseenter.bind(this));
-                    this._node.addEventListener("mouseleave",this.onmouseleave.bind(this));
+                    this._node.addEventListener("mousedown",(e)=>{touchcallback(e,this.onmousedown)},true);
+                    this._node.addEventListener("mouseup",(e)=>{touchcallback(e,this.onmouseup)},true);
+                    this._node.addEventListener("click",(e)=>{touchcallback(e,this.onmouseclick)},true);
+                    this._node.addEventListener("mouseenter",(e)=>{touchcallback(e,this.onmouseenter)},true);
+                    this._node.addEventListener("mouseleave",(e)=>{touchcallback(e,this.onmouseleave)},true);
                 }else{
-                    this._node.addEventListener("touchstart",this.ontouchbegin.bind(this));
-                    this._node.addEventListener("touchmove",this.ontouchmove.bind(this));
-                    this._node.addEventListener("touchend",this.ontouchend.bind(this));
-                    this._node.addEventListener("touchcancel",this.ontouchend.bind(this));
-                    this._node.addEventListener("tap",this.ontouchtap.bind(this));
+                    this._node.addEventListener("touchstart",(e)=>{touchcallback(e,this.ontouchbegin)},true);
+                    this._node.addEventListener("touchmove",(e)=>{touchcallback(e,this.ontouchmove)},true);
+                    this._node.addEventListener("touchend",(e)=>{touchcallback(e,this.ontouchend)},true);
+                    this._node.addEventListener("touchcancel",(e)=>{touchcallback(e,this.ontouchend)},true);
+                    this._node.addEventListener("tap",(e)=>{touchcallback(e,this.ontouchtap)},true);
                 }
             }
 
@@ -95,6 +115,21 @@ module gamep {
                 return parent
             }
 
+            private _parents;
+            public parents(current?:boolean):GIDomElement[]{
+                var currele = this;
+                var result = [];
+                if(!this._parents||current){
+                    while(currele.parent()){
+                        currele = currele.parent();
+                        result.push(currele);
+                    }
+                    this._parents = result;
+                }
+
+                return this._parents;
+            }
+
             public children(fn?:(child)=>any,thisArg?:any){
                 var children = this._node.children;
                 for(var i=0;i<children.length;i++){
@@ -106,30 +141,48 @@ module gamep {
                 return children;
             }
 
-            private _descendantElements:any
-            public descendant(fn?:(descendant)=>any,thisArg?:any){
-                var children = this._node.childNodes;
-                if(!this._descendantElements){
+            private _descendantElements:any;
+            public descendant(fn?:(descendant)=>any,thisArg?:any,current?:boolean){
+                if(!this._descendantElements || current){
+                    var children = this._node.getElementsByTagName("*");
+                    //trace("this._node.childNodes",children)
+                    this._descendantElements = [];
                     for(var i=0;i<children.length;i++){
                         var child = children[i];
                         //trace(child.nodeType,child)
                         if(child.nodeType == NodeType.ELEMENT){
                             this._descendantElements.push(child);
-                            if(fn){
-                                thisArg?fn.call(thisArg,child):fn(child);
-                            }
                         }
                     }
                 }
+                for(var i=0;i<this._descendantElements.length;i++){
+                    if(fn){
+                        thisArg?fn.call(thisArg,this._descendantElements[i]):fn(this._descendantElements[i]);
+                    }
+                }
                 return this._descendantElements;
+            }
+
+            public isdescendantOf(ele:GIDomElement){
+
             }
 
             public get node():HTMLElement {
                 return this._node;
             }
 
+            public get tagname():string {
+                return this.node.nodeName.toLowerCase();
+            }
+
             public get success():boolean{
                 return !!this._node;
+            }
+
+            private onDomModified(){
+                this.dispatchEvent(new DomEvent(DomEvent.DOM_MODIFIED));
+                this.descendant(null,null,true);
+                this.parents(true);
             }
 
             /**
@@ -137,7 +190,7 @@ module gamep {
              */
             private _display:string;
             public show():GIDomElement{
-                //console.log("show",this._display);
+                //console.log("show",this,this._display);
                 if(this._display){
                     this.css({display:this._display});
                 }else{
@@ -147,9 +200,9 @@ module gamep {
             }
 
             public hide():GIDomElement{
-                this._display = this.abscss.display;
-                //console.log("hide",this._display);
-                this.css({display:"none"})
+                this._display = this.abscss().display;
+                //console.log("hide",this,this._display);
+                this.css({display:"none"});
                 return this;
             }
 
@@ -180,7 +233,7 @@ module gamep {
             public getcsspropvalue(name:string,fn?:string):any{
                 //var result:any = this.css()[name];
                 var result:any = this.css()[name];
-                if(!result||result=="auto")result = this.abscss[name];
+                if(!result||result=="auto")result = this.abscss()[name];
                 if(result!="auto"&&_rcssprop.exec(result)){
                     if(this[name])this[name]["unit"] = _rcssprop.exec(result)[2];
                     //console.log(_rcssprop.exec(result))
@@ -201,7 +254,7 @@ module gamep {
                 }
             }
 
-            public get abscss():any{
+            public abscss():any{
                 var result = window.getComputedStyle?window.getComputedStyle(this._node):this._node.style;
                 return result;
             }
@@ -255,13 +308,15 @@ module gamep {
                 return (!!result&&Number(result)||result==0)?Number(result):0;
             }
 
+            private _isuiobneeded:boolean;
             public uiobPosUpdate():void{
-                if(this.prop("gameuiobserve")||this.prop("gameuiob")) {
+                //trace("uiobPosUpdate",flag)
+                if(this.isuiobneeded) {
                     this.css({position: "absolute"});
                     //console.log(Math.value(child.designedCss.top),child.uiobhorz,child.uiobvert);
 
-                    var grid9x = client.width() * this.uiobhorz;
-                    var grid9y = client.height() * this.uiobvert;
+                    var grid9x = d$.$(client.canvas_container()).width() * this.uiobhorz;
+                    var grid9y = d$.$(client.canvas_container()).height() * this.uiobvert;
 
                     var achrox = this.anchorX;
                     var achroy = this.anchorY;
@@ -272,6 +327,11 @@ module gamep {
                     this.css().left = grid9x + "px";
                     this.css().top = grid9y + "px";
                 }
+            }
+            public get isuiobneeded():boolean{
+                this._isuiobneeded = (this.prop("gameuiobserve")||this.prop("gameuiob"))&&
+                (!this.parent().prop("gameuiobserve")&&!this.parent().prop("gameuiob"));
+                return this._isuiobneeded;
             }
 
             //public set x(value:number){}
@@ -289,9 +349,9 @@ module gamep {
              */
             private _touchObserver:any;
             private ontouchbegin(e){
-                e.stopPropagation();
-                e.preventDefault();
-                //trace("ontouchbegin");
+                //e.stopPropagation();
+                //e.preventDefault();
+                //trace("ontouchbegin",e);
                 this._touchObserver = {
                     startx:e.touches[0].clientX,
                     starty:e.touches[0].clientY,
@@ -301,14 +361,14 @@ module gamep {
                     touchDown:true
                 };
                 this.dispatchEvent(new domele.TouchEvent(egret.TouchEvent.TOUCH_BEGIN,
-                    false,false,e.touches[0].clientX,e.touches[0].clientY
+                    this,e.touches[0].clientX,e.touches[0].clientY
                     ,this._touchObserver.ctrlKey
                     ,this._touchObserver.altKey,this._touchObserver.shiftKey));
             }
 
             private ontouchmove(e){
-                e.stopPropagation();
-                e.preventDefault();
+                //e.stopPropagation();
+                //e.preventDefault();
                 //trace("ontouchmove",e);
                 if (Math.abs(e.touches[0].clientX - this._touchObserver.startx) > 20
                     || Math.abs(e.touches[0].clientY - this._touchObserver.start) > 20) {
@@ -319,12 +379,12 @@ module gamep {
             }
 
             private ontouchend(e){
-                e.stopPropagation();
-                e.preventDefault();
-                //trace("ontouchend");//TODO
+                //e.stopPropagation();
+                //e.preventDefault();
+                //trace("ontouchend",e);//TODO
                 this._touchObserver.touchDown = false;
                 this.dispatchEvent(new domele.TouchEvent(egret.TouchEvent.TOUCH_END,
-                    false,false,this._touchObserver.lastx,this._touchObserver.lasty
+                    this,this._touchObserver.lastx,this._touchObserver.lasty
                     ,this._touchObserver.ctrlKey
                     ,this._touchObserver.altKey,this._touchObserver.shiftKey));
                 if (!this._touchObserver.moved) {
@@ -340,7 +400,7 @@ module gamep {
                         evt.initEvent('tap', true, true);
                     }
 
-                    e.stopPropagation();
+                    //e.stopPropagation();
                     if (!e.target.dispatchEvent(evt)) {
                         e.preventDefault();
                     }
@@ -351,11 +411,11 @@ module gamep {
             }
 
             private ontouchtap(e){
-                e.stopPropagation();
-                e.preventDefault();
+                //e.stopPropagation();
+                //e.preventDefault();
                 //trace("ontouchtap",e);
                 var e:any = new domele.TouchEvent(egret.TouchEvent.TOUCH_TAP,
-                    false,false,this._touchObserver.lastx,this._touchObserver.lasty
+                    this,this._touchObserver.lastx,this._touchObserver.lasty
                     ,this._touchObserver.ctrlKey
                     ,this._touchObserver.altKey,this._touchObserver.shiftKey);
                 delete e.localX;
@@ -399,16 +459,25 @@ module gamep {
 
         }
 
+        export class DomEvent extends egret.Event{
+            public static DOM_MODIFIED:string = "DomEvent_DOM_MODIFIED"
+
+            public constructor(type:string, bubbles:boolean = true, cancelable:boolean = true){
+                super(type,bubbles,cancelable);
+            }
+        }
+
         export class TouchEvent extends egret.Event{
             public stageX:number;
             public stageY:number;
             public ctrlKey:boolean;
             public altKey:boolean;
             public shiftKey:boolean;
-            public constructor(type_:string, bubbles:boolean = true, cancelable:boolean = true,
+            public constructor(type_:string, target:GIDomElement,
                                stageX:number = 0, stageY:number = 0,
                                ctrlKey:boolean=false,altKey:boolean=false,shiftKey:boolean=false){
-                super(type_,bubbles,cancelable);
+                super(type_,false,false);
+                this.target = target
                 this.stageX = stageX;
                 this.stageY = stageY;
                 this.ctrlKey = ctrlKey;

@@ -1,6 +1,6 @@
 module gamep{
     export class GIDomUi extends egret.EventDispatcher{
-        private _active:boolean;
+        private static _active:boolean;
         public constructor(){
             super();
         }
@@ -8,15 +8,16 @@ module gamep{
         private _uiroot:domele.GIDomElement;
         private _gameroot:domele.GIDomElement;
         public active(){
-            if(!this._active){
-                this._active = true;
+            if(!GIDomUi._active){
+                GIDomUi._active = true;
                 this._uiroot = d$.$("#gameUi");
+                if(!this._uiroot)this._uiroot = d$.queryex("<div id='gameUi'></div>");
                 if(this._uiroot.success){
                     this.uiElementRepose(true);
                     stage().addEventListener(egret.Event.RESIZE,()=>{
                         //trace("here");
                         this._uiroot.css({width:"100%"}).show();
-                        stage().removeEventListener(egret.Event.RESIZE,<any>arguments.callee,this)
+                        stage().removeEventListener(egret.Event.RESIZE,<any>arguments.callee,this);
                         this.init();
                     },this);
                 }else{
@@ -31,39 +32,51 @@ module gamep{
         private init(){
             trace("%cdomui init success!","color:#1ABC9C;font-weight:bold;");
             this._gameroot = d$.$(client.canvas());
+            //client.canvas_container().addEventListener("DOMSubtreeModified",()=>{
+            //    trace("DOMSubtreeModified");
+            //});
             client.canvas_container().insertBefore(this._uiroot.node, this._gameroot.node);
+            d$.$(client.canvas()).addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouch,this);
+            d$.$(client.canvas()).addEventListener(egret.TouchEvent.TOUCH_END,this.onTouch,this);
+            d$.$(client.canvas()).addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouch,this);
 
-            this._gameroot.css()["z-index"] = 0;
-            this._uiroot.css()["z-index"] = 1;
+            this._gameroot.css()["z-index"] = this._gameroot.abscss()["z-index"]=="auto"?9:this._gameroot.abscss()["z-index"];
+            this._uiroot.css()["z-index"] = Math.add(this._gameroot.abscss()["z-index"],1);
 
             this.uiElementRepose();
-            stage().addEventListener(egret.Event.RESIZE,this.onResize,this)
+            stage().addEventListener(egret.Event.RESIZE,this.onResize,this);
+            this._uiroot.addEventListener(domele.DomEvent.DOM_MODIFIED,this.onModified,this)
 
-            var test = d$.$("#testbtn");
-            test.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.touchBegin,this);
-            test.addEventListener(egret.TouchEvent.TOUCH_END,this.touchEnd,this);
-
+            //console.log(test);
         }
 
-        private touchBegin(e){
-            e.target.css()["border-radius"]= "100%";
-            e.target.css()["-webkit-transform"]= "scale(0.8,0.8)";
-            //trace(e.target.css()["border-radius"]);
-        }
-
-        private touchEnd(e){
-            e.target.css()["border-radius"]= "20%";
-            e.target.css()["-webkit-transform"]= "scale(1,1)";
+        private onTouch(e){
+            //console.log(e.type);
+            this.dispatchEvent(
+                new domele.TouchEvent(e.type,this._uiroot,e.stageX,e.stageY,e.ctrlKey,e.altKey,e.shiftKey));
         }
 
         private onResize(){
             this.uiElementRepose();
         }
 
-        private uiElementRepose(first?:boolean){
-            //console.log(this._uiroot.node.childNodes);
+        private _uiobserverelements:any;
+        private onModified(){
+            if(!this._uiobserverelements){
+                this._uiobserverelements = [];
+            }
             this._uiroot.descendant((child)=>{
                 child = d$.$(child);
+                if(child.isuiobneeded) {
+                    this._uiobserverelements.push(child)
+                }
+            });
+        }
+
+        private uiElementRepose(first?:boolean){
+            if(!this._uiobserverelements)this.onModified();
+            for(var i=0;i<this._uiobserverelements.length;i++){
+                var child = this._uiobserverelements[i];
 
                 child.uiobPosUpdate();
 
@@ -72,33 +85,8 @@ module gamep{
                 }else{
                     child.show();
                 }
-            })
-        }
-
-        //instance mode
-        private static _instance:GIDomUi;
-        public static get instance():GIDomUi{
-            if (GIDomUi._instance == null) {
-                GIDomUi._instance = new GIDomUi();
             }
-            return GIDomUi._instance;
+            //console.log(this._uiroot.descendant(),this._uiobserverelements);
         }
-
-        //防止touch事件冒泡被canvas容器接收
-        //private replaceTouch = (e)=> {
-        //    //e.stopPropagation();
-        //};
-        //private _disableBubble2Canvas() {
-        //    if(!this._uiroot.node["data-"+"egretmousedisabled"]) {
-        //        this._uiroot.prop("egretmousedisabled", true);
-        //        this._uiroot.node.addEventListener("mousedown", this.replaceTouch);
-        //        this._uiroot.node.addEventListener("mousemove", this.replaceTouch);
-        //        this._uiroot.node.addEventListener("mouseup", this.replaceTouch);
-        //        this._uiroot.node.addEventListener("touchstart", this.replaceTouch);
-        //        this._uiroot.node.addEventListener("touchmove", this.replaceTouch);
-        //        this._uiroot.node.addEventListener("touchend", this.replaceTouch);
-        //        this._uiroot.node.addEventListener("touchcancel", this.replaceTouch);
-        //    }
-        //}
     }
 }

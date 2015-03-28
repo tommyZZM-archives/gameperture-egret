@@ -16,7 +16,7 @@ module game.Domm{
             gamep.d$.query("#test");
 
             //console.log(gamep.d$.query("div").node);
-            gamep.GIDomUi.instance.active();
+            //gamep.GIDomUi.instance.active();
             //gamep.d$.query("img")
         }
 
