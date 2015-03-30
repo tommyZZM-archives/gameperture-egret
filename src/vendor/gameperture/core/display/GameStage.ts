@@ -12,11 +12,12 @@ module gamep{
         private _sceneryroot;
         /** 舞台 **/
 
-        private _uinterface:GIDomUi;
+        private _domui:GIDomUi;
+        private _userinterface:any;
         /** 界面 **/
         public static SCENERY_ROOT:string = 'sceneryroot0112';
 
-        public constructor(root:egret.DisplayObjectContainer) {
+        public constructor(root:egret.DisplayObjectContainer,ui?:egret.DisplayObject) {
             super();
             gamep.root = root;
             gamep.rootscene = this;
@@ -29,13 +30,13 @@ module gamep{
 
             this.name = this['__proto__']['__class__'];
             this.name = /\.?(\w+)$/.exec(this.name)[1];
-            this._uinterface = new GIDomUi();
-
+            this._domui = new GIDomUi();
+            this._userinterface = this._domui;
             //this._scenerypool = new Dict();
         }
 
         private startup(){
-            this._uinterface.active();
+            this._userinterface.active();
             var courier = this.onStartup();
             root.dispatchEvent(new Core.FacadeEvent(NotifyType.Cmd,Notify.Cmd.GameReady+getClassName(a$['_game']),courier));
         }
@@ -45,7 +46,7 @@ module gamep{
         }
 
         protected get uinterface():GIDomUi{
-            return this._uinterface;
+            return this._userinterface;
         }
 
         //TO/DO:实现场景切换的功能~

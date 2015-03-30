@@ -360,7 +360,7 @@ module gamep {
                     shiftKey:e.shiftKey,
                     touchDown:true
                 };
-                this.dispatchEvent(new domele.TouchEvent(egret.TouchEvent.TOUCH_BEGIN,
+                this.dispatchEvent(new domele.TouchEvent(egret.TouchEvent["TOUCH_BEGIN"],
                     this,e.touches[0].clientX,e.touches[0].clientY
                     ,this._touchObserver.ctrlKey
                     ,this._touchObserver.altKey,this._touchObserver.shiftKey));
@@ -383,7 +383,7 @@ module gamep {
                 //e.preventDefault();
                 //trace("ontouchend",e);//TODO
                 this._touchObserver.touchDown = false;
-                this.dispatchEvent(new domele.TouchEvent(egret.TouchEvent.TOUCH_END,
+                this.dispatchEvent(new domele.TouchEvent(egret.TouchEvent["TOUCH_END"],
                     this,this._touchObserver.lastx,this._touchObserver.lasty
                     ,this._touchObserver.ctrlKey
                     ,this._touchObserver.altKey,this._touchObserver.shiftKey));
@@ -414,7 +414,7 @@ module gamep {
                 //e.stopPropagation();
                 //e.preventDefault();
                 //trace("ontouchtap",e);
-                var e:any = new domele.TouchEvent(egret.TouchEvent.TOUCH_TAP,
+                var e:any = new domele.TouchEvent(egret.TouchEvent["TOUCH_TAP"],
                     this,this._touchObserver.lastx,this._touchObserver.lasty
                     ,this._touchObserver.ctrlKey
                     ,this._touchObserver.altKey,this._touchObserver.shiftKey);
