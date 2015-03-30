@@ -22,7 +22,7 @@ module gamep{
 
             c$ =  canvasele.GIDisplay.instance;
             d$ =  domele.GIDomManager.instance;
-            GameProfiler.instance;
+            GameContext.instance;
             a$ =  GameFacade.instance;
             m$ =  GameMemory.instance;
 

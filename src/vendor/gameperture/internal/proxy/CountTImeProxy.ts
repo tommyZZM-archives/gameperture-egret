@@ -5,10 +5,10 @@ module gamep {
             super();
             this._timecallbackdict = new Dict();
             this._timecallbacktask = [];
-            this.addTimeListener(TimeEvent.ON_SECOND,this.onEnterSecond);
+            a$.addTimeListener(TickerEvent.ON_SECOND,this.onEnterSecond);
         }
 
-        private onEnterSecond(e:gamep.Core.ProfilerEvent){
+        private onEnterSecond(e:gamep.Core.TickerEvent){
             for(var i=0;i<this._timecallbacktask.length;i++){
                 var task:any = this._timecallbacktask[i];
                 this._timecallbackdict.set(task.name,

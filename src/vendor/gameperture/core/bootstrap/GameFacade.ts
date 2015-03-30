@@ -83,6 +83,13 @@ module gamep {
             return false;
         }
 
+        public addTimeListener(type:gamep.TickerEvent,callback:Function){
+            GameContext.instance.addEventListener(type+getClassName(Core.TickerEvent),callback,this);
+        }
+        public removeTimeListener(type:gamep.TickerEvent,callback:Function) {
+            GameContext.instance.removeEventListener(type + getClassName(Core.TickerEvent), callback, this);
+        }
+
         //instance mode
         private static _instance:GameFacade;
         public static get instance():GameFacade{

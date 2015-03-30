@@ -20,13 +20,6 @@ module gamep {
             super.dispatchEvent(new gamep.BroadcastEvent(type,courier));
         }
 
-        public addTimeListener(type:TimeEvent,callback:Function){
-            GameProfiler.instance.addEventListener(type+getClassName(Core.ProfilerEvent),callback,this);
-        }
-        public removeTimeListener(type:TimeEvent,callback:Function) {
-            GameProfiler.instance.removeEventListener(type + getClassName(Core.ProfilerEvent), callback, this);
-        }
-
         protected proxy(proxy:any):any{//GameProxyer|any
             return a$["proxy"](proxy);
         }

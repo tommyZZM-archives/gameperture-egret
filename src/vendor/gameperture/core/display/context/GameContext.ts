@@ -7,7 +7,7 @@ module gamep{
     var countsecond:number = 0;
     var countmicrosecond:number = 0;
 
-    export class GameProfiler extends egret.EventDispatcher{
+    export class GameContext extends egret.EventDispatcher{
 
         private _fps:number = 0;
         private _lastTime:number = 0;
@@ -42,7 +42,7 @@ module gamep{
 
             for(var i:number=0;i<(+(this._countmillisecond/100)^0);i++){
                 countmicrosecond++;
-                this.dispatchEvent(new gamep.Core.ProfilerEvent(TimeEvent.ON_MILLSECOND100,countmicrosecond));
+                this.dispatchEvent(new gamep.Core.TickerEvent(TickerEvent.ON_MILLSECOND100,countmicrosecond));
                 if(i>=(+(this._countmillisecond/100)^0)-1){
                     this._countmillisecond = 0;
                 }
@@ -50,7 +50,7 @@ module gamep{
 
             for(var i:number=0;i<(+(this._countsecond/1000)^0);i++){
                 countsecond++;
-                this.dispatchEvent(new gamep.Core.ProfilerEvent(TimeEvent.ON_SECOND,countsecond));
+                this.dispatchEvent(new gamep.Core.TickerEvent(TickerEvent.ON_SECOND,countsecond));
                 if(i>=(+(this._countsecond/1000)^0)-1){
                     this._countsecond = 0;
                 }
@@ -140,12 +140,12 @@ module gamep{
         }
 
         //instance mode
-        private static _instance:GameProfiler;
-        public static get instance():GameProfiler{
-            if (GameProfiler._instance == null) {
-                GameProfiler._instance = new GameProfiler();
+        private static _instance:GameContext;
+        public static get instance():GameContext{
+            if (GameContext._instance == null) {
+                GameContext._instance = new GameContext();
             }
-            return GameProfiler._instance;
+            return GameContext._instance;
         }
     }
 }
