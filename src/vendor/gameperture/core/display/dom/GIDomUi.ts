@@ -3,6 +3,7 @@ module gamep{
         private static _active:boolean;
         public constructor(){
             super();
+            this._touchEvent = new gamep.domele.TouchEvent();
         }
 
         private _uiroot:domele.GIDomElement;
@@ -50,10 +51,11 @@ module gamep{
             //console.log(test);
         }
 
+        private _touchEvent:gamep.domele.TouchEvent;
         private onTouch(e){
             //console.log(e.type);
-            this.dispatchEvent(
-                new domele.TouchEvent(e.type,this._uiroot,e.stageX,e.stageY,e.ctrlKey,e.altKey,e.shiftKey));
+            this._touchEvent.setFlag(e.type,this._uiroot,e.stageX,e.stageY,e.ctrlKey,e.altKey,e.shiftKey);
+            this.dispatchEvent(this._touchEvent);
         }
 
         private onResize(){

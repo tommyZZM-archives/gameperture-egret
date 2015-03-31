@@ -17,7 +17,8 @@ module gamep {
         }
 
         protected dispatchDemand(type:string, courier?:any){
-            super.dispatchEvent(new gamep.BroadcastEvent(type,courier));
+            //egret.Event.dispatchEvent(this,type,false,courier);
+            ProxyEvent.dispatchProxyEvent(this,ProxyEvent,type,courier)
         }
 
         protected proxy(proxy:any):any{//GameProxyer|any

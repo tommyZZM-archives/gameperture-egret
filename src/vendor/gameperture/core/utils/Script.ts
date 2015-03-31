@@ -36,8 +36,9 @@ function getClassName(obj:any):string{
 }
 
 function isOfClass(target,test):boolean{
-    if(!target.prototype['__class__'] || !test.prototype['__class__']){
-        console.warn("not typescript class");
+    if(!target.prototype||!target.prototype['__class__'] || !test.prototype['__class__']){
+        //console.warn("not typescript class");
+        return false;
     }
 
     if(target.prototype['__class__']==test.prototype['__class__']){

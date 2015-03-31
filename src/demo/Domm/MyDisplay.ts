@@ -3,17 +3,19 @@ module game.Domm{
 
         protected onStartup(){
             trace('1.'+this.name+'...onStartup()');
-            new gamep.BroadcastProxy();
             gamep.a$.addDemandListener(gamep.AssetsLoaderProxy,gamep.AssetsEvent.ASSET_READY,this.onAssetLoaded,this);
             var bg = new egret.Shape();
             bg.graphics.beginFill(0x2980b9);
             bg.graphics.drawRect(0,0,stageWidth(),stageHeight());
             bg.graphics.endFill();
             this.forceAddChild(bg);
+            bg.cacheAsBitmap= true;
             gamep.d$.resize(()=>{
+                bg.cacheAsBitmap= false;
                 bg.graphics.beginFill(0x2980b9);
                 bg.graphics.drawRect(0,0,stageWidth(),stageHeight());
                 bg.graphics.endFill();
+                //bg.cacheAsBitmap= true;
             });
 
             bg.width = stageWidth();
@@ -22,9 +24,11 @@ module game.Domm{
                 trace("touch");
             },this);
 
-            var test = gamep.d$.$("#testbtn");
-            test.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.touchBegin,this);
-            test.addEventListener(egret.TouchEvent.TOUCH_END,this.touchEnd,this);
+            var test:egret.IEventDispatcher = gamep.d$.$("#testbtn");
+            if(test){
+                test.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.touchBegin,this);
+                test.addEventListener(egret.TouchEvent.TOUCH_END,this.touchEnd,this);
+            }
             //trace(test.parents());
         }
 

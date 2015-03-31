@@ -44,6 +44,10 @@ class Main extends egret.DisplayObjectContainer{
         Domm:{
             Cyc:game.Domm.MyGame,
             Display:game.Domm.MyDisplay
+        },
+        Filter:{
+            Cyc:game.Filter.MyGame,
+            Display:game.Filter.MyDisplay
         }
     };
 

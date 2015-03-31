@@ -1,16 +1,15 @@
 module gamep{
-
-    export var FPS:number = 0;
     export function rateoffest(worldrate:number = 60):number {
-        return worldrate / FPS;
+        return worldrate / GameContext.instance.FPS;
     }
-    var countsecond:number = 0;
-    var countmicrosecond:number = 0;
 
     export class GameContext extends egret.EventDispatcher{
 
         private _fps:number = 0;
         private _lastTime:number = 0;
+
+        private _totalmicrosecond:number = 0;
+        private _totalsecond:number = 0;
 
         private _countmillisecond:number = 0;
         private _countsecond:number = 0;
@@ -21,7 +20,11 @@ module gamep{
             this.run();
         }
 
+        private _on100mircrosecond:gamep.Core.TickerEvent;
+        private _onsecond:gamep.Core.TickerEvent;
         private run(){
+            this._on100mircrosecond = <gamep.Core.TickerEvent>ProxyEvent.dispatchProxyEvent(this,Core.TickerEvent,TickerType.ON_MILLSECOND100+"");
+            this._onsecond = <gamep.Core.TickerEvent>ProxyEvent.dispatchProxyEvent(this,Core.TickerEvent,TickerType.ON_SECOND+"");
             root.addEventListener(egret.Event.ENTER_FRAME,this.calculateFPS,this);
             gamep.d$.ready(()=>{
                 this.onResize();
@@ -31,7 +34,6 @@ module gamep{
                 });
                 //root.anchorX = root.anchorY = 0.5;
             });
-
         }
 
         private calculateFPS(){
@@ -41,16 +43,16 @@ module gamep{
             this._countmillisecond+=dt;
 
             for(var i:number=0;i<(+(this._countmillisecond/100)^0);i++){
-                countmicrosecond++;
-                this.dispatchEvent(new gamep.Core.TickerEvent(TickerEvent.ON_MILLSECOND100,countmicrosecond));
+                this._totalmicrosecond++;
+                this.dispatchEvent(this._on100mircrosecond);
                 if(i>=(+(this._countmillisecond/100)^0)-1){
                     this._countmillisecond = 0;
                 }
             }
 
             for(var i:number=0;i<(+(this._countsecond/1000)^0);i++){
-                countsecond++;
-                this.dispatchEvent(new gamep.Core.TickerEvent(TickerEvent.ON_SECOND,countsecond));
+                this._totalsecond++;
+                this.dispatchEvent(this._onsecond);
                 if(i>=(+(this._countsecond/1000)^0)-1){
                     this._countsecond = 0;
                 }
@@ -58,11 +60,9 @@ module gamep{
 
             this._fps = 1000/dt;
             this._lastTime = nowTime;
-
-            FPS = this._fps;
         }
 
-        //TODO:优化
+        //NOTE:优化
         private _hastransitionendlisten:boolean;
         private onResize(){
             var container = new egret.EqualToFrame();
@@ -88,6 +88,12 @@ module gamep{
          */
         private _contentstrategy:gamep.AutoOrient;
         private egretHack(){
+            trace("egretHacked");
+            if(client.context().rendererContext instanceof egret.HTML5CanvasRenderer){
+                trace("client.context().rendererContext instanceof egret.HTML5CanvasRenderer")
+                implementMethod(client.context().rendererContext,"onRenderFinish",this.onRenderFinish);
+            }
+
             /**
              * improve TouchContext
              */
@@ -137,6 +143,45 @@ module gamep{
                     client.context().touchContext["__origin__"]["onTouchEnd"](x,y,identifier)
                 }
             );
+        }
+
+        private onRenderFinish(){
+            //trace("onRenderFinish...hack");
+            var that:any = this;
+            that.drawCanvasContext.restore();
+            that.drawCanvasContext.setTransform(1, 0, 0, 1, 0, 0);
+
+            if(that.useCacheCanvas) {
+                var canvasWidth = that._cacheCanvas.width;
+                var canvasHeight = that._cacheCanvas.height;
+                var list = egret.RenderFilter.getInstance().getDrawAreaList();
+                for (var i:number = 0 , l:number = list.length; i < l; i++) {
+                    var area:any = list[i];
+                    var areaX = area.x;
+                    var areaY = area.y;
+                    var areaWidth = area.width;
+                    var areaHeight = area.height;
+                    if (areaX + areaWidth > canvasWidth) {
+                        areaWidth = canvasWidth - areaX;
+                    }
+                    if (areaY + areaHeight > canvasHeight) {
+                        areaHeight = canvasHeight - areaY;
+                    }
+
+                    //var canvasData:ImageData = that._cacheCanvasContext.getImageData(0,0,areaWidth,areaHeight);
+                    //TODO:applyFilter
+                    //var resultData = (<any>a$).proxy(FilterProxy).filter.call(this,canvasData);
+                    //that._cacheCanvasContext.putImageData(canvasData,0,0);
+
+                    if (areaWidth > 0 && areaHeight > 0) {
+                        that.canvasContext.drawImage(that._cacheCanvas, areaX, areaY, areaWidth, areaHeight, areaX, areaY, areaWidth, areaHeight);
+                    }
+                }
+            }
+        }
+
+        public get FPS():number{
+            return this._fps;
         }
 
         //instance mode

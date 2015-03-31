@@ -10,6 +10,8 @@ module gamep{
         public set resourceConfig(path:string){this._resourceConfig = path}
         public set resourceConfigReference(path:string){this._resourceConfigReference = path}
 
+        //private _assetsEvent:AssetsEvent;
+
         public loadAssets(preload:string = null,...groups){
             this._loadcount = 0;
             this._assets_groups = groups;
@@ -20,6 +22,8 @@ module gamep{
             }else if(preload){
                 this._assets_groups = [preload];
             }
+
+            //this._assetsEvent = <AssetsEvent>ProxyEvent.newEvent(ProxyEvent);
 
             RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.loadcomplete,this);
             RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.loadprogress,this);
@@ -36,7 +40,7 @@ module gamep{
                 if(this._debug)trace('Pre Load Complete!');
                 delete this._assets_groups[-1];
                 RES.loadGroup(this._assets_groups[this._loadcount]);
-                this.dispatchEvent(new gamep.AssetsEvent(AssetsEvent.PRELOAD_READY));
+                ProxyEvent.dispatchProxyEvent(this,AssetsEvent,AssetsEvent.PRELOAD_READY);
             }else{
                 if(this._loadcount < this._assets_groups.length){
                     RES.loadGroup(this._assets_groups[this._loadcount]);
@@ -44,7 +48,7 @@ module gamep{
                     if(this._debug)trace('All Load Complete!');
                     RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.loadcomplete,this);
                     RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS,this.loadprogress,this);
-                    this.dispatchEvent(new gamep.AssetsEvent(AssetsEvent.ASSET_READY));
+                    ProxyEvent.dispatchProxyEvent(this,AssetsEvent,AssetsEvent.ASSET_READY);
                 }
             }
 
@@ -55,11 +59,16 @@ module gamep{
                 var pct = e.itemsLoaded / e.itemsTotal;
                 if(this._debug)trace('Loading '+e.resItem.url+' in '+e.groupName+' '+(pct*100).toFixed(0)+'%');
                 if(this._loadcount!=0){
-                    var eve = new AssetsEvent(AssetsEvent.ASSET_PROGRESS);
-                    eve.percent = pct;
-                    this.dispatchEvent(eve);
+                    <AssetsEvent>ProxyEvent.dispatchProxyEvent(this,AssetsEvent,AssetsEvent.ASSET_PROGRESS,pct);
                 }
             }
         }
     }
+
+    export class AssetsEvent extends ProxyEvent {
+        public static PRELOAD_READY:string = "preReady";
+        public static ASSET_READY:string = "assetReady";
+        public static ASSET_PROGRESS:string = "progressing";
+    }
+
 }

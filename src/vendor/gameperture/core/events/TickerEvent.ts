@@ -1,11 +1,11 @@
 module gamep {
     export module Core {
-        export class TickerEvent extends egret.Event {
+        export class TickerEvent extends ProxyEvent {
 
             private _count:number;
 
-            public constructor(type:gamep.TickerEvent, count:number) {
-                super(type + getClassName(this), false, false);
+            public setflag(type:any, count){
+                super.setflag(type+"TickerEvent");
                 this._count = count;
             }
 
@@ -17,7 +17,7 @@ module gamep {
 }
 
 module gamep{
-    export enum TickerEvent{
+    export enum TickerType{
         ON_MILLSECOND100 = 1,
         ON_SECOND      = 2
     }

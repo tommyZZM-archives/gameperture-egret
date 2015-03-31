@@ -6,11 +6,15 @@ module gamep {
             private _notify:any;
             private _fatype:NotifyType;
 
-            public constructor(type:NotifyType, notify:string, courier?:any) {
+            public constructor() {
                 //:your code here
+                super(FacadeEvent.UNIQUE);
+            }
+
+            public setflag(type:NotifyType, notify:string, courier?:any){
                 this._fatype = type;
                 this._notify = notify;
-                super(FacadeEvent.UNIQUE, courier);
+                this._courier = courier;
             }
 
             public get notify() {

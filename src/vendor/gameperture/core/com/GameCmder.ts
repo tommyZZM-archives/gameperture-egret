@@ -1,6 +1,6 @@
 module gamep {
     //@abstract
-    export class GameCmder extends egret.EventDispatcher implements IGameCom{
+    export class GameCmder extends egret.EventDispatcher{
 
         private _name:string;
 
@@ -16,14 +16,10 @@ module gamep {
             GameFacade.instance['_postals'].get(NotifyType.Cmd).set(notify+getClassName(this),{thisobj:this, callback: callback})
         }
 
-        //Interact with
+        //DONE:使用单一的Broadcast事件
         protected dispatchDemand(type:string, courier?:any){
-            super.dispatchEvent(new gamep.BroadcastEvent(type,courier));
+            ProxyEvent.dispatchProxyEvent(this,ProxyEvent,type,courier);
         }
-
-        /*private dispatchCmd(cmd:string, ...courier:any[]){
-            root.dispatchEvent(new Core.FacadeEvent(NotifyType.Cmd,cmd+getClassName(this),courier));
-        }*/
 
         protected proxy(proxy:any):any{//GameProxyer|any
             return a$["proxy"](proxy);

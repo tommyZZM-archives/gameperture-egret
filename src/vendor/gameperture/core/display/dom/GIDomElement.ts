@@ -34,6 +34,7 @@ module gamep {
 
             private _touchAble:boolean;
             private _touchBubble:boolean;
+            private _touchEvent:TouchEvent;//TODO:实现多点触控,手势
             private bindTouch(){
                 var touchcallback = (e,fn)=>{
                     //trace(this._touchBubble,this._touchAble,this.tagname)
@@ -59,6 +60,8 @@ module gamep {
                     this._node.addEventListener("touchcancel",(e)=>{touchcallback(e,this.ontouchend)},true);
                     this._node.addEventListener("tap",(e)=>{touchcallback(e,this.ontouchtap)},true);
                 }
+
+                this._touchEvent = new gamep.domele.TouchEvent();
             }
 
             public set id(id:string){
@@ -360,10 +363,12 @@ module gamep {
                     shiftKey:e.shiftKey,
                     touchDown:true
                 };
-                this.dispatchEvent(new domele.TouchEvent(egret.TouchEvent["TOUCH_BEGIN"],
+                this._touchEvent.setFlag(egret.TouchEvent["TOUCH_BEGIN"],
                     this,e.touches[0].clientX,e.touches[0].clientY
                     ,this._touchObserver.ctrlKey
-                    ,this._touchObserver.altKey,this._touchObserver.shiftKey));
+                    ,this._touchObserver.altKey,this._touchObserver.shiftKey);
+                //trace(this._touchEvent);
+                this.dispatchEvent(this._touchEvent);
             }
 
             private ontouchmove(e){
@@ -381,12 +386,14 @@ module gamep {
             private ontouchend(e){
                 //e.stopPropagation();
                 //e.preventDefault();
-                //trace("ontouchend",e);//TODO
+                //trace("ontouchend",e);
                 this._touchObserver.touchDown = false;
-                this.dispatchEvent(new domele.TouchEvent(egret.TouchEvent["TOUCH_END"],
+
+                this._touchEvent.setFlag(egret.TouchEvent["TOUCH_END"],
                     this,this._touchObserver.lastx,this._touchObserver.lasty
                     ,this._touchObserver.ctrlKey
-                    ,this._touchObserver.altKey,this._touchObserver.shiftKey));
+                    ,this._touchObserver.altKey,this._touchObserver.shiftKey)
+                this.dispatchEvent(this._touchEvent);
                 if (!this._touchObserver.moved) {
                     //create custom event
                     var evt;
@@ -414,14 +421,15 @@ module gamep {
                 //e.stopPropagation();
                 //e.preventDefault();
                 //trace("ontouchtap",e);
-                var e:any = new domele.TouchEvent(egret.TouchEvent["TOUCH_TAP"],
+
+                this._touchEvent.setFlag(egret.TouchEvent["TOUCH_TAP"],
                     this,this._touchObserver.lastx,this._touchObserver.lasty
                     ,this._touchObserver.ctrlKey
-                    ,this._touchObserver.altKey,this._touchObserver.shiftKey);
-                delete e.localX;
-                delete e.localY;
+                    ,this._touchObserver.altKey,this._touchObserver.shiftKey)
+                this.dispatchEvent(this._touchEvent);
+
                 //trace("before tap",e);
-                this.dispatchEvent(e);
+                //this.dispatchEvent(e);
             }
 
             /**
@@ -467,22 +475,27 @@ module gamep {
             }
         }
 
-        export class TouchEvent extends egret.Event{
+        export class TouchEvent extends ProxyEvent{
             public stageX:number;
             public stageY:number;
             public ctrlKey:boolean;
             public altKey:boolean;
             public shiftKey:boolean;
-            public constructor(type_:string, target:GIDomElement,
-                               stageX:number = 0, stageY:number = 0,
-                               ctrlKey:boolean=false,altKey:boolean=false,shiftKey:boolean=false){
-                super(type_,false,false);
-                this.target = target
+            public constructor(){
+                super();
+            }
+
+            public setFlag(type:string,target:GIDomElement,
+                           stageX:number = 0, stageY:number = 0,
+                           ctrlKey:boolean=false,altKey:boolean=false,shiftKey:boolean=false){
+                this._type = type;
+                this.target = target;
                 this.stageX = stageX;
                 this.stageY = stageY;
                 this.ctrlKey = ctrlKey;
                 this.altKey = altKey;
                 this.shiftKey = shiftKey;
+
             }
         }
 

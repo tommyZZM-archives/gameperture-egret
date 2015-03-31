@@ -14,6 +14,12 @@ module gamep {
             private _heartbeatTimeOut:number;
             private _heartbeatTimeoutId:number;
 
+            //private _pomeloEvent:PomeloEvent;
+            public constructor(){
+                super();
+                //this._pomeloEvent = ProxyEvent.newEvent(PomeloEvent);
+            }
+
             protected onConnect():void {
                 super.onConnect();
                 this.handshake();
@@ -118,7 +124,9 @@ module gamep {
             }
 
             private emit(event:string, data?:any) {
-                super.dispatchEvent(new PomeloEvent(event, data))
+                //this._pomeloEvent.setflag(event,data);
+                ProxyEvent.dispatchProxyEvent(this,PomeloEvent,event,data);
+                //super.dispatchEvent(this._pomeloEvent)
             }
         }
 

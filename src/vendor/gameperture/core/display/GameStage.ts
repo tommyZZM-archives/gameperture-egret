@@ -38,7 +38,7 @@ module gamep{
         private startup(){
             this._userinterface.active();
             var courier = this.onStartup();
-            root.dispatchEvent(new Core.FacadeEvent(NotifyType.Cmd,Notify.Cmd.GameReady+getClassName(a$['_game']),courier));
+            a$.dispatchCmd(a$['_game'],Notify.Cmd.GameReady,courier)
         }
 
         protected onStartup(){

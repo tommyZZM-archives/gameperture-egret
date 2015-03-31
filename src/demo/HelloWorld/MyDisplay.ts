@@ -3,7 +3,6 @@ module game.HelloWorld{
 
         protected onStartup(){
             trace('1.'+this.name+'...onStartup()');
-            new gamep.BroadcastProxy();
             gamep.a$.addDemandListener(gamep.AssetsLoaderProxy,gamep.AssetsEvent.ASSET_READY,this.onAssetLoaded,this);
         }
 

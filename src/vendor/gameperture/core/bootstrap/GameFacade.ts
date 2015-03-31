@@ -1,8 +1,6 @@
 module gamep {
     export class GameFacade{
 
-        private _isStart:boolean;
-
         private _game:GameCycler;
         private _display:GameStage;
 
@@ -10,8 +8,10 @@ module gamep {
         private _proxypool:Dict;//Map<string,GameProxyer>;//存放所有业务逻辑
         //private _memorypool:Dict;//存放数据;
 
+        private _postman:Core.FacadeEvent;
         private _postals:Dict;//Map<NotifyType, Map<string,{thisobj:any; callback: Function}>>;
 
+        private _broadcast:GameProxyer;
         public constructor() {
             this._postals = new Dict();
 
@@ -20,6 +20,10 @@ module gamep {
 
             this._cmdpool = new Dict();
             this._proxypool = new Dict();
+            this._postman = new gamep.Core.FacadeEvent();
+
+            this._broadcast = new gamep.GameProxyer();
+            this._broadcast["_name"]="broadcast";
         }
 
         //邮局
@@ -41,8 +45,9 @@ module gamep {
 
         public dispatchCmd(command:any,cmd:string, ...courier:any[]){
             if(getClassName(command)==getClassName(GameCmder)){return;}
-            this.command(command);
-            root.dispatchEvent(new Core.FacadeEvent(NotifyType.Cmd,cmd+getClassName(command),courier));
+            if(!(command instanceof GameCmder))this.command(command);
+            this._postman.setflag(NotifyType.Cmd,cmd+getClassName(command),courier);
+            root.dispatchEvent(this._postman);
         }
 
         private getCom(pool:Dict,com:any,instance:any):any{
@@ -60,11 +65,10 @@ module gamep {
         }
 
         public addBroadcastListener(type: string, callback: Function,thisObject: egret.DisplayObject){
-            var proxy = this.proxy(BroadcastProxy);
-            proxy.addEventListener(type,callback,thisObject);
+            this._broadcast.addEventListener(type,callback,thisObject);
         }
         public dispatchBroadcast(type:string, courier?:any){
-            (<any>this.proxy(BroadcastProxy)).dispatchBroadcast(type,courier);
+            (<any>this._broadcast).dispatchDemand(type,courier);
         }
 
         public addDemandListener(com:any,type: string, callback: Function,thisObject: egret.DisplayObject):boolean{
@@ -83,10 +87,10 @@ module gamep {
             return false;
         }
 
-        public addTimeListener(type:gamep.TickerEvent,callback:Function){
+        public addTimeListener(type:gamep.TickerType,callback:Function){
             GameContext.instance.addEventListener(type+getClassName(Core.TickerEvent),callback,this);
         }
-        public removeTimeListener(type:gamep.TickerEvent,callback:Function) {
+        public removeTimeListener(type:gamep.TickerType,callback:Function) {
             GameContext.instance.removeEventListener(type + getClassName(Core.TickerEvent), callback, this);
         }
 
