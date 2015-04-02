@@ -6,11 +6,10 @@ module game.Camera{
             this.proxy(gamep.AssetsLoaderProxy).loadAssets('preload');
             this.proxy(gamep.AssetsLoaderProxy).debug = true;
             (<gamep.CameraProxy>this.proxy(gamep.CameraProxy)).lookat(new egret.Point(stageWidth(0.5),stageHeight(0.5)),1,1000);
-            //(<gamep.CameraProxy>this.proxy(gamep.CameraProxy)).reset();
 
-            //gamep.d$.select(egret_canvas_container()).transition({
-            //    rotate:90
-            //})
+            //gamep.a$.addTimeListener(gamep.TickerType.ON_SECOND,()=>{
+            //    trace(Math.probabilityPool([0.3,0.4,0.1,0.3]));
+            //},this)
 
         }
 

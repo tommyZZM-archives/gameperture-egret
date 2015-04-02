@@ -87,10 +87,10 @@ module gamep {
             return false;
         }
 
-        public addTimeListener(type:gamep.TickerType,callback:Function,thisArg:any){
+        public addTimeListener(type:gamep.TickerType,callback:Function,thisArg?:any){
             GameContext.instance.addEventListener(type+getClassName(Core.TickerEvent),callback,thisArg);
         }
-        public removeTimeListener(type:gamep.TickerType,callback:Function,thisArg:any) {
+        public removeTimeListener(type:gamep.TickerType,callback:Function,thisArg?:any) {
             GameContext.instance.removeEventListener(type + getClassName(Core.TickerEvent), callback, thisArg);
         }
 
