@@ -5,7 +5,7 @@ module gamep {
             super();
             this._timecallbackdict = new Dict();
             this._timecallbacktask = [];
-            a$.addTimeListener(TickerEvent.ON_SECOND,this.onEnterSecond);
+            a$.addTimeListener(TickerType.ON_SECOND,this.onEnterSecond,this);
         }
 
         private onEnterSecond(e:gamep.Core.TickerEvent){

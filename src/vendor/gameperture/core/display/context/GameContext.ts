@@ -29,8 +29,8 @@ module gamep{
             this._onnextframetask = [];
             this._onreadyframetask = [];
 
-            this._on100mircrosecond = <gamep.Core.TickerEvent>ProxyEvent.dispatchProxyEvent(this,Core.TickerEvent,TickerType.ON_MILLSECOND100+"");
-            this._onsecond = <gamep.Core.TickerEvent>ProxyEvent.dispatchProxyEvent(this,Core.TickerEvent,TickerType.ON_SECOND+"");
+            this._on100mircrosecond = <gamep.Core.TickerEvent>ProxyEvent.newEvent(Core.TickerEvent,TickerType.ON_MILLSECOND100+"");
+            this._onsecond = <gamep.Core.TickerEvent>ProxyEvent.newEvent(Core.TickerEvent,TickerType.ON_SECOND+"");
             root.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
             gamep.d$.ready(()=>{
                 this.onResize();
@@ -54,6 +54,7 @@ module gamep{
 
             for(var i:number=0;i<(+(this._countmillisecond/100)^0);i++){
                 this._totalmicrosecond++;
+                this._on100mircrosecond.conut = this._totalmicrosecond;
                 this.dispatchEvent(this._on100mircrosecond);
                 if(i>=(+(this._countmillisecond/100)^0)-1){
                     this._countmillisecond = 0;
@@ -62,6 +63,7 @@ module gamep{
 
             for(var i:number=0;i<(+(this._countsecond/1000)^0);i++){
                 this._totalsecond++;
+                this._onsecond.conut = this._totalsecond;
                 this.dispatchEvent(this._onsecond);
                 if(i>=(+(this._countsecond/1000)^0)-1){
                     this._countsecond = 0;

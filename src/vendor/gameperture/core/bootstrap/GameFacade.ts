@@ -87,11 +87,11 @@ module gamep {
             return false;
         }
 
-        public addTimeListener(type:gamep.TickerType,callback:Function){
-            GameContext.instance.addEventListener(type+getClassName(Core.TickerEvent),callback,this);
+        public addTimeListener(type:gamep.TickerType,callback:Function,thisArg:any){
+            GameContext.instance.addEventListener(type+getClassName(Core.TickerEvent),callback,thisArg);
         }
-        public removeTimeListener(type:gamep.TickerType,callback:Function) {
-            GameContext.instance.removeEventListener(type + getClassName(Core.TickerEvent), callback, this);
+        public removeTimeListener(type:gamep.TickerType,callback:Function,thisArg:any) {
+            GameContext.instance.removeEventListener(type + getClassName(Core.TickerEvent), callback, thisArg);
         }
 
         //instance mode

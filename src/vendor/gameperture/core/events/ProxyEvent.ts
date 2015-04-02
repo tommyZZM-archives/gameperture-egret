@@ -20,7 +20,7 @@ module gamep {
         }
 
         private static _proxyeventpool:ProxyEventPool;
-        private static newEvent(proxyevent:any=ProxyEvent,type?:string, courier?:any):ProxyEvent{
+        public static newEvent(proxyevent:any=ProxyEvent,type?:string, courier?:any):ProxyEvent{
             if(!this._proxyeventpool){
                 this._proxyeventpool = new gamep.ProxyEventPool();
             }

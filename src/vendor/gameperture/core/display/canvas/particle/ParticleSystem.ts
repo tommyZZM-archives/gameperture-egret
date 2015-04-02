@@ -15,7 +15,7 @@ module gamep {
 
             public particleClass:any = null;
 
-            private _particlesPool:any;//{active:Array;disactive:Array};
+            private _particlespool:any;//{active:Array;disactive:Array};
 
             private numParticles:number = 0;
 
@@ -24,13 +24,13 @@ module gamep {
                 this._texture_to_render = texture;
                 this.emissionRate = emissionRate;
                 this.texture = texture;
-                this._particlesPool = []
+                this._particlespool = []
             }
 
             private getParticle():Particle {
                 var result:Particle;
-                if (this._particlesPool.active.length) {
-                    result = this._particlesPool.active.pop();
+                if (this._particlespool.active.length) {
+                    result = this._particlespool.active.pop();
                 } else {
                     result = new Particle();
                 }

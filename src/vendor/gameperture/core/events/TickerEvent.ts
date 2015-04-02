@@ -4,8 +4,11 @@ module gamep {
 
             private _count:number;
 
-            public setflag(type:any, count){
-                super.setflag(type+"TickerEvent");
+            public setflag(_type:any){
+                super.setflag(_type+getClassName(this));
+            }
+
+            public set conut(count:number){
                 this._count = count;
             }
 
