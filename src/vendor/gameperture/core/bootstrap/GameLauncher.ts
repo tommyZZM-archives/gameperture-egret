@@ -2,7 +2,7 @@ module gamep{
     export var a$:GameFacade;
     export var m$:GameMemory;
     export var d$:domele.GIDomManager;
-    export var c$:canvasele.GIDisplay;
+    export var c$:canvasele.DisplayManager;
 
     export class GameLauncher{//implements GamePertureInterface
 
@@ -20,7 +20,7 @@ module gamep{
                 egret.Profiler.getInstance().run();
             }
 
-            c$ =  canvasele.GIDisplay.instance;
+            c$ =  canvasele.DisplayManager.instance;
             d$ =  domele.GIDomManager.instance;
             GameContext.instance;
             a$ =  GameFacade.instance;

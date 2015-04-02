@@ -382,13 +382,13 @@ module gamep {
                     return len;
                 }
 
-                function encodeMsgFlag(type, compressRoute, buffer, offset) {
-                    if (type !== Pomelo.MessageType.REQUEST && type !== Pomelo.MessageType.NOTIFY &&
-                        type !== Pomelo.MessageType.RESPONSE && type !== Pomelo.MessageType.PUSH) {
-                        throw new Error('unkonw message type: ' + type);
+                function encodeMsgFlag(_type, compressRoute, buffer, offset) {
+                    if (_type !== Pomelo.MessageType.REQUEST && _type !== Pomelo.MessageType.NOTIFY &&
+                        _type !== Pomelo.MessageType.RESPONSE && _type !== Pomelo.MessageType.PUSH) {
+                        throw new Error('unkonw message _type: ' + _type);
                     }
 
-                    buffer[offset] = (type << 1) | (compressRoute ? 1 : 0);
+                    buffer[offset] = (_type << 1) | (compressRoute ? 1 : 0);
 
                     return offset + MSG_FLAG_BYTES;
                 }

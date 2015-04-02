@@ -20,12 +20,18 @@ module gamep{
             this.run();
         }
 
+        private _onnextframetask:Array<Function>;
+        private _onreadyframetask:Array<Function>;
+
         private _on100mircrosecond:gamep.Core.TickerEvent;
         private _onsecond:gamep.Core.TickerEvent;
         private run(){
+            this._onnextframetask = [];
+            this._onreadyframetask = [];
+
             this._on100mircrosecond = <gamep.Core.TickerEvent>ProxyEvent.dispatchProxyEvent(this,Core.TickerEvent,TickerType.ON_MILLSECOND100+"");
             this._onsecond = <gamep.Core.TickerEvent>ProxyEvent.dispatchProxyEvent(this,Core.TickerEvent,TickerType.ON_SECOND+"");
-            root.addEventListener(egret.Event.ENTER_FRAME,this.calculateFPS,this);
+            root.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this);
             gamep.d$.ready(()=>{
                 this.onResize();
                 gamep.d$.resize(()=>{
@@ -36,7 +42,11 @@ module gamep{
             });
         }
 
-        private calculateFPS(){
+        /**
+         * 计算FPS
+         */
+        private onEnterFrame(){
+            /**calculateFPS**/
             var nowTime:number = egret.getTimer();
             var dt = nowTime-this._lastTime;
             this._countsecond+=dt;
@@ -60,8 +70,24 @@ module gamep{
 
             this._fps = 1000/dt;
             this._lastTime = nowTime;
+
+            /**FrameTask**/
+            for(var i=0;i<this._onreadyframetask.length;i++){
+                var fn = this._onreadyframetask[i];
+                if(fn instanceof Function)fn();
+            }
+            this._onreadyframetask = [];
+            this._onreadyframetask = this._onnextframetask;
+            this._onnextframetask = [];
         }
 
+        public pushNextFrameTask(fn:Function){
+            this._onnextframetask.push(fn);
+        }
+
+        /**
+         * 横竖屏以及大小动态适应
+         */
         //NOTE:优化
         private _hastransitionendlisten:boolean;
         private onResize(){

@@ -1,6 +1,6 @@
 module gamep{
     export module canvasele {
-        export class GIDisplay {
+        export class DisplayManager {
             public removeFromParent(child:egret.DisplayObject) {
                 if (child.parent) {
                     child.parent.removeChild(child);
@@ -59,16 +59,21 @@ module gamep{
                 egret.Tween.removeTweens(target);
             }
 
-            public get position():canvasele.GIPosition{
-                return canvasele.GIPosition.instance;
+            public get position():canvasele.PositionManager{
+                return canvasele.PositionManager.instance;
             }
 
-            private static _instance:GIDisplay;
-            public static get instance():GIDisplay{
-                if (GIDisplay._instance == null) {
-                    GIDisplay._instance = new GIDisplay();
+            public onNextFrame(target:egret.DisplayObject,fn:Function,thisArg?:any){
+                var nexframe = thisArg?fn.bind(thisArg):fn;
+                GameContext.instance.pushNextFrameTask(nexframe);
+            }
+
+            private static _instance:DisplayManager;
+            public static get instance():DisplayManager{
+                if (DisplayManager._instance == null) {
+                    DisplayManager._instance = new DisplayManager();
                 }
-                return GIDisplay._instance;
+                return DisplayManager._instance;
             }
         }
     }

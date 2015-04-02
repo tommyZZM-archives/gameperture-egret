@@ -1,7 +1,7 @@
 module gamep {
     //游戏元素定位系统
     export module canvasele {
-        export class GIPosition {
+        export class PositionManager {
             private _displayobjpool:Dict;
             public constructor(){
                 this._displayobjpool = new Dict();
@@ -26,12 +26,12 @@ module gamep {
                 this._displayobjpool.delete(target.hashCode)
             }
 
-            private static _instance:GIPosition;
-            public static get instance():GIPosition{
-                if (GIPosition._instance == null) {
-                    GIPosition._instance = new GIPosition();
+            private static _instance:PositionManager;
+            public static get instance():PositionManager{
+                if (PositionManager._instance == null) {
+                    PositionManager._instance = new PositionManager();
                 }
-                return GIPosition._instance;
+                return PositionManager._instance;
             }
         }
 
