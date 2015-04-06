@@ -7,29 +7,34 @@ module gamep {
             private frameTime:number = 0;
 
             /**
+             * 表示粒子所使用的纹理（实际没有作用）
              * @member {egret.Texture} particle.ParticleSystem#texture
              */
             public texture:egret.Texture;
 
             /**
+             * 表示粒子出现总时间，单位毫秒，取值范围(0,Number.MAX_VALUE]，-1表示无限时间
              * @member {number} particle.ParticleSystem#emissionTime
              * @default -1
              */
             public emissionTime:number = -1;
 
             /**
+             * 表示粒子出现点X坐标，取值范围[-Number.MAX_VALUE,Number.MAX_VALUE]
              * @member {number} particle.ParticleSystem#emitterX
              * @default 0
              */
             public emitterX:number = 0;
 
             /**
+             * 表示粒子出现点Y坐标，取值范围[-Number.MAX_VALUE,Number.MAX_VALUE]
              * @member {number} particle.ParticleSystem#emitterY
              * @default 0
              */
             public emitterY:number = 0;
 
             /**
+             * 表示粒子系统最大粒子数，超过该数量将不会继续创建粒子，取值范围[1,Number.MAX_VALUE]
              * @member {number} particle.ParticleSystem#maxParticles
              * @default 200
              */
@@ -41,6 +46,7 @@ module gamep {
 
             constructor(texture:egret.Texture, emissionRate:number) {
                 super();
+                this._texture_to_render = texture;//指定准备渲染的纹理贴图
                 this.emissionRate = emissionRate;
                 this.texture = texture;
                 this._particles = {
@@ -76,9 +82,11 @@ module gamep {
 
 
             private update(dt:number):void {
+                //粒子数很少的时候可能会错过添加粒子的时机
                 if (this.emissionTime == -1 || this.emissionTime > 0) {
                     this.frameTime += dt;
                     while (this.frameTime > 0) {
+                        if (this.numParticles < this.maxParticles) {//需要添加粒子
                             this.addOneParticle();
                         }
                         this.frameTime -= this.emissionRate;
@@ -122,6 +130,7 @@ module gamep {
             }
 
             private addOneParticle():void {
+                //todo 这里可能需要返回成功与否
                 var particle:Particle = this.getParticle();
                 this.initParticle(particle);
                 if (particle.totalTime > 0) {
@@ -150,6 +159,7 @@ module gamep {
                 if (this.numParticles > 0) {
                     var renderFilter = egret.RenderFilter.getInstance();
 
+                    //todo 考虑不同粒子使用不同的texture，或者使用egret.SpriteSheet
                     var texture:egret.Texture = this.texture;
                     var textureW:number = texture._textureWidth;
                     var textureH:number = texture._textureHeight;
